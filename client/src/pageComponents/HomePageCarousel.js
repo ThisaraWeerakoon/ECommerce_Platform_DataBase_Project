@@ -5,8 +5,11 @@ const HomePageCarousel = () => {
   return (
     <div>
       <Carousel/>
+      <h1>Head</h1>
     </div>
+
   )
 }
 
 export default HomePageCarousel
+
