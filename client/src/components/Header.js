@@ -52,17 +52,17 @@ function Header() {
             <img
               src={LogoImage}
               alt="Logo"
-              style={{ height: 40, marginRight: 10 }}
+              style={{ height: 50, marginRight: 10 }}
             />
 
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               component="a"
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'none', md: 'flex' },
+                display: { xs: 'flex', md: 'flex' },
                 fontFamily: 'monospace',
                 fontWeight: 700,
                 letterSpacing: '.3rem',
@@ -70,7 +70,7 @@ function Header() {
                 textDecoration: 'none',
               }}
             >
-              Eagle Services
+              Eagle
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -80,7 +80,7 @@ function Header() {
                 aria-controls="menu-appbar"
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
-                color="inherit"
+                color="black"
               >
                 <MenuIcon />
               </IconButton>
@@ -124,13 +124,13 @@ function Header() {
 
             <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
               <Tooltip title="Open shopping cart">
-                <IconButton sx={{ p: 0, color: 'black', fontWeight: 'bold' }}>
+                <IconButton sx={{ p: 0, color: 'black', fontWeight: 'bold'}}>
                   <ShoppingCartIcon />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="Open settings">
+              <Tooltip title="Open Login/ Register">
                 <Button onClick={handleLoginClick} sx={{ p: 0, ml: 2, color: 'black', fontWeight: 'bold' }}>
-                  Login
+                  Login | Register
                 </Button>
               </Tooltip>
               <Menu
