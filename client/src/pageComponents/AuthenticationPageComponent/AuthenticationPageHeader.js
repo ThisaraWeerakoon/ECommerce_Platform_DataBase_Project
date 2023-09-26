@@ -1,65 +1,55 @@
-import React from 'react'
+import React from 'react';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Button from 'react-bootstrap/Button';
 
 const AuthenticationPageHeader = () => {
   return (
-    <div className="container-fluid">
-    <div className="row">
-      <div className="col-md-12">
-        <h1 align="center" style={{fontFamily: 'Papyrus', color: '#808080', fontWeight: 'bold', fontSize: '50px'}}>Food Before Me</h1>
-      </div>
-    </div>
-    <div className="row">
-      <div className="col-md-12">&nbsp;</div>
-    </div>
-    <div className="row">
-      <div className="col-md-4 col-md-offset-4">
-        <div className="panel panel-default" style={{backgroundColor: '#C0C0C0'}}>
-          <div className="panel-body" style={{backgroundColor: '#C0C0C0'}}>
-            <h2 className="h2" align="center" style={{color: '#FFFFFF'}}>WELCOME  BACK!</h2>
-            <div className="row">
-              <div className="col-md-12">
-                <h4 className="h4" style={{color: '#FFFFFF'}}>Sign into Account</h4>
-                <div id="alertmsg" />
-              </div>
-              <form action="../controller/my_login_controller.php?status=login" method="post">
-                <div className="form-group">
-                  <div className="input-group">
-                    <input type="text" className="form-control" name="username" id="username" placeholder="Email" style={{height: '50px'}} />
-                    <span className="input-group-addon">
-                      <i className="glyphicon glyphicon-user" />
-                    </span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">&nbsp;</div>
-                </div>
-                <div className="form-group">
-                  <div className="input-group">
-                    <input type="password" className="form-control" name="password" id="password" placeholder="Password" style={{height: '50px'}} />
-                    <span className="input-group-addon">
-                      <i className="glyphicon glyphicon-lock" />
-                    </span>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">&nbsp;</div>
-                </div>
-                <div className="row">
-                  <div className="col-md-12">
-                    <button className="btn btn-block" style={{backgroundColor: '#808080', color: '#FFFFFF'}}>Log in</button>
-                  </div>
-                </div>
-              </form>
-              <div className="row">
-                <div className="col-md-12">&nbsp;</div>
-              </div>
-              <a href="../view/my_user_signup.php" style={{color: '#FFFFFF', textAlign: 'center'}}>New Here? Sign up</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <section id="LogIn" className='block block-login'>
+      <Container fluid>
+        <Row>&nbsp;</Row>
+        <Row>&nbsp;</Row>
+        <Row>
+          <Col md={{span:4, offset:4}}>
+            <h2 className="h2" align="center" style={{color: 'black'}}>WELCOME  BACK!</h2>
+          </Col>
+        </Row>
+        <Row>&nbsp;</Row>
+        <Row>
+          <Col md={{span:4, offset:4}}>
+            <h4 className="h4" style={{color: 'black'}}>Sign into Account</h4>
+          </Col>
+        </Row>
+        <Row>&nbsp;</Row>
+        <Row>
+          <Col md={{span:4, offset:4}}>
+            <Form>
+              <Form.Group className="mb-3" controlId="formGroupEmail">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" />
+              </Form.Group>
+
+              <Row>&nbsp;</Row>
+
+              <Form.Group className="mb-3" controlId="formGroupPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter password" />
+              </Form.Group>
+
+            </Form>
+            <Row>&nbsp;</Row>
+            <Row>
+              <Button variant="secondary" size="sm">Login</Button>
+            </Row>
+          </Col>
+        </Row>
+        
+      </Container>
+    </section>
+    
   )
 }
 
