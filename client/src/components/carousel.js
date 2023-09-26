@@ -5,7 +5,7 @@ import ScrollCarousel from 'scroll-carousel-react';
 const Carousel = () => {
   return (
     <>
-      <h1>This is my component page</h1>
+      <h6>This is my component page</h6>
       <p>Now i am showing my creation scroll carousel</p>
       <ScrollCarousel
         autoplay
