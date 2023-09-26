@@ -1,12 +1,11 @@
 import React from 'react'
-import AuthenticationPageHeader from '../pageComponents/AuthenticationPageComponent/AuthenticationPageHeader'
+import SignIn from '../pageComponents/AuthenticationPageComponent/SignIn'
 
 const AuthenticanPage = () => {
   return (
-    <div>
-      <AuthenticationPageHeader/>
-    </div>
+    <SignIn/>
   )
 }
 
 export default AuthenticanPage
+
