@@ -1,9 +1,9 @@
 import React from 'react'
-import SignIn from '../pageComponents/AuthenticationPageComponent/SignIn'
+import AuthenticationPageHeader from '../pageComponents/AuthenticationPageComponent/AuthenticationPageHeader'
 
 const AuthenticanPage = () => {
   return (
-    <SignIn/>
+    <AuthenticationPageHeader/>
   )
 }
 
