@@ -3,7 +3,7 @@ import AuthenticationPageHeader from '../pageComponents/AuthenticationPageCompon
 
 const AuthenticanPage = () => {
   return (
-    <AuthenticationPageHeader/>
+    <SignIn/>
   )
 }
 
