@@ -1,5 +1,5 @@
 import React from 'react'
-import AuthenticanPageHeader from '../pageComponents/AuthenticationPageComponent/AuthenticationPageHeader'
+import AuthenticanPageHeader from '../pageComponents/AuthenticationPageComponent/AuthenticationPageTemplate'
 
 
 const AuthenticanPage = () => {
