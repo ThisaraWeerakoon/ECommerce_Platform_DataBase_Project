@@ -1,9 +1,9 @@
 import React from 'react'
-import AuthenticationPageHeader from '../pageComponents/AuthenticationPageComponent/AuthenticationPageHeader'
+import AuthenticationPageTemplate from '../pageComponents/AuthenticationPageComponent/AuthenticationPageTemplate'
 
 const AuthenticanPage = () => {
   return (
-    <AuthenticationPageHeader/>
+    <AuthenticationPageTemplate/>
   )
 }
 

@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage';
 import AuthenticanPage from './pages/AuthenticanPage';
 function App() {
   return (
-    // <HomePage/>
     <AuthenticanPage/>
   );
 }
