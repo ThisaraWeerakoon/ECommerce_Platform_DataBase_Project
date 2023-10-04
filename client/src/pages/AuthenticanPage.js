@@ -1,9 +1,9 @@
 import React from 'react'
-import SignIn from '../pageComponents/AuthenticationPageComponent/SignIn'
+import AuthenticationPageTemplate from '../pageComponents/AuthenticationPageComponent/AuthenticationPageTemplate'
 
 const AuthenticanPage = () => {
   return (
-    <SignIn/>
+    <AuthenticationPageTemplate/>
   )
 }
 
