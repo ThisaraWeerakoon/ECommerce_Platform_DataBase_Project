@@ -21,10 +21,13 @@ app.post("/create",(req,res)=>{
 
     const email = req.body.email;
     const password = req.body.password;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const phoneNumber = req.body.phoneNumber;
 
     db.query(
-        "INSERT INTO TestingUser (Email_Address,Password) VALUES (?,?) ",
-        [email,password],
+        "INSERT INTO Site_User (Email_Address,Phone_Number,First_Name,Last_Name,Password) VALUES (?,?,?,?,?) ",
+        [,email,phoneNumber,firstName,lastName,password,],
         (err,result)=>{
             if(err){
                 console.log(err);
