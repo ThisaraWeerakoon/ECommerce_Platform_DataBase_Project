@@ -12,13 +12,13 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LogoImage from '../images/logo.jpg';
-import ItemCard from './itemCard'; // Import your ItemCard component
-import Carousel from './carousel';
+import {Link} from 'react-router-dom';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function Header() {
+
+function Header({linkName, linkUrl="#", linkVisibility=false}) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -121,41 +121,46 @@ function Header() {
                 </Button>
               ))}
             </Box>
-
-            <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
-              <Tooltip title="Open shopping cart">
-                <IconButton sx={{ p: 0, color: 'black', fontWeight: 'bold'}}>
-                  <ShoppingCartIcon />
-                </IconButton>
-              </Tooltip>
-              <Tooltip title="Open Login/ Register">
-                <Button onClick={handleLoginClick} sx={{ p: 0, ml: 2, color: 'black', fontWeight: 'bold' }}>
-                  Login | Register
-                </Button>
-              </Tooltip>
-              <Menu
-                sx={{ mt: '45px' }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center" style={{ color: 'black' }}>{setting}</Typography>
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Box>
+            {linkVisibility === true &&
+              <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center' }}>
+                <Tooltip title="Open shopping cart">
+                  <IconButton sx={{ p: 0, color: 'black', fontWeight: 'bold'}}>
+                    <ShoppingCartIcon />
+                  </IconButton>
+                </Tooltip>
+                
+                <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
+                  <Tooltip title={linkName}>
+                    <Button onClick={handleLoginClick} sx={{ p: 0, ml: 2, color: 'black', fontWeight: 'bold' }}>
+                      {linkName}
+                    </Button>
+                  </Tooltip>
+                </Link>
+              
+                <Menu
+                  sx={{ mt: '45px' }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting) => (
+                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center" style={{ color: 'black' }}>{setting}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            }
           </Toolbar>
         </Container>
       </AppBar>
