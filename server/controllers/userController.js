@@ -1,3 +1,4 @@
+const { createHash } = require("crypto");
 const User = require("../models/userModels");
 const userObj = new User();
 
@@ -6,10 +7,20 @@ module.exports = {
     try {
       const email = req.body.email;
       const password = req.body.password;
-      console.log(email, password);
-      const loginResult = await userObj.getLoginDetails(email, password);
+
+      // Encrypt the password using crypto
+      const hashPassword = createHash("sha256").update(password).digest("hex");
+      
+      // Call the getLoginDetails method
+      const loginResult = await userObj.getLoginDetails(email, hashPassword);
+      
+      // If the user exists, convert the returned result to a JSON object and pass the user_id 
+      // to the updateLoginStatus method.
       if (loginResult.length > 0) {
-        console.log("User there");
+        const loginResultJSON = JSON.stringify(loginResult[0]);
+        const loginResultObj = JSON.parse(loginResultJSON); // Parse the JSON string
+        const userId = loginResultObj.User_Id;
+        await userObj.updateLoginStatus(userId);
         res.status(200).json(loginResult);
       } else {
         res.status(401).json({
@@ -31,13 +42,16 @@ module.exports = {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
 
+    // Encrypt the password
+    const hashPassword = createHash("sha256").update(password).digest("hex");
+
     try {
       const user = await userObj.insertUser(
         firstName,
         lastName,
         email,
         phoneNumber,
-        password
+        hashPassword
       );
       res.status(200).json({
         message: "User successfully created",
