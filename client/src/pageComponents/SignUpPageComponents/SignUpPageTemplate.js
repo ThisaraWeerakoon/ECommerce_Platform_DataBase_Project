@@ -37,16 +37,24 @@ function SignUpPageTemplate() {
     });
   }
 
-  const [errors, setErrors] = useState('');
-    // Function to handle the login button click
-  function executeSignUp () {
-      setErrors(SignUpValidation(email, newPassword, confirmPassword, phoneNumber, firstName, lastName));
-      // if(errors === ""){
-      //   signUpUser();
-      // }
-      if (!Object.values(errors).some((error) => error !== '')) {
-        signUpUser();
-      }
+  const [errors, setErrors] = useState({
+    email: [],
+    newPassword: [],
+    confirmPassword: [],
+    phoneNumber: [],
+    firstName: [],
+    lastName: [],
+  });
+  
+  // Function to handle the sign-up button click
+  function executeSignUp() {
+    const validationErrors = SignUpValidation(email, newPassword, confirmPassword, phoneNumber, firstName, lastName);
+    setErrors(validationErrors);
+  
+    // Check if there are no errors for any field
+    if (!Object.values(validationErrors).some((fieldErrors) => fieldErrors.length > 0)) {
+      signUpUser();
+    }
   }
 
   return (

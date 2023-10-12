@@ -28,14 +28,21 @@ function AuthenticationPageTemplate() {
     });
   }
   
-  const [errors, setErrors] = useState('');
-    // Function to handle the login button click
-    function validation(event) {
-      setErrors(LoginValidation(email, password));
-      if(errors === ""){
-        validateUser();
-      }
+  const [errors, setErrors] = useState({
+    email: [],
+    password: [],
+  });
+    
+  // Function to handle the sign-up button click
+  function validation() {
+    const loginErrors = LoginValidation(email, password);
+    setErrors(loginErrors);
+    
+    // Check if there are no errors for any field
+    if (!Object.values(loginErrors).some((fieldErrors) => fieldErrors.length > 0)) {
+      validateUser();
     }
+  }
 
   return (
     <section id="LogIn" className='block block-login'>
