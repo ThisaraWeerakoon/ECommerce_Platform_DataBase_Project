@@ -39,9 +39,12 @@ function SignUpPageTemplate() {
 
   const [errors, setErrors] = useState('');
     // Function to handle the login button click
-  function executeSignUp (event) {
+  function executeSignUp () {
       setErrors(SignUpValidation(email, newPassword, confirmPassword, phoneNumber, firstName, lastName));
-      if(errors === ""){
+      // if(errors === ""){
+      //   signUpUser();
+      // }
+      if (!Object.values(errors).some((error) => error !== '')) {
         signUpUser();
       }
   }

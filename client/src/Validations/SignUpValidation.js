@@ -7,7 +7,7 @@ export function SignUpValidation(email, newPassword, confirmPassword, phoneNumbe
       const password_pat = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
 
       // Check if the Email is an Empty string or not.
-      if (email.length === 0) {
+      if (email === "") {
         error.email = 'Email Address can not be empty'
       }
       
@@ -17,7 +17,7 @@ export function SignUpValidation(email, newPassword, confirmPassword, phoneNumbe
       }
   
       // check if the newPassword is empty or not.
-      if (newPassword.length === 0) {
+      if (newPassword === "") {
         error.newPassword = 'Password can not be empty'
       }
   
@@ -37,17 +37,17 @@ export function SignUpValidation(email, newPassword, confirmPassword, phoneNumbe
       }
       
       // Check if the Email is an Empty string or not.
-      if (firstName.length === 0) {
+      if (firstName === "") {
         error.firstName = "First name cannot be empty. "
       }
 
       // Check if the Email is an Empty string or not.
-      if (lastName.length === 0) {
+      if (lastName === "") {
         error.lastName = 'Last name can not be empty'
       }
 
       // Check if the Email is an Empty string or not.
-      if (phoneNumber.length === 0) {
+      if (phoneNumber === "") {
         error.phoneNumber = 'Phone number can not be empty'
       }
       // if all the conditions are valid, this means that the form is valid
