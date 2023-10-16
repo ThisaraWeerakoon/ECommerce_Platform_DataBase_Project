@@ -2,43 +2,25 @@ const express = require('express');
 
 const app = express();
 
-const mysql = require('mysql')
-
-const cors = require('cors')
-app.use(express.json())
+const cors = require('cors');
+app.use(express.json());
 
 app.use(cors());
 
-const db = mysql.createConnection({
-    user:"root",
-    host:"localhost",
-    password:"password",
-    database:"ecommerce_platform"
-})
+const userRouter = require("./routes/userRoutes");
+const errorController = require("./controllers/errorController");
 
-app.post("/create",(req,res)=>{
-    console.log(req.body);
+app.use("/user", userRouter);
 
-    const email = req.body.email;
-    const password = req.body.password;
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const phoneNumber = req.body.phoneNumber;
+app.use(errorController.get404);
+app.use(errorController.get500);
 
-    db.query(
-        "INSERT INTO Site_User (Email_Address,Phone_Number,First_Name,Last_Name,Password) VALUES (?,?,?,?,?) ",
-        [,email,phoneNumber,firstName,lastName,password,],
-        (err,result)=>{
-            if(err){
-                console.log(err);
-            }    
-            else{
-                res.send("Value Insterted");
-            }
-        }
-    )
-})
-
-app.listen(3002,()=>{
+app.listen(3005,()=>{
     console.log("Server is running");
+});
+
+// Handling Error
+process.on("unhandledRejection", err => {
+    console.log(`An error occurred: ${err.message}`)
+    process.exit(1)
 });
