@@ -1,1 +1,0 @@
-# ECommerce_Platform_DataBase_Project
