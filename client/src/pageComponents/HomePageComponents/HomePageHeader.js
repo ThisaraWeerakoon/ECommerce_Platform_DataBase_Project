@@ -4,7 +4,11 @@ import Header from '../../components/Header'
 const HomePageHeader = () => {
   return (
     <div>
-      <Header/>
+      <Header
+        linkName="Login | Register"
+        linkUrl="../pages/AuthenticationPage"
+        linkVisibility={true}
+      />
     </div>
   )
 }
