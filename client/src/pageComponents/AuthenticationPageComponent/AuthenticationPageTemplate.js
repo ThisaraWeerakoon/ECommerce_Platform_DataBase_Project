@@ -14,6 +14,8 @@ function AuthenticationPageTemplate() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  Axios.defaults.withCredentials = true;
   
   const validateUser = () => {
     Axios.post('http://localhost:3005/user/validateLogin',{
@@ -21,10 +23,11 @@ function AuthenticationPageTemplate() {
       password : password
     }).then(()=> {
       console.log("Success");
-      navigate("/");
+      navigate("/pages/CustomerHomePage");
     })
     .catch((error) => {
       console.error("Error:", error);
+      alert(error);
     });
   }
   
