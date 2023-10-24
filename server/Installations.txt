@@ -1,0 +1,5 @@
+Server ->
+For sessions and cookies: npm install express express-session cookie-parser
+
+Client ->
+For routes in react: npm i -D react-router-dom@latest
