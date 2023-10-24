@@ -25,9 +25,11 @@ app.use(cors({
 app.use(bodyparser.json());
 
 const userRouter = require("./routes/userRoutes");
+const productRouter = require("./routes/productRoutes");
 const errorController = require("./controllers/errorController");
 
 app.use("/user", userRouter);
+app.use("/product", productRouter);
 
 app.use(errorController.get404);
 app.use(errorController.get500);

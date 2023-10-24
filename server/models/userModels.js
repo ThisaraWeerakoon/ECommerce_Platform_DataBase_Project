@@ -17,7 +17,7 @@ module.exports = class User{
             }
           );
         });
-      }
+    }
     async insertUser(firstName, lastName, email, phoneNumber, password) {
         db.query(
             "INSERT INTO User(Email, Phone_Number, First_Name, Last_Name, Password) VALUES (?,?,?,?,?) ",
