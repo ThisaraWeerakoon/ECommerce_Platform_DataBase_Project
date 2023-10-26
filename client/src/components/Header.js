@@ -18,7 +18,7 @@ import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Axios from 'axios';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Order History', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 
@@ -64,6 +64,8 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
       });
     }
   };
+
+  
   
   return (
     <div>
@@ -204,7 +206,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                     </Dropdown.Toggle>
                       
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href='/pages/Profile'>Profile</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                       <Dropdown.Item onClick={() => handleLogout(userID)}>Logout </Dropdown.Item>
                     </Dropdown.Menu>
@@ -240,8 +242,8 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
       </AppBar>
     </div>
   );
-}
 
+}
 export default Header;
 
 

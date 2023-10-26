@@ -33,6 +33,7 @@ module.exports = {
         var session = req.session;
         session.user = user;
         session.save();
+        console.log("session created")
         console.log(session);
          
         res.status(200).json({Login: true, user: req.session.user });
@@ -107,3 +108,5 @@ module.exports = {
     }
   }
 };
+
+
