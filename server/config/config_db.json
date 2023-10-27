@@ -1,6 +1,7 @@
 {
     "user":"root",
     "host":"localhost",
-    "password":"Ash7788##",
-    "database":"ecommerceplateform"
+    "password":"password",
+    "database":"ecommerce_platform"
 }
+
