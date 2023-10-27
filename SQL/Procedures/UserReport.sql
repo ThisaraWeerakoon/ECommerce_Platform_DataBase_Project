@@ -1,13 +1,28 @@
+-- Change the delimiter
 DELIMITER //
-
 DROP PROCEDURE IF EXISTS GenerateUserReport;
 
+-- Create the procedure
 CREATE PROCEDURE GenerateUserReport()
 BEGIN
-    SELECT user_id, first_name, last_name, email, User_Type
-	FROM user u;
-    JOIN variant v ON oi.Variant_Id = v. Variant_Id
-	  JOIN product p ON v.Product_Id = p. Product_Id;
+    SELECT
+        u.user_id,
+        u.first_name,
+        u.last_name,
+        u.email,
+        u.User_Type,
+        a.House_Number,
+        a.Street_Number,
+        a.Address_Line_1,
+        a.Address_Line_2,
+        a.City,
+        a.Region,
+        a.Postal_Code
+    FROM user u
+    JOIN user_address ua ON u.User_Id = ua.User_Id
+    JOIN address a ON ua.Address_Id = a.Address_Id
+    WHERE ua.Is_Default = 1;
 END //
 
+-- Reset the delimiter to semicolon
 DELIMITER ;

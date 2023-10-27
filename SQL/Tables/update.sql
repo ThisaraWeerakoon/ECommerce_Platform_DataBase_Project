@@ -1,3 +1,4 @@
+-- Update varient weight,price
 UPDATE variant
 SET SKU = 1002,
 	Weight = 160
