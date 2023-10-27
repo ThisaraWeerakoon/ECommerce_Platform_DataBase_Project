@@ -27,6 +27,7 @@ app.use(bodyparser.json());
 const userRouter = require("./routes/userRoutes");
 const productRouter = require("./routes/productRoutes");
 const errorController = require("./controllers/errorController");
+const Product = require('./models/productModels');
 
 app.use("/user", userRouter);
 app.use("/product", productRouter);
