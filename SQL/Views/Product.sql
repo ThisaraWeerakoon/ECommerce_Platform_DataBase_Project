@@ -1,9 +1,13 @@
+DROP VIEW All_product_In_Store;
+
+CREATE VIEW All_product_In_Store AS
+
 SELECT 
+	v.SKU,
 	p.Name AS product, 
 	pc.Category_Name,
     vt.Variation_Name,
     vo.Variation_Option_Name,
-	v.SKU,
     v.Weight,
     v.Quantity
 FROM product p
