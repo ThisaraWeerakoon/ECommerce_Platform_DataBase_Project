@@ -1,6 +1,6 @@
-DROP VIEW All_product_In_Store;
+-- DROP VIEW All_product_In_Store;
 
-CREATE VIEW All_product_In_Store AS
+-- CREATE VIEW All_product_In_Store AS
 
 SELECT 
 	v.SKU,
@@ -19,3 +19,5 @@ INNER JOIN variation_configuration vc ON vo.Variation_Option_Id = vc.Variation_O
 INNER JOIN variant v ON vc.Variant_Id = v.Variant_Id
 WHERE p.name = "Samsung S21";
 
+-- I comment First 2 code because it will get error
+-- But there are in the code
