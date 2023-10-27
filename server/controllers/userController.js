@@ -84,16 +84,40 @@ module.exports = {
     try {
       const userId = req.body.ID;
       console.log(userId);
-      await userObj.updateLogoutStatus(userId);
-      req.session.destroy();
-      console.log("user logged out");
-      res.status(200).json({
-        message: "User out",
+
+      // Assuming you're using the `express` framework
+      res.clearCookie("user"); // Replace 'sessionID' with the actual cookie name
+      
+      req.session.destroy((err) => {
+        if (err) {
+          console.error("Error destroying session:", err);
+          res.status(500).json({
+            message: "Session could not be destroyed",
+            error: err.message
+          });
+        } else {
+          console.log("Session destroyed");
+  
+          // Now, you can update the logout status or perform any other asynchronous actions within an async function
+          (async () => {
+            await userObj.updateLogoutStatus(userId);
+            console.log("User logged out");
+            res.status(200).json({
+              message: "User out"
+            });
+          })().catch((err) => {
+            console.error("Error updating logout status:", err);
+            res.status(500).json({
+              message: "Error updating logout status",
+              error: err.message
+            });
+          });
+        }
       });
     } catch (err) {
       res.status(401).json({
         message: "User not successfully out",
-        error: err.message,
+        error: err.message
       });
     }
   },

@@ -4,7 +4,7 @@ module.exports = class Product{
     async getCarouselImages() {
         return new Promise((resolve, reject) => {
           db.query(
-            "SELECT `Product_Image` FROM product LIMIT 5",
+            "SELECT `Category_Image` FROM product_category LIMIT 5",
             [],
             (err, result) => {
               if (err) {
