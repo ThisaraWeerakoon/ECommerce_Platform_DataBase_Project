@@ -14,13 +14,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Dropdown from 'react-bootstrap/Dropdown';
 import LogoImage from '../images/logo.jpg';
+import AdminPanel from "../pages/AdminPanel";
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Axios from 'axios';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
+const pages = ["Products", "Pricing", "Blog"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, userID=null}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -49,6 +49,8 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     console.log("Button clicked");
   };
 
+  function handleAdminClick() {}
+
   const handleLogout = (userID) => {
     console.log("Logout clicked");
     console.log("User ID: ", userID);
@@ -67,7 +69,10 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
   
   return (
     <div>
-      <AppBar position="static" style={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "transparent", boxShadow: "none" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <img
@@ -83,18 +88,18 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
               href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'flex', md: 'flex' },
-                fontFamily: 'monospace',
+                display: { xs: "flex", md: "flex" },
+                fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'black',
-                textDecoration: 'none',
+                letterSpacing: ".3rem",
+                color: "black",
+                textDecoration: "none",
               }}
             >
               Eagle
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -109,18 +114,18 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: "block", md: "none" },
                 }}
               >
                 {pages.map((page) => (
@@ -131,17 +136,18 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
               </Menu>
             </Box>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
                   {page}
                 </Button>
               ))}
             </Box>
+
             {linkVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
                 <Tooltip title="Open shopping cart">
@@ -155,7 +161,17 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                         {linkName}
                       </Button>
                     </Tooltip>
-                  </Link>
+                </Link>
+                <Link to="/pages/AdminPanel" className="homePage_to_adminPanel">
+                  <Tooltip title="Admin">
+                    <Button
+                      onClick={handleAdminClick}
+                      sx={{ p: 0, ml: 2, color: "black", fontWeight: "bold" }}
+                    >
+                      Admin
+                    </Button>
+                  </Tooltip>
+                </Link>
                 
                 <Menu
                   sx={{ mt: '45px' }}
@@ -212,28 +228,31 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                 </Tooltip>
               
                 <Menu
-                  sx={{ mt: '45px' }}
+                  sx={{ mt: "45px" }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center" style={{ color: 'black' }}>{setting}</Typography>
+                      <Typography textAlign="center" style={{ color: "black" }}>
+                        {setting}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
+
             }            
           </Toolbar>
         </Container>
@@ -243,5 +262,3 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 }
 
 export default Header;
-
-
