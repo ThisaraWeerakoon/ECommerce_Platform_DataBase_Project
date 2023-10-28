@@ -4,7 +4,7 @@ module.exports = class User{
     async getLoginDetails(email, password) {
         return new Promise((resolve, reject) => {
           db.query(
-            "SELECT User_Id, First_Name, Last_Name FROM User WHERE Email = ? AND Password = ? ",
+            "SELECT User_Id, First_Name, Last_Name, User_Type FROM User WHERE Email = ? AND Password = ? ",
             [email, password],
             (err, result) => {
               if (err) {

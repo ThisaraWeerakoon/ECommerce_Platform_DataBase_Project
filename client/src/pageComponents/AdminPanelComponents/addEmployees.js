@@ -20,7 +20,7 @@ import {
   Line,
 } from "recharts";
 
-function AdminPanelDashBoard() {
+function addEmployees() {
   const data = [
     {
       name: "Page A",
@@ -121,7 +121,8 @@ function AdminPanelDashBoard() {
             <Bar dataKey="uv" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
-       
+      </div>
+      <div className="charts">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             width={500}
@@ -153,4 +154,4 @@ function AdminPanelDashBoard() {
   );
 }
 
-export default AdminPanelDashBoard;
+export default addEmployees;

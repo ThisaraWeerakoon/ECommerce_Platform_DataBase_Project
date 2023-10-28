@@ -1,88 +1,47 @@
-import React from "react";
-import PersonIcon from "@mui/icons-material/Person";
+import React, { useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import Header from '../../components/Header';
+import {BsJustify} from 'react-icons/bs';
+import './style.css';
 
-function AdminPanelHeader() {
-  const headerStyle = {
-    backgroundColor: "#123042",
+axios.defaults.withCredentials = true;
 
-    color: "#fff",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "10px",
-    height: 50,
-    boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.2)",
-  };
-
-  const leftContentStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  };
-
-  const rightContentStyle = {
-    textAlign: "right",
-    display: "flex",
-    alignItems: "center",
-    marginLeft: "auto",
-    gap: 10,
-  };
-
-  const nameStyle = {
-    color: "#fff",
-    marginRight: 20,
-    marginBottom: 5,
-    marginTop: 15,
-  };
-
-  const buttonStyle = {
-    backgroundColor: "teal",
-    color: "#fff",
-    border: "none",
-    padding: "8px 13px",
-    cursor: "pointer",
-    marginBottom: 5,
-    marginRight: 10,
-    height: 32,
-    display: "flex",
-    alignItems: "center",
-  };
-
-  const iconStyle = {
-    fontSize: 40,
-    paddingBottom: 3,
-  };
-  // const titleStyle = {
-  //   fontFamily: "Cursive",
-  //   fontWeight: "bold",
-  //   fontSize: 20,
-  //   paddingLeft: 10,
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-
-  // };
-  const panelName = {
-    fontFamily: "cursive",
-    fontWeight: "bold",
-    fontSize: 20,
-    paddingLeft: 10,
-  };
-
+const AdminPanelHeader = ({OpenSidebar}) => {
+  const [name, setName] = useState('');
+  const [id, setId] = useState('');
+  const navigate = useNavigate();
+  useEffect(() => {
+    axios.get('http://localhost:3005/user/getSession')
+    .then(res => {
+      if(res.data.valid){
+        setName(res.data.user.name);
+        setId(res.data.user.userID);
+        console.log("Name: ", res.data.user.name);
+        console.log("ID: ", res.data.user.userID);
+      }
+      else{
+        navigate("/pages/AuthenticationPage")
+      }
+      console.log(res)
+    })
+    .catch(err => console.log(err))
+  }, [])
   return (
-    <header style={headerStyle}>
-      <div style={leftContentStyle}>
-        <h1 style={panelName}>ADMIN PANEL</h1>
-        {/* <h2 style={titleStyle}>EAGLE SERVICE</h2> */}
+    <div>
+      <Header
+        linkName={"Hello " + name}
+        linkUrl=""
+        profileVisibility={true}
+        cartVisibility={false}
+        userID={id}
+      />
+      <div className='menu-icon' sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <BsJustify className='icon' onClick={OpenSidebar}/>
       </div>
-      <div style={rightContentStyle}>
-        <p style={nameStyle}>Ashen Sandeep</p> {/* Add the name here */}
-        <PersonIcon style={iconStyle} />
-        <button style={buttonStyle}>Profile</button>{" "}
-        {/* Add the Profile button here */}
-      </div>
-    </header>
-  );
+    </div>
+  )
 }
+
 
 export default AdminPanelHeader;

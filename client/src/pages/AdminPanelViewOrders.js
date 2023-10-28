@@ -3,10 +3,8 @@ import "../App.css";
 import AdminPanelHeader from "../pageComponents/AdminPanelComponents/AdminPanelHeader";
 import AdminPanelSideBar from "../pageComponents/AdminPanelComponents/AdminPanelSideBar";
 import AdminPanelDashBoard from "../pageComponents/AdminPanelComponents/AdminPanelDashBoard";
-import AdminPanelBody from "../pageComponents/AdminPanelComponents/AdminPanelBody";
-import { Router, Route } from "react-router-dom";
 
-function AdminPanel() {
+function AdminPanelViewOrders() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
   const OpenSidebar = () => {
@@ -27,4 +25,4 @@ function AdminPanel() {
   );
 }
 
-export default AdminPanel;
+export default AdminPanelViewOrders;

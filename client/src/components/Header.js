@@ -14,7 +14,6 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Dropdown from 'react-bootstrap/Dropdown';
 import LogoImage from '../images/logo.jpg';
-import AdminPanel from "../pages/AdminPanel";
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Axios from 'axios';
@@ -22,7 +21,7 @@ import Axios from 'axios';
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, userID=null}) {
+function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, cartVisibility=true, userID=null}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -45,11 +44,8 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 
   // Add a click handler for the login button
   const handleClick = () => {
-    // Replace with your login logic or redirection
     console.log("Button clicked");
   };
-
-  function handleAdminClick() {}
 
   const handleLogout = (userID) => {
     console.log("Logout clicked");
@@ -85,7 +81,6 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
               variant="h5"
               noWrap
               component="a"
-              href="/"
               sx={{
                 mr: 2,
                 display: { xs: "flex", md: "flex" },
@@ -150,27 +145,19 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 
             {linkVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
-                <Tooltip title="Open shopping cart">
-                  <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
-                    <ShoppingCartIcon />
-                  </IconButton>
-                </Tooltip>
+                {cartVisibility === true &&
+                  <Tooltip title="Open shopping cart">
+                    <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
+                      <ShoppingCartIcon />
+                    </IconButton>
+                  </Tooltip>
+                }
                 <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
                     <Tooltip title={linkName}>
                       <Button onClick={handleClick} sx={{ p: 2, ml: 2, color: 'black', fontWeight: 'bold'}}>
                         {linkName}
                       </Button>
                     </Tooltip>
-                </Link>
-                <Link to="/pages/AdminPanel" className="homePage_to_adminPanel">
-                  <Tooltip title="Admin">
-                    <Button
-                      onClick={handleAdminClick}
-                      sx={{ p: 0, ml: 2, color: "black", fontWeight: "bold" }}
-                    >
-                      Admin
-                    </Button>
-                  </Tooltip>
                 </Link>
                 
                 <Menu
@@ -199,11 +186,13 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
             }
             {profileVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
-                <Tooltip title="Open shopping cart">
-                  <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
-                    <ShoppingCartIcon/>
-                  </IconButton>
-                </Tooltip>
+                {cartVisibility === true &&
+                  <Tooltip title="Open shopping cart">
+                    <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
+                      <ShoppingCartIcon />
+                    </IconButton>
+                  </Tooltip>
+                }
 
                 <Tooltip title={linkName}>
                   <Dropdown>
