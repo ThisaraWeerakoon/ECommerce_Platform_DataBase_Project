@@ -58,6 +58,157 @@ module.exports = class User{
                   console.log("Logout status changed");
               }
           }
-      )
-  }
-}
+        )
+    }
+
+    async fetchUserDetails(user_id) {
+        return new Promise((resolve, reject) => {
+          db.query(
+            "SELECT First_Name, Last_Name, Email, Phone_Number FROM user WHERE User_Id = ?",
+            [user_id],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+                reject(err); // Reject the Promise if there's an error
+              } else {
+                console.log(result);
+                resolve(result); // Resolve the Promise with the result
+              }
+            }
+          );
+        });
+    }
+    async insertAddress(user_Id, House_Number, Street_Number, Address_Line_1, Address_Line_2, City, Region, Postal_Code) {
+        try {
+          // First, insert the address data into the 'address' table
+          const insertAddressQuery = `
+            INSERT INTO address (House_Number, Street_Number, Address_Line_1, Address_Line_2, City, Region, Postal_Code)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`;
+      
+          const addressInsertResult = await new Promise((resolve, reject) => {
+            db.query(
+              insertAddressQuery,
+              [House_Number, Street_Number, Address_Line_1, Address_Line_2, City, Region, Postal_Code],
+              (err, result) => {
+                if (err) {
+                  console.error("Error inserting address:", err);
+                  reject(err);
+                } else {
+                  console.log("Address Inserted");
+                  resolve(result.insertId); // Resolve with the inserted 'Address_Id'
+                  console.log(result.insertId)
+                }
+              }
+            );
+          });
+      
+          // Second, insert the 'user_address' record linking the user and the address
+          const insertUserAddressQuery = `
+            INSERT INTO user_address (User_Id, Address_Id, Is_Default)
+            VALUES (?, ?, ?)`;
+      
+          // You can set Is_Default to 1 or 0 based on your requirements
+          const isDefault = 1;
+      
+          const userAddressInsertResult = await new Promise((resolve, reject) => {
+            db.query(
+              insertUserAddressQuery,
+              [user_Id, addressInsertResult, isDefault],
+              (err, result) => {
+                if (err) {
+                  console.error("Error inserting user_address:", err);
+                  reject(err);
+                } else {
+                  console.log("User Address Inserted");
+                  resolve(result.insertId);
+                  console.log(result.insertId)
+                }
+              }
+            );
+          });
+      
+        } catch (error) {
+          throw error; // Handle or log the error at an upper level if necessary
+        }
+      }
+
+      async insertPaymentDetails(userID, paymentType, provider, accountNumber, expiryDate) {
+        const isDefault = 1;
+    
+        // Check if the user already has a default payment method
+        db.query(
+            "SELECT User_Id FROM user_payment_method WHERE User_Id = ? AND is_Default = ?",
+            [userID, isDefault],
+            (err, rows) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    if (rows.length > 0) {
+                        // User already has a default payment method, update it
+                        db.query(
+                            "UPDATE user_payment_method SET Payment_Type = ?, Provider = ?, Account_Number = ?, Expiry_Date = ? WHERE User_Id = ? AND is_Default = ?",
+                            [paymentType, provider, accountNumber, expiryDate, userID, isDefault],
+                            (updateErr, updateResult) => {
+                                if (updateErr) {
+                                    console.log(updateErr);
+                                } else {
+                                    console.log("Default payment method updated");
+                                }
+                            }
+                        );
+                    } else {
+                        // User doesn't have a default payment method, insert a new one
+                        db.query(
+                            "INSERT INTO user_payment_method(User_Id, Payment_Type, Provider, Account_Number, Expiry_Date, is_Default) VALUES (?,?,?,?,?,?)",
+                            [userID, paymentType, provider, accountNumber, expiryDate, isDefault],
+                            (insertErr, insertResult) => {
+                                if (insertErr) {
+                                    console.log(insertErr);
+                                } else {
+                                    console.log("New default payment method inserted");
+                                }
+                            }
+                        );
+                    }
+                }
+            }
+        );
+    }
+    
+    async fetchOrderHistory(user_id) {
+        return new Promise((resolve, reject) => {
+          db.query(
+            "SELECT Product_Name,Order_Date , Quantity,Price  FROM orderhistory WHERE User_Id = ?",
+            [user_id],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+                reject(err); // Reject the Promise if there's an error
+              } else {
+                console.log(result);
+                resolve(result); // Resolve the Promise with the result
+              }
+            }
+          );
+        });
+    }
+
+    async fetchCartItems(user_id) {
+        return new Promise((resolve, reject) => {
+          db.query(
+            "SELECT Product_Name, Quantity, Price  FROM cartview WHERE User_Id = ?",
+            [user_id],
+            (err, result) => {
+              if (err) {
+                console.log(err);
+                reject(err); // Reject the Promise if there's an error
+              } else {
+                console.log(result);
+                resolve(result); // Resolve the Promise with the result
+              }
+            }
+          );
+        });
+    }
+
+}    

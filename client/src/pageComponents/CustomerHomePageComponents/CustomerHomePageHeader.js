@@ -12,6 +12,7 @@ const CustomerHomePageHeader = () => {
   useEffect(() => {
     axios.get('http://localhost:3005/user/getSession')
     .then(res => {
+      console.log("Response Data:", res.data);
       if(res.data.valid){
         setName(res.data.user.name);
         setId(res.data.user.userID);

@@ -1,0 +1,30 @@
+/* CustomButtonGroup.css */
+.custom-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+    margin-top: 360px;
+  }
+  
+  .custom-button {
+    font:lighter;
+    font-size: 20px;
+    width: 420px; 
+    height: 100px;
+    background-color: #99abc5;
+    color: #f6f3f3;
+    border: none;
+    margin: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
+    transition: background-color 0.3s, transform 0.3s; 
+    cursor: pointer;
+  }
+  
+  .custom-button:hover {
+    background-color: #7099c1; /* Change color on hover */
+    transform: scale(1.05); /* Add a slight scale effect on hover */
+  }
+  
+  

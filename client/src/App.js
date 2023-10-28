@@ -8,6 +8,11 @@ import AdminPanelViewEmployees from './pages/AdminPanelViewEmployees';
 import AdminPanelViewReports from './pages/AdminPanelViewReports';
 import AdminPanelViewOrders from './pages/AdminPanelViewOrders';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Profile from './pages/Profile';
+import EditPersonalDetails from './pages/EditPersonalDetails';
+import EditUserName from './pages/EditUserName';
+import OrderReport from './pages/OrderReport';
+
 
 function App() {
   return (
@@ -21,6 +26,13 @@ function App() {
           <Route path="/pages/AdminPanel/AdminPanelViewEmployees" element={<AdminPanelViewEmployees />} />
           <Route path="/pages/AdminPanel/AdminPanelViewReports" element={<AdminPanelViewReports />} />
           <Route path="/pages/AdminPanel/AdminPanelViewOrders" element={<AdminPanelViewOrders />} />
+          <Route path="/pages/Profile" element={<Profile/>} />
+          <Route path="/pages/Profile/EditPersonalDetails" element={<EditPersonalDetails/>} />
+          <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
+          <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
+          
+
+
       </Routes>
     </BrowserRouter>
   );
