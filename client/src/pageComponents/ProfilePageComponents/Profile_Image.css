@@ -1,65 +1,93 @@
-/* ShapeExample.css */
+
 .profile-image {
-    border: 2px solid #353637;
+    border: 2px solid #2b86dc;
     width: 150px;
-    border-radius: 50%; /* Make the image a circle */
-    margin: 0 auto; /* Horizontally center the image */
-    display: flex;
-    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.name-email {
+    width: 400px;
+    height: 100px;
+    text-align: justify;
+    background-color: #ece8e8;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 0 50px rgba(1, 26, 54, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: lighter;
+    color: #000000;
+    margin-top: 50px;
+    margin: 0 auto; /* Center horizontally */
 }
 
 .profile-box {
-    width: 500px;
-    height: 600px;
-    text-align: center; /* Center text within the box */
-    background-color: #d8e5f3;
+    width: 800px;
+    height: 650px;
+    text-align: center;
+    background-color: #cecbcb;
     border: 1px solid #e1e1e1;
     border-radius: 8px;
     padding: 100px;
     box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    justify-content: flex-start; /* Vertically position content at the top */
-    align-items: center; /* Horizontally center content */
-    margin-top: 60px;
-    margin-left: 0px;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+    margin: 80px;
+    margin-left: 200px;
 }
 
-.name-email {
-    width: 400px;
-    height: 200px;
-    text-align:justify;
-    background-color: #ece8e8;
-    border: 1px solid #e1e1e1;
-    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
-    border-radius: 8px;
-    padding: 30px;
-    line-height: 1.5; /* Adjust line spacing as needed */
-    font-size: 1px; /* Change font size as needed */
-    font-weight:lighter; /* Adjust font weight as needed */
-    color: #374f60; /* Change text color as needed */
-    margin-top: 50px;
-  }
-  
-  .edit-button{
-    font:lighter;
-    font-size: 20px;
-    width: 400px; 
-    height: 150px;
-    background-color: #99abc5;
-    color: #f6f3f3;
-    border: none;
-    margin: 5px;
+.user-info {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
-    transition: background-color 0.3s, transform 0.3s; 
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(1, 26, 54, 0.2);
+    max-width: 300px;
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 20px;
+}
+
+.user-info h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.user-detail {
+    margin: 10px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.user-detail strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    margin-top: 0px;
+    margin-right: 0px;
+}
+
+.action-buttons button {
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: #6ba1dc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
-    padding: 15px;
+    font-weight: bold;
+    width: 100%;
+}
 
-  }
-
-  .edit-button:hover {
-    background-color: #7099c1; /* Change color on hover */
-    transform: scale(1.05); /* Add a slight scale effect on hover */
-  }
-  
+.action-buttons button:hover {
+    background-color: #0056b3;
+}
