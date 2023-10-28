@@ -9,6 +9,7 @@ import EditPersonalDetails from './pages/EditPersonalDetails';
 import EditUserName from './pages/EditUserName';
 import OrderReport from './pages/OrderReport';
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,8 @@ function App() {
           <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
           
+
+
       </Routes>
     </BrowserRouter>
     
