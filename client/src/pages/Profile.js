@@ -7,8 +7,9 @@ import ProfileHeader from '../pageComponents/ProfilePageComponents/ProfileHeader
 export default function Profile() {
   return (
     <div>
-        <ProfileImage/> 
         <ProfileHeader/>
+        <ProfileImage/> 
+
 
 
     </div>
