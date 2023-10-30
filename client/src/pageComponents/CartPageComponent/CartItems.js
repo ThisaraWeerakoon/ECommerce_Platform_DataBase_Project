@@ -107,6 +107,9 @@ export default function CartItems() {
         </Dropdown>
       )}
 
+
+
+      
       {selectedOption && (
         <div className="selected-option">
           You have selected: {selectedOption}
