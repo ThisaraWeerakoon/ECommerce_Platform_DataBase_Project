@@ -23,6 +23,7 @@ import Axios from 'axios';
 
 const pages = ['Order History', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+Axios.defaults.withCredentials=true;
 
 
 function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, userID=null}) {
@@ -30,6 +31,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
   const [cartItems, setCartItems] = useState([]);
+
 
 
   const navigate = useNavigate();
