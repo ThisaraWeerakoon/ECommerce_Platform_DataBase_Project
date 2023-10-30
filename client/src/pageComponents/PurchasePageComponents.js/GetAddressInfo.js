@@ -65,7 +65,6 @@ function EditAddress() {
           console.error("Error while saving address:", error);
         });
 
-
     })
     .catch((error) => {
       console.error("Error while fetching total price:", error);

@@ -65,6 +65,13 @@ export default function CartItems() {
     }
   }, [selectedOption, navigate]);
 
+  function removeFromCart(itemIndex) {
+    // Implement the logic to remove the item from the cart
+    const updatedCart = [...cartItems];
+    updatedCart.splice(itemIndex, 1); // Remove the item at the specified index
+    setCartItems(updatedCart);
+  }
+
   return (
     <div className="cart-container">
       <h2 className="cart-heading">Cart Items</h2>
@@ -74,6 +81,12 @@ export default function CartItems() {
             <strong className="item-label">Product Name:</strong> {order.Product_Name}<br />
             <strong className="item-label">Quantity:</strong> {order.Quantity}<br />
             <strong className="item-label price-label">Price:</strong> ${order.Price.toFixed(2)}<br />
+            <button
+        className="remove-item-button"
+        onClick={() => removeFromCart(index)}
+      >
+        Remove
+      </button>
             <hr />
           </li>
         ))}
