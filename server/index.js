@@ -31,6 +31,7 @@ const errorController = require("./controllers/errorController");
 app.use("/user", userRouter);
 app.use("/product", productRouter);
 
+
 app.use(errorController.get404);
 app.use(errorController.get500);
 

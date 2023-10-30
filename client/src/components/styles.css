@@ -1,0 +1,26 @@
+/* styles.css */
+.cartPopover {
+    padding: 16px;
+    background-color: #d8e5f3;
+    border-radius: 4px;
+  }
+  
+  .cartPopoverText {
+    padding: 2px;
+  }
+  
+  .cartPopoverButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .cartPopoverButton:hover {
+    background-color: #0056b3;
+  }
+  

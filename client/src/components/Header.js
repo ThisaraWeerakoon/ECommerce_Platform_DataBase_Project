@@ -16,9 +16,12 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import LogoImage from '../images/logo.jpg';
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
+import Popover from '@mui/material/Popover';
+import './styles.css';
+
 import Axios from 'axios';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = ['Order History', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 Axios.defaults.withCredentials=true;
 
@@ -26,6 +29,9 @@ Axios.defaults.withCredentials=true;
 function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, userID=null}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+
 
 
   const navigate = useNavigate();
@@ -36,6 +42,23 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
   // const handleOpenUserMenu = (event) => {
   //   setAnchorElUser(event.currentTarget);
   // };
+  const handleOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+
+    // Fetch shopping cart items when the popover is opened
+    Axios.get('http://localhost:3005/user/cartItems') // Replace with your actual API endpoint
+      .then((response) => {
+        console.log("FETCHED :", response.data)
+        setCartItems(response.data.items); // Assuming your API response contains an 'items' property
+      })
+      .catch((error) => {
+        console.error('Error fetching shopping cart items:', error);
+      });
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
@@ -66,6 +89,11 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
       });
     }
   };
+
+  const handleCheckout = () => {
+    navigate("/pages/CartPage");
+  }
+  
   
   return (
     <div>
@@ -185,11 +213,55 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
             }
             {profileVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
-                <Tooltip title="Open shopping cart">
-                  <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
-                    <ShoppingCartIcon/>
-                  </IconButton>
-                </Tooltip>
+                <Tooltip >
+                <IconButton
+                      sx={{ p: 2, color: 'black', fontWeight: 'bold' }}
+                      onClick={handleOpen}
+                      aria-describedby={anchorEl ? 'cart-popover' : undefined}
+                    >
+                      <ShoppingCartIcon />
+                    </IconButton>
+                    <div>
+                    <Popover
+  id="cart-popover"
+  open={Boolean(anchorEl)}
+  anchorEl={anchorEl}
+  onClose={handleClose}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'center',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'center',
+  }}
+>
+  <div className="cartPopover"> {/* Apply the cartPopover class */}
+    <Typography className="cartPopoverText"> {/* Apply the cartPopoverText class */}
+      {cartItems.length > 0 ? (
+        <div>
+          <h4>Shopping Cart Items</h4>
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>
+                Product: {item.Product_Name}, Quantity: {item.Quantity}, Price: {item.Price}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>Your shopping cart is empty.</p>
+      )}
+    </Typography>
+    <div className="cartPopoverButton"> {/* Apply the cartPopoverButton class */}
+      <button onClick={handleCheckout}> CHECKOUT </button>
+    </div>
+  </div>
+</Popover>
+
+                    </div>
+
+                  </Tooltip>
 
                 <Tooltip title={linkName}>
                   <Dropdown>
@@ -206,7 +278,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                     </Dropdown.Toggle>
                       
                     <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href='/pages/Profile'>Profile</Dropdown.Item>
                       <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                       <Dropdown.Item onClick={() => handleLogout(userID)}>Logout </Dropdown.Item>
                     </Dropdown.Menu>
@@ -242,8 +314,8 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
       </AppBar>
     </div>
   );
-}
 
+}
 export default Header;
 
 
