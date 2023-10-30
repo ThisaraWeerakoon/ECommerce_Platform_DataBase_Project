@@ -1,6 +1,6 @@
 DELIMITER //
 CREATE PROCEDURE GetVariantsByOptions(
-    IN OptionIds VARCHAR(255), 
+    IN OptionIds VARCHAR(255),
     IN OptionCount INT
 )
 BEGIN
