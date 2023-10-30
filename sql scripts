@@ -1,0 +1,185 @@
+Views
+
+cartview
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `cartview` AS
+    SELECT 
+        `c`.`User_Id` AS `User_Id`,
+        `p`.`Name` AS `Product_Name`,
+        `ci`.`Cart_Item_Quantity` AS `Quantity`,
+        (`v`.`Price` * `ci`.`Cart_Item_Quantity`) AS `Price`
+    FROM
+        (((`cart_item` `ci`
+        JOIN `variant` `v` ON ((`ci`.`Variant_Id` = `v`.`Variant_Id`)))
+        JOIN `product` `p` ON ((`v`.`Product_Id` = `p`.`Product_Id`)))
+        JOIN `cart` `c` ON ((`ci`.`Cart_Id` = `c`.`Cart_Id`)))
+
+orderhistory
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `orderhistory` AS
+    SELECT 
+        `oi`.`Variant_Id` AS `Variant_Id`,
+        `oi`.`Order_Id` AS `Order_id`,
+        `oi`.`Quantity` AS `Quantity`,
+        `v`.`Product_Id` AS `Product_Id`,
+        `p`.`Name` AS `Product_Name`,
+        `o`.`Cart_Id` AS `Cart_Id`,
+        `o`.`Order_Date` AS `Order_Date`,
+        `c`.`User_Id` AS `user_ID`,
+        (`oi`.`Quantity` * `v`.`Price`) AS `Price`
+    FROM
+        ((((`order_item` `oi`
+        LEFT JOIN `orders` `o` ON ((`oi`.`Order_Id` = `o`.`Order_Id`)))
+        LEFT JOIN `cart` `c` ON ((`o`.`Cart_Id` = `c`.`Cart_Id`)))
+        LEFT JOIN `variant` `v` ON ((`oi`.`Variant_Id` = `v`.`Variant_Id`)))
+        LEFT JOIN `product` `p` ON ((`v`.`Product_Id` = `p`.`Product_Id`)))
+
+variation_options_with_types
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `variation_options_with_types` AS
+    SELECT DISTINCT
+        `variant_type`.`Variant_Type_Id` AS `Variant_Type_Id`,
+        `variant_type`.`Variation_Name` AS `Variation_Name`,
+        `variation_option`.`Variation_Option_Id` AS `Variation_Option_Id`,
+        `variation_option`.`Variation_Option_Name` AS `Variation_Option_Name`,
+        `variant_type`.`Product_Category_Id` AS `Product_Category_Id`
+    FROM
+        (`variant_type`
+        JOIN `variation_option`)
+    WHERE
+        (`variant_type`.`Variant_Type_Id` = `variation_option`.`Variant_Type_Id`)
+
+Procedures
+
+FindCategoryOrders
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `FindCategoryOrders`()
+BEGIN
+    SELECT pc.Category_Name, COUNT(DISTINCT o.Order_Id) AS OrderCount
+    FROM product_category pc
+    JOIN product_category_configuration pcc ON pc.Product_Category_Id = pcc.Product_Category_Id
+    JOIN product p ON p.Product_Id = pcc.Product_Id
+    JOIN order_item oi ON oi.Variant_Id = p.Product_Id
+    JOIN orders o ON oi.Order_Id = o.Order_Id
+    GROUP BY pc.Product_Category_Id;
+END
+
+  FindTopSellingProducts
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `FindTopSellingProducts`(IN startDate DATE, IN endDate DATE)
+BEGIN
+    -- Create a temporary table to store the results
+    CREATE TEMPORARY TABLE TempTopSellingProducts AS
+    SELECT
+        p.Variant_Id,
+        IFNULL(SUM(oi.Quantity), 0) AS TotalSales
+    FROM
+        variant p
+    LEFT JOIN
+        order_item oi ON p.Variant_Id = oi.Variant_Id
+    LEFT JOIN
+        orders o ON oi.Order_Id = o.Order_Id
+    WHERE
+        o.Order_Date BETWEEN startDate AND endDate
+    GROUP BY
+        p.Variant_Id
+    ORDER BY
+        TotalSales DESC;
+    
+    -- Select the results from the temporary table
+    SELECT * FROM TempTopSellingProducts;
+    
+    -- Drop the temporary table
+    DROP TEMPORARY TABLE IF EXISTS TempTopSellingProducts;
+END
+
+GetVariantsByOptions
+
+  
+CREATE DEFINER=`root`@`localhost` PROCEDURE `GetVariantsByOptions`(
+    IN OptionIds VARCHAR(255)
+)
+BEGIN
+    DECLARE OptionCount INT;
+
+    -- Calculate the count of elements in the comma-separated list
+    SET OptionCount = LENGTH(OptionIds) - LENGTH(REPLACE(OptionIds, ',', '')) + 1;
+
+    SET @sql = CONCAT(
+        'SELECT Variant_Id
+         FROM variation_configuration
+         WHERE Variation_Option_Id IN (', OptionIds, ')
+         GROUP BY Variant_Id
+         HAVING COUNT(DISTINCT Variation_Option_Id) = ', OptionCount
+    );
+
+    PREPARE dynamic_sql FROM @sql;
+    EXECUTE dynamic_sql;
+    DEALLOCATE PREPARE dynamic_sql;
+END
+
+getDeliveryEstimate
+  
+CREATE DEFINER=`root`@`localhost` FUNCTION `getDeliveryEstimate`(Variant_Id INT) RETURNS int
+    DETERMINISTIC
+BEGIN
+    DECLARE estimatedDays INT;
+    DECLARE productStock INT;
+    DECLARE city VARCHAR(20);
+
+    SELECT a.City INTO city
+    FROM orders o
+    JOIN order_item oi ON o.Order_Id = oi.Order_Id
+    JOIN address a ON o.Address_Id = a.Address_Id
+    WHERE oi.Variant_Id = Variant_Id;
+
+    SELECT v.Quantity INTO productStock
+    FROM variant v
+    WHERE v.Variant_Id = Variant_Id;
+
+    IF productStock > 0 THEN
+        IF city = 'Colombo' THEN
+            SET estimatedDays = 5;
+        ELSE
+            SET estimatedDays = 7;
+        END IF;
+    ELSE
+        IF city = 'Colombo' THEN
+            SET estimatedDays = 5 + 3;
+        ELSE
+            SET estimatedDays = 7 + 3;
+        END IF;
+    END IF;
+
+    RETURN estimatedDays;
+END
+
+
+InsertCartItem
+  
+CREATE DEFINER=`root`@`localhost` FUNCTION `InsertCartItem`(UserId INT, VariantId INT, Quantity INT) RETURNS int
+    DETERMINISTIC
+BEGIN
+  DECLARE CartId INT;
+
+  -- Find the Cart_Id for the given User_Id where Is_Checkout is 0
+  SELECT Cart_Id INTO CartId FROM cart WHERE User_Id = UserId AND Is_Checkout = 0;
+
+  -- Insert data into cart_item table using the found Cart_Id and the provided parameters
+  INSERT INTO cart_item(Cart_Id, Variant_Id, Cart_Item_Quantity)
+  VALUES (CartId, VariantId, Quantity);
+
+  RETURN 1; -- Return 1 to indicate successful insertion
+END
