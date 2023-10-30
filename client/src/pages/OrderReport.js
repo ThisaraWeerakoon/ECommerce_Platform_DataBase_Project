@@ -6,7 +6,6 @@ export default function OrderReport() {
   return (
     <div>
       <OrderHistory/>
-      <ChangeUserName/>
     </div>
   )
 }

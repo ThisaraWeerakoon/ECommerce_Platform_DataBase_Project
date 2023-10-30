@@ -17,7 +17,7 @@ import LogoImage from '../images/logo.jpg';
 import {Link} from 'react-router-dom';
 import {useNavigate} from 'react-router-dom';
 import Popover from '@mui/material/Popover';
-
+import './styles.css';
 
 import Axios from 'axios';
 
@@ -88,6 +88,9 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     }
   };
 
+  const handleCheckout = () => {
+    navigate("/pages/CartPage");
+  }
   
   
   return (
@@ -216,44 +219,47 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                     >
                       <ShoppingCartIcon />
                     </IconButton>
-                  <div>
+                    <div>
                     <Popover
-                        id="cart-popover"
-                        open={Boolean(anchorEl)}
-                        anchorEl={anchorEl}
-                        onClose={handleClose}
-                        anchorOrigin={{
-                          vertical: 'bottom',
-                          horizontal: 'center',
-                        }}
-                        transformOrigin={{
-                          vertical: 'top',
-                          horizontal: 'center',
-                        }}
-                      >
-                        <div>
-                        <Typography sx={{ p: 2 }}>
-                          {cartItems.length > 0 ? (
-                            <div>
-                              <h4>Shopping Cart Items</h4>
-                              <ul>
-                                {cartItems.map((item, index) => (
-                                  <li key={index}>
-                                    Product: {item.Product_Name}, Quantity: {item.Quantity}, Price: {item.Price}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ) : (
-                            <p>Your shopping cart is empty.</p>
-                          )}
-                        </Typography>
-                        </div>
-                      </Popover>
-                      </div>
+  id="cart-popover"
+  open={Boolean(anchorEl)}
+  anchorEl={anchorEl}
+  onClose={handleClose}
+  anchorOrigin={{
+    vertical: 'bottom',
+    horizontal: 'center',
+  }}
+  transformOrigin={{
+    vertical: 'top',
+    horizontal: 'center',
+  }}
+>
+  <div className="cartPopover"> {/* Apply the cartPopover class */}
+    <Typography className="cartPopoverText"> {/* Apply the cartPopoverText class */}
+      {cartItems.length > 0 ? (
+        <div>
+          <h4>Shopping Cart Items</h4>
+          <ul>
+            {cartItems.map((item, index) => (
+              <li key={index}>
+                Product: {item.Product_Name}, Quantity: {item.Quantity}, Price: {item.Price}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p>Your shopping cart is empty.</p>
+      )}
+    </Typography>
+    <div className="cartPopoverButton"> {/* Apply the cartPopoverButton class */}
+      <button onClick={handleCheckout}> CHECKOUT </button>
+    </div>
+  </div>
+</Popover>
 
+                    </div>
 
-                </Tooltip>
+                  </Tooltip>
 
                 <Tooltip title={linkName}>
                   <Dropdown>

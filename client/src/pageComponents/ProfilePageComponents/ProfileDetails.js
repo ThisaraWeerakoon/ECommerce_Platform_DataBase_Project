@@ -74,7 +74,7 @@ const ProfileDetails = () => {
             </div>
             <div className="action-buttons">
               <button onClick={handleEditClick}>Set or Update Default Payment, Address Details</button>
-              <button onClick={handleOrderReport}>Order Report</button>
+              <button onClick={handleOrderReport}>Order History</button>
               <button onClick={handleUserNameChange}>Change User Name</button>
               <button onClick={handleChangePassword}>Change Password</button>
             </div>

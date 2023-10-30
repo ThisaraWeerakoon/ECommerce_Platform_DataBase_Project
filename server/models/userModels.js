@@ -178,7 +178,7 @@ module.exports = class User{
     async fetchOrderHistory(user_id) {
         return new Promise((resolve, reject) => {
           db.query(
-            "SELECT Product_Name,Order_Date , Quantity,Price  FROM orderhistory WHERE User_Id = ?",
+            "SELECT Product_Name,Order_Date , Quantity, Price  FROM orderhistory WHERE User_Id = ?",
             [user_id],
             (err, result) => {
               if (err) {
@@ -210,5 +210,237 @@ module.exports = class User{
           );
         });
     }
+
+    async fetchtotalprice(user_id) {
+      return new Promise((resolve, reject) => {
+        db.query(
+          "SELECT SUM(Price) AS TotalPrice FROM cartview WHERE User_Id = ? GROUP BY User_Id",
+          [user_id],
+          (err, result) => {
+            if (err) {
+              console.log(err);
+              reject(err); // Reject the Promise if there's an error
+            } else {
+              console.log(result);
+              resolve(result); // Resolve the Promise with the result
+            }
+          }
+        );
+      });
+  }
+
+  async fetchpaymentDetails(user_id) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT Payment_Type, Provider, Account_Number, Expiry_Date FROM user_payment_method  WHERE User_Id = ?",
+        [user_id],
+        (err, result) => {
+          console.log(result)
+          if (err) {
+            console.log(issue);
+            reject(err); // Reject the Promise if there's an error
+          } else {
+            console.log(result);
+            resolve(result); // Resolve the Promise with the result
+          }
+        }
+      );
+    });
+}
+
+  async fetchaddressDetails(user_id) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT a.Address_Id, a.House_Number, a.Street_Number, a.Address_Line_1, a.Address_Line_2, a.City, a.Region, a.Postal_Code FROM user_address ua JOIN address a ON ua.Address_Id = a.Address_Id WHERE ua.User_Id = ?",
+        [user_id],
+        (err, result) => {
+          console.log(result)
+          if (err) {
+            console.log(issue);
+            reject(err); // Reject the Promise if there's an error
+          } else {
+            console.log(result);
+            resolve(result); // Resolve the Promise with the result
+          }
+        }
+      );
+    });
+}
+
+async  insertOrder(userID, tPrice) {
+  // Find the cart ID associated with the user
+  db.query(
+      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
+      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      (cartErr, cartResult) => {
+          if (cartErr) {
+              console.log(cartErr);
+          } else {
+              if (cartResult.length === 0) {
+                  // Handle the case where there is no active cart for the user
+                  console.log("No active cart found for the user");
+              } else {
+                  const cartId = cartResult[0].Cart_Id;
+
+                  // Insert a new order record associated with the found cart
+                  db.query(
+                      "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+                      [cartId, new Date(), "Cash", "Pick up", tPrice], // You can set Order_Total to 0 for now
+                      (orderErr, orderResult) => {
+                          if (orderErr) {
+                              console.log(orderErr);
+                          } else {
+                              const orderId = orderResult.insertId;
+
+                              // Insert order items from cart items
+                              db.query(
+                                "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+                                "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item "
+                                ,
+                                  [orderId],
+                                  (itemErr, itemResult) => {
+                                      if (itemErr) {
+                                          console.log(itemErr);
+                                      } else {
+                                          // Clear the cart items for the user
+                                          db.query(
+                                              "DELETE FROM cart_item",
+                                              (deleteErr, deleteResult) => {
+                                                  if (deleteErr) {
+                                                      console.log(deleteErr);
+                                                  } else {
+                                                      console.log("Cart items cleared");
+                                                  }
+                                              }
+                                          );
+                                      }
+                                  }
+                              );
+                          }
+                      }
+                  );
+              }
+          }
+      }
+  );
+}
+
+async  insertOrder2(userID, tPrice) {
+  // Find the cart ID associated with the user
+  db.query(
+      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
+      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      (cartErr, cartResult) => {
+          if (cartErr) {
+              console.log(cartErr);
+          } else {
+              if (cartResult.length === 0) {
+                  // Handle the case where there is no active cart for the user
+                  console.log("No active cart found for the user");
+              } else {
+                  const cartId = cartResult[0].Cart_Id;
+
+                  // Insert a new order record associated with the found cart
+                  db.query(
+                      "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+                      [cartId, new Date(), "Cash on Delivery", "Delivery", tPrice], // You can set Order_Total to 0 for now
+                      (orderErr, orderResult) => {
+                          if (orderErr) {
+                              console.log(orderErr);
+                          } else {
+                              const orderId = orderResult.insertId;
+
+                              // Insert order items from cart items
+                              db.query(
+                                "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+                                "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item "
+                                ,
+                                  [orderId],
+                                  (itemErr, itemResult) => {
+                                      if (itemErr) {
+                                          console.log(itemErr);
+                                      } else {
+                                          // Clear the cart items for the user
+                                          db.query(
+                                              "DELETE FROM cart_item",
+                                              (deleteErr, deleteResult) => {
+                                                  if (deleteErr) {
+                                                      console.log(deleteErr);
+                                                  } else {
+                                                      console.log("Cart items cleared");
+                                                  }
+                                              }
+                                          );
+                                      }
+                                  }
+                              );
+                          }
+                      }
+                  );
+              }
+          }
+      }
+  );
+}
+
+async  insertOrder3(userID, tPrice) {
+  // Find the cart ID associated with the user
+  db.query(
+      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
+      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      (cartErr, cartResult) => {
+          if (cartErr) {
+              console.log(cartErr);
+          } else {
+              if (cartResult.length === 0) {
+                  // Handle the case where there is no active cart for the user
+                  console.log("No active cart found for the user");
+              } else {
+                  const cartId = cartResult[0].Cart_Id;
+
+                  // Insert a new order record associated with the found cart
+                  db.query(
+                      "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+                      [cartId, new Date(), "Card Payment", "Delivery", tPrice], // You can set Order_Total to 0 for now
+                      (orderErr, orderResult) => {
+                          if (orderErr) {
+                              console.log(orderErr);
+                          } else {
+                              const orderId = orderResult.insertId;
+
+                              // Insert order items from cart items
+                              db.query(
+                                "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+                                "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item "
+                                ,
+                                  [orderId],
+                                  (itemErr, itemResult) => {
+                                      if (itemErr) {
+                                          console.log(itemErr);
+                                      } else {
+                                          // Clear the cart items for the user
+                                          db.query(
+                                              "DELETE FROM cart_item",
+                                              (deleteErr, deleteResult) => {
+                                                  if (deleteErr) {
+                                                      console.log(deleteErr);
+                                                  } else {
+                                                      console.log("Cart items cleared");
+                                                  }
+                                              }
+                                          );
+                                      }
+                                  }
+                              );
+                          }
+                      }
+                  );
+              }
+          }
+      }
+  );
+}
+
+
 
 }    

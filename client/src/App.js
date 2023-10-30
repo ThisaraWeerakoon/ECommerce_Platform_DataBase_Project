@@ -8,6 +8,11 @@ import Profile from './pages/Profile';
 import EditPersonalDetails from './pages/EditPersonalDetails';
 import EditUserName from './pages/EditUserName';
 import OrderReport from './pages/OrderReport';
+import CartPage from './pages/CartPage';
+import { Cart } from 'react-bootstrap-icons';
+import Purchase from './pages/Purchase';
+import Purchase2 from './pages/Purchase2';
+import StorePickupOrderSaved from './pages/StorePickupOrderSaved';
 
 
 function App() {
@@ -21,8 +26,11 @@ function App() {
           <Route path="/pages/Profile" element={<Profile/>} />
           <Route path="/pages/Profile/EditPersonalDetails" element={<EditPersonalDetails/>} />
           <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
+          <Route path="/pages/CartPage" element={<CartPage/>} />
+          <Route path="/pages/CartPage/Purchase" element={<Purchase/>} />
+          <Route path="/pages/CartPage/Purchase/Purchase2" element={<Purchase2/>} />
+          <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} /> 
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
-          
 
 
       </Routes>

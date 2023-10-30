@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Order_History.css';
+
 
 export default function OrderHistory() {
   const [orderHistory, setOrderHistory] = useState([]);
@@ -28,12 +30,21 @@ export default function OrderHistory() {
   }
 
   return (
-    <div>
-      <h2>Order History</h2>
-      <p>
-      orderHistory
-      </p>
+      <div className="order-history">
+        <h2>Order History</h2>
+        <ul>
+          {orderHistory.map((order, index) => (
+            <li key={index}>
+              <strong>Product Name:</strong> {order.Product_Name}<br />
+              <strong>Order Date:</strong> {order.Order_Date}<br />
+              <strong>Quantity:</strong> {order.Quantity}<br />
+              <strong className="price">Price:</strong> ${order.Price.toFixed(2)}<br />
+              <hr />
+            </li>
+          ))}
+        </ul>
+      </div>
 
-    </div>
   );
 }
+
