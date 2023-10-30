@@ -6,7 +6,15 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-export default function ItemCard({ image, title, description, button1Label, button2Label }) {
+export default function ItemCard({
+  image,
+  title,
+  description,
+  button1Label,
+  button2Label,
+  onClickButton1,
+  onClickButton2,
+}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -24,8 +32,12 @@ export default function ItemCard({ image, title, description, button1Label, butt
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">{button1Label}</Button>
-        <Button size="small">{button2Label}</Button>
+        <Button size="small" onClick={onClickButton1}>
+          {button1Label}
+        </Button>
+        <Button size="small" onClick={onClickButton2}>
+          {button2Label}
+        </Button>
       </CardActions>
     </Card>
   );
