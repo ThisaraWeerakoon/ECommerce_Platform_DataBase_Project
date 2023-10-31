@@ -6,6 +6,7 @@ router.post("/validateLogin", userController.validateLogin);
 router.post("/register", userController.register);
 router.get("/getSession", userController.getSession);
 router.get("/logout", userController.logout);
+router.post("/addAdmin", userController.addAdmin);
 router.get("/userDetails", userController.userDetails);
 router.post("/userAddress", userController.userAddress);
 router.post("/userPayment", userController.userPayment);
@@ -18,5 +19,6 @@ router.post("/userOrder", userController.userOrder);
 router.post("/userOrder2", userController.userOrder2);
 router.post("/userOrder3", userController.userOrder3);
 
+router.post("/getUsers", userController.getUsers);
 
 module.exports = router

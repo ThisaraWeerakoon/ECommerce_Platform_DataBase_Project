@@ -4,9 +4,11 @@
     background-color: #d8e5f3;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin: 200px;
+    margin: 15px;
     margin-top: 40px;
     max-width: 600px;
+    width: 50%;
+    float: left;
     box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)
   }
   
@@ -57,7 +59,7 @@
 
 /* Section styling */
 #PaymentDetails {
-    position: absolute;
+    /* position: absolute; */
     top: 110px; /* Adjust the top position as needed */
     right: 300px; /* Adjust the right position as needed */
     padding: 20px;
@@ -65,6 +67,9 @@
     border: 1px solid #ddd;
     background-color: #d8e5f3;
     border-radius: 5px;
+    width: 50%;
+    margin-top: 40px;
+    float: right;
     box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)
   }
   

@@ -19,14 +19,16 @@ import {useNavigate} from 'react-router-dom';
 import Popover from '@mui/material/Popover';
 import './styles.css';
 
-import Axios from 'axios';
+import axios from 'axios';
+
 
 const pages = ['Order History', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 Axios.defaults.withCredentials=true;
 
 
-function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, userID=null}) {
+
+function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=false, cartVisibility=true, userID=null}) {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -46,7 +48,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     setAnchorEl(event.currentTarget);
 
     // Fetch shopping cart items when the popover is opened
-    Axios.get('http://localhost:3005/user/cartItems') // Replace with your actual API endpoint
+    axios.get('http://localhost:3005/user/cartItems') // Replace with your actual API endpoint
       .then((response) => {
         console.log("FETCHED :", response.data)
         setCartItems(response.data.items); // Assuming your API response contains an 'items' property
@@ -59,7 +61,6 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     setAnchorEl(null);
   };
   
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -70,7 +71,6 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 
   // Add a click handler for the login button
   const handleClick = () => {
-    // Replace with your login logic or redirection
     console.log("Button clicked");
   };
 
@@ -78,7 +78,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     console.log("Logout clicked");
     console.log("User ID: ", userID);
     if(userID != null){
-      Axios.get('http://localhost:3005/user/logout',{
+      axios.get('http://localhost:3005/user/logout',{
         ID : userID
       }).then(res=> {
         console.log("Logging out");
@@ -97,7 +97,10 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
   
   return (
     <div>
-      <AppBar position="static" style={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
+      <AppBar
+        position="static"
+        style={{ backgroundColor: "transparent", boxShadow: "none" }}
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             <img
@@ -110,21 +113,20 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
               variant="h5"
               noWrap
               component="a"
-              href="/"
               sx={{
                 mr: 2,
-                display: { xs: 'flex', md: 'flex' },
-                fontFamily: 'monospace',
+                display: { xs: "flex", md: "flex" },
+                fontFamily: "monospace",
                 fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'black',
-                textDecoration: 'none',
+                letterSpacing: ".3rem",
+                color: "black",
+                textDecoration: "none",
               }}
             >
               Eagle
             </Typography>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -139,18 +141,18 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                 id="menu-appbar"
                 anchorEl={anchorElNav}
                 anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
+                  vertical: "bottom",
+                  horizontal: "left",
                 }}
                 keepMounted
                 transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
+                  vertical: "top",
+                  horizontal: "left",
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
                 sx={{
-                  display: { xs: 'block', md: 'none' },
+                  display: { xs: "block", md: "none" },
                 }}
               >
                 {pages.map((page) => (
@@ -161,31 +163,34 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
               </Menu>
             </Box>
 
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
                 <Button
                   key={page}
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: 'black', display: 'block' }}
+                  sx={{ my: 2, color: "black", display: "block" }}
                 >
                   {page}
                 </Button>
               ))}
             </Box>
+
             {linkVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
-                <Tooltip title="Open shopping cart">
-                  <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
-                    <ShoppingCartIcon />
-                  </IconButton>
-                </Tooltip>
+                {cartVisibility === true &&
+                  <Tooltip title="Open shopping cart">
+                    <IconButton sx={{ p: 2, color: 'black', fontWeight: 'bold'}}>
+                      <ShoppingCartIcon />
+                    </IconButton>
+                  </Tooltip>
+                }
                 <Link to={linkUrl} className="font-medium text-purple-600 hover:text-purple-500">
                     <Tooltip title={linkName}>
                       <Button onClick={handleClick} sx={{ p: 2, ml: 2, color: 'black', fontWeight: 'bold'}}>
                         {linkName}
                       </Button>
                     </Tooltip>
-                  </Link>
+                </Link>
                 
                 <Menu
                   sx={{ mt: '45px' }}
@@ -213,6 +218,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
             }
             {profileVisibility === true &&
               <Box sx={{ flexGrow: 0, display: 'flex', alignItems: 'center'}}>
+              {cartVisibility === true &&
                 <Tooltip >
                 <IconButton
                       sx={{ p: 2, color: 'black', fontWeight: 'bold' }}
@@ -263,6 +269,43 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 
                   </Tooltip>
 
+                    //     id="cart-popover"
+                    //     open={Boolean(anchorEl)}
+                    //     anchorEl={anchorEl}
+                    //     onClose={handleClose}
+                    //     anchorOrigin={{
+                    //       vertical: 'bottom',
+                    //       horizontal: 'center',
+                    //     }}
+                    //     transformOrigin={{
+                    //       vertical: 'top',
+                    //       horizontal: 'center',
+                    //     }}
+                    //   >
+                    //     <div>
+                    //     <Typography sx={{ p: 2 }}>
+                    //       {cartItems.length > 0 ? (
+                    //         <div>
+                    //           <h4>Shopping Cart Items</h4>
+                    //           <ul>
+                    //             {cartItems.map((item, index) => (
+                    //               <li key={index}>
+                    //                 Product: {item.Product_Name}, Quantity: {item.Quantity}, Price: {item.Price}
+                    //               </li>
+                    //             ))}
+                    //           </ul>
+                    //         </div>
+                    //       ) : (
+                    //         <p>Your shopping cart is empty.</p>
+                    //       )}
+                    //     </Typography>
+                    //     </div>
+                    //   </Popover>
+                    //   </div>
+                    // </Tooltip>
+              }
+
+                
                 <Tooltip title={linkName}>
                   <Dropdown>
                     <Dropdown.Toggle variant="Secondary" id="dropdown-basic">
@@ -286,28 +329,31 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
                 </Tooltip>
               
                 <Menu
-                  sx={{ mt: '45px' }}
+                  sx={{ mt: "45px" }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   keepMounted
                   transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
+                    vertical: "top",
+                    horizontal: "right",
                   }}
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
                   {settings.map((setting) => (
                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                      <Typography textAlign="center" style={{ color: 'black' }}>{setting}</Typography>
+                      <Typography textAlign="center" style={{ color: "black" }}>
+                        {setting}
+                      </Typography>
                     </MenuItem>
                   ))}
                 </Menu>
               </Box>
+
             }            
           </Toolbar>
         </Container>
@@ -317,5 +363,3 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
 
 }
 export default Header;
-
-

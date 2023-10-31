@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../components/Header';
+import {BsJustify} from 'react-icons/bs';
+import './style.css';
 
-axios.defaults.withCredentials = true;
-const EditPersonalDetailsPageheading = () => {
+//axios.defaults.withCredentials = true;
+
+const AdminPanelHeader = ({OpenSidebar}) => {
   const [name, setName] = useState('');
   const [id, setId] = useState('');
   const navigate = useNavigate();
@@ -33,8 +36,12 @@ const EditPersonalDetailsPageheading = () => {
         cartVisibility={false}
         userID={id}
       />
+      <div className='menu-icon' sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+        <BsJustify className='icon' onClick={OpenSidebar}/>
+      </div>
     </div>
-  );
+  )
 }
 
-export default EditPersonalDetailsPageheading
+
+export default AdminPanelHeader;

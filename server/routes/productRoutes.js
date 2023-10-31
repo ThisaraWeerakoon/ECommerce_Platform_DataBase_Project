@@ -14,5 +14,6 @@ router.get("/getVariantTypesAndOptions",productController.getVariantTypesAndOpti
 router.get("/getVariantsByOptions",productController.getVariantsByOptions);
 router.get("/getVariantItemDetails",productController.getVariantItemDetails);
 router.get("/insertCartItem",productController.insertCartItem);
+router.get("/getInventory", productController.getInventory);
 
 module.exports = router

@@ -42,7 +42,7 @@ function EditAddress() {
   };
 
   return (
-    <section id="EditAddress" className="block block-login">
+    <section id="EditAddress" className="block block-login" >
       <Form>
         <Row>
           <Col md={6}>
