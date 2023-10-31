@@ -10,7 +10,6 @@ import AdminPanelViewInventory from './pages/AdminPanelViewInventory';
 import AdminPanelViewReports from './pages/AdminPanelViewReports';
 import AdminPanelViewOrders from './pages/AdminPanelViewOrders';
 import AdminPanelAddEmployees from './pages/AdminPanelAddEmployees';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './pages/Profile';
 import EditPersonalDetails from './pages/EditPersonalDetails';
 import EditUserName from './pages/EditUserName';

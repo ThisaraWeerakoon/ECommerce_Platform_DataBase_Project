@@ -24,7 +24,7 @@ import axios from 'axios';
 
 const pages = ['Order History', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-Axios.defaults.withCredentials=true;
+axios.defaults.withCredentials=true;
 
 
 
