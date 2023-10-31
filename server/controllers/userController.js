@@ -536,12 +536,23 @@ module.exports = {
   
       // Insert the payment details into the database
       const orderDetails = await userObj.insertOrder2(userId, tPrice);
-  
+      console.log("Delivery Estimate: ", orderDetails);
       if (orderDetails) {
+        var session = req.session;
+        session.DelResult = orderDetails;
+        session.save();
+        console.log(session);
+
+        // res.status(200).json({
+        //   Login: true,
+        //   user: req.session.user,
+        //   type: loginResultObj.User_Type,
+        // });
         // Payment details were successfully inserted
         res.status(200).json({
           message: "Order details saved successfully",
           paymentDetails,
+          DelResult: req.session.DelResult,
         });
       } else {
         // Failed to save the payment details

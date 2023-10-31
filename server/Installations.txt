@@ -5,3 +5,4 @@ Client ->
 For routes in react: npm i -D react-router-dom@latest
 To pick dates: npm install react-datepicker 
 Dropdown: npm install react-bootstrap bootstrap
+recharts: npm install recharts

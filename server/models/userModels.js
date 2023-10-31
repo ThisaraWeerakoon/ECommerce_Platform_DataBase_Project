@@ -451,6 +451,18 @@ module.exports = class User {
                       }
                     }
                   );
+                  db.query(
+                    "SELECT MAX(getDeliveryEstimate(Variant_Id)) FROM order_item WHERE Order_Id = ? ",
+                    [orderId],
+                    (itemErr, itemResult) => {
+                      if (itemErr) {
+                        console.log(itemErr);
+                      } else {
+                        console.log("Delivery Estimate: ", itemResult);
+                        return(itemResult);
+                      }
+                    }
+                  );
                 }
               }
             );
