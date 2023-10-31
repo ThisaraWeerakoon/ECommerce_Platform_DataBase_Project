@@ -1,6 +1,7 @@
 SELECT 
     name,
-    category_name
+    category_name,
+    p.Product_Id
 FROM product p
 JOIN product_category_configuration pcc
 	ON p.Product_Id = pcc.Product_Id

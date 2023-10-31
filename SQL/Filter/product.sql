@@ -3,7 +3,9 @@ SELECT
     p.Name AS product,
     pc.Category_Name,
     v.Weight,
-    v.Quantity
+    v.Quantity,
+    vt.Variation_Name,
+    vo.Variation_Option_Name
 FROM
     product p
 INNER JOIN product_category_configuration pcc ON p.Product_Id = pcc.Product_Id
@@ -15,6 +17,6 @@ INNER JOIN variant v ON vc.Variant_Id = v.Variant_Id
 WHERE v.Product_Id = p.Product_Id
 -- WHERE
 --     p.name = "Samsung S21"
-GROUP BY
-    p.Name, pc.Category_Name, v.SKU, v.Weight, v.Quantity
+-- GROUP BY
+--     p.Name, pc.Category_Name, v.SKU, v.Weight, v.Quantity
 LIMIT 0, 1000;
