@@ -20,5 +20,5 @@ BEGIN
     PREPARE dynamic_sql FROM @sql;
     EXECUTE dynamic_sql;
     DEALLOCATE PREPARE dynamic_sql;
-END //
-DELIMITER ;
+END//
+DELIMITER;
