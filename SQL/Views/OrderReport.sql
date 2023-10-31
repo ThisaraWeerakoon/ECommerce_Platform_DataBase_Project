@@ -1,8 +1,11 @@
--- DROP VIEW All_product_In_Store;
+-- DROP VIEW OrderReport;
 
 -- CREATE VIEW OrderReport AS
 
 SELECT 
+    u.First_Name,
+    u.Last_Name,
+    u.Email,
 	o.Order_Date,
     o.Payment_Method,
     o.Delivery_Method_Name,
@@ -20,7 +23,4 @@ INNER JOIN user u ON c.User_Id = u.User_Id
 INNER JOIN user_address ua ON u.User_Id = ua.User_Id
 INNER JOIN address a ON ua.Address_Id = a.Address_Id
 
-
-
--- I comment First 2 code because it will get error
--- But there are in the code
+ORDER BY o.Order_Date DESC
