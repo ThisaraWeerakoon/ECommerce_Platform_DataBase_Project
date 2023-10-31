@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import BusinessCenterIcon from "@mui/icons-material/BusinessCenter";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import DashboardCustomizeIcon from "@mui/icons-material/DashboardCustomize";
 import { Link } from "react-router-dom";
 
 function Sidebar({ openSidebarToggle, OpenSidebar }) {
@@ -34,18 +33,13 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="addEmployees" style={{ textDecoration: "none" }}>
+          <Link to="/pages/AdminPanel/AdminPanelAddEmployees" style={{ textDecoration: "none" }}>
             <PersonAddIcon className="icon" /> Add Employees
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="viewCustomer" style={{ textDecoration: "none" }}>
+          <Link to="/pages/AdminPanel/AdminPanelViewCustomers" style={{ textDecoration: "none" }}>
             <PeopleAltIcon className="icon" /> Customers
-          </Link>
-        </li>
-        <li className="sidebar-list-item">
-          <Link to="\viewEmployees.js" style={{ textDecoration: "none" }}>
-            <DashboardCustomizeIcon className="icon" /> Catalog
           </Link>
         </li>
         <li className="sidebar-list-item">
@@ -54,12 +48,12 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="\viewEmployees.js" style={{ textDecoration: "none" }}>
+          <Link to="/pages/AdminPanel/AdminPanelViewInventory" style={{ textDecoration: "none" }}>
             <BsListCheck className="icon" /> Inventory
           </Link>
         </li>
         <li className="sidebar-list-item">
-          <Link to="\viewEmployees.js" style={{ textDecoration: "none" }}>
+          <Link to="/pages/AdminPanel/AdminPanelViewOrders" style={{ textDecoration: "none" }}>
             <BsMenuButtonWideFill className="icon" /> Orders
           </Link>
         </li>

@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
 import Axios from 'axios';
 import './Edit_Address.css';
 

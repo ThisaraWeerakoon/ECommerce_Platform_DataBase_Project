@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css";
 import AdminPanelHeader from "../pageComponents/AdminPanelComponents/AdminPanelHeader";
 import AdminPanelSideBar from "../pageComponents/AdminPanelComponents/AdminPanelSideBar";
-import AdminPanelDashBoard from "../pageComponents/AdminPanelComponents/AdminPanelDashBoard";
+import APViewEmployees from "../pageComponents/AdminPanelComponents/APViewEmployees";
 
 function AdminPanelViewEmployees() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -18,8 +18,8 @@ function AdminPanelViewEmployees() {
         <AdminPanelSideBar
           openSidebarToggle={openSidebarToggle}
           OpenSidebar={OpenSidebar}
-        /> 
-        <AdminPanelDashBoard />
+        />
+        <APViewEmployees />
       </div>
     </div>
   );

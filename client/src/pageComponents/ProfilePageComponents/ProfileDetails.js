@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Image from 'react-bootstrap/Image';
-import ProfilePic from '/Users/nisith/Documents/GitHub/ECommerce_Platform_DataBase_Project/client/src/images/Other/Profile_image.jpeg';
+import ProfilePic from './Other/Profile_image.jpeg';
 import Row from 'react-bootstrap/Row';
 import axios from 'axios';
 import './Profile_Image.css';

@@ -29,12 +29,13 @@ app.use(sessions({
 }));
 
 const userRouter = require("./routes/userRoutes");
+const reportsRouter = require("./routes/reportsRoutes");
 const productRouter = require("./routes/productRoutes");
 const errorController = require("./controllers/errorController");
 
 app.use("/user", userRouter);
 app.use("/product", productRouter);
-
+app.use("/reports", reportsRouter);
 
 app.use(errorController.get404);
 app.use(errorController.get500);

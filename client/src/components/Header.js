@@ -19,8 +19,8 @@ import {useNavigate} from 'react-router-dom';
 import Popover from '@mui/material/Popover';
 
 
-import Axios from 'axios';
-
+import axios from 'axios';
+axios.defaults.withCredentials = true;
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -43,7 +43,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     setAnchorEl(event.currentTarget);
 
     // Fetch shopping cart items when the popover is opened
-    Axios.get('http://localhost:3005/user/cartItems') // Replace with your actual API endpoint
+    axios.get('http://localhost:3005/user/cartItems') // Replace with your actual API endpoint
       .then((response) => {
         console.log("FETCHED :", response.data)
         setCartItems(response.data.items); // Assuming your API response contains an 'items' property
@@ -56,7 +56,6 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     setAnchorEl(null);
   };
   
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
@@ -74,7 +73,7 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
     console.log("Logout clicked");
     console.log("User ID: ", userID);
     if(userID != null){
-      Axios.get('http://localhost:3005/user/logout',{
+      axios.get('http://localhost:3005/user/logout',{
         ID : userID
       }).then(res=> {
         console.log("Logging out");
@@ -85,8 +84,6 @@ function Header({linkName, linkUrl="#", linkVisibility=false, profileVisibility=
       });
     }
   };
-
-  
   
   return (
     <div>

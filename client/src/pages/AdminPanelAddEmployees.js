@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import "../App.css";
 import AdminPanelHeader from "../pageComponents/AdminPanelComponents/AdminPanelHeader";
 import AdminPanelSideBar from "../pageComponents/AdminPanelComponents/AdminPanelSideBar";
-import AdminPanelDashBoard from "../pageComponents/AdminPanelComponents/AdminPanelDashBoard";
+import APAddEmployees from "../pageComponents/AdminPanelComponents/APAddEmployees";
 
-function AdminPanel() {
+function AdminPanelViewReports() {
   const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
 
   const OpenSidebar = () => {
@@ -18,11 +18,11 @@ function AdminPanel() {
         <AdminPanelSideBar
           openSidebarToggle={openSidebarToggle}
           OpenSidebar={OpenSidebar}
-        /> 
-        <AdminPanelDashBoard />
+        />
+        <APAddEmployees />
       </div>
     </div>
   );
 }
 
-export default AdminPanel;
+export default AdminPanelViewReports;

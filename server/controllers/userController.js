@@ -33,16 +33,14 @@ module.exports = {
         var session = req.session;
         session.user = user;
         session.save();
-        console.log("session created")
+        console.log("session created");
         console.log(session);
 
-        res
-          .status(200)
-          .json({
-            Login: true,
-            user: req.session.user,
-            type: loginResultObj.User_Type,
-          });
+        res.status(200).json({
+          Login: true,
+          user: req.session.user,
+          type: loginResultObj.User_Type,
+        });
       } else {
         res.status(401).json({
           message: "Login not successful",
@@ -74,6 +72,38 @@ module.exports = {
         email,
         phoneNumber,
         hashPassword
+      );
+      res.status(200).json({
+        message: "User successfully created",
+        user,
+      });
+    } catch (err) {
+      res.status(401).json({
+        message: "User not successfully created",
+        error: err.message,
+      });
+    }
+  },
+
+  addAdmin: async (req, res) => {
+    const email = req.body.email;
+    const password = req.body.newPassword;
+    const phoneNumber = req.body.phoneNumber;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const role = "admin";
+
+    // Encrypt the password
+    const hashPassword = createHash("sha256").update(password).digest("hex");
+
+    try {
+      const user = await userObj.insertAdmin(
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        hashPassword,
+        role
       );
       res.status(200).json({
         message: "User successfully created",
@@ -138,6 +168,29 @@ module.exports = {
     }
   },
 
+  getUsers: async (req, res) => {
+    try {
+      const role = req.body.role;
+      const userResultJSONArray = [];
+      const userResult = await userObj.fetchUsers(role);
+      console.log("userResult: ", userResult);
+      for (let i = 0; i < userResult.length; i++) {
+        const userResultJSON = JSON.stringify(userResult[i]);
+        const userResultJSONparsed = JSON.parse(userResultJSON);
+        userResultJSONArray.push(userResultJSONparsed);
+      }
+
+      console.log("userResultJSON: ", userResultJSONArray);
+      res.status(200).json(userResultJSONArray);
+    } catch (err) {
+      console.log("Error found:", err);
+      return res.status(500).json({
+        message: "An error occurred while fetching user details.",
+        error: err.message,
+      });
+    }
+  },
+
   userDetails: async (req, res) => {
     try {
       console.log("Trying");
@@ -146,19 +199,18 @@ module.exports = {
           message: "User not authenticated.",
         });
       }
-  
+
       const userId = req.session.user.userID;
       const user = await userObj.fetchUserDetails(userId);
-  
+
       if (user.length > 0) {
         const userDetailsObj = user[0];
-  
+
         const fName = userDetailsObj.First_Name;
         const lName = userDetailsObj.Last_Name;
         const email = userDetailsObj.Email;
         const mobile = userDetailsObj.Phone_Number;
 
-  
         return res.status(200).json({
           message: "User details fetched successfully.",
           user: {
@@ -181,13 +233,11 @@ module.exports = {
       });
     }
   },
-  
 
   userAddress: async (req, res) => {
     try {
-      
       const userId = req.session.user.userID; // Get the user ID from the session
-      console.log(req.body)
+      console.log(req.body);
       const House_Number = req.body.houseNumber;
       const Street_Number = req.body.streetNumber;
       const Address_Line_1 = req.body.addressLine1;
@@ -196,10 +246,19 @@ module.exports = {
       const Region = req.body.region;
       const Postal_Code = req.body.postalCode;
 
-      console.log(City)
+      console.log(City);
       // Insert the address into the database
-      const address = await userObj.insertAddress(userId, House_Number, Street_Number, Address_Line_1, Address_Line_2, City, Region, Postal_Code);
-  
+      const address = await userObj.insertAddress(
+        userId,
+        House_Number,
+        Street_Number,
+        Address_Line_1,
+        Address_Line_2,
+        City,
+        Region,
+        Postal_Code
+      );
+
       if (address) {
         // Address was successfully inserted
         res.status(200).json({
@@ -221,19 +280,24 @@ module.exports = {
   },
 
   userPayment: async (req, res) => {
-    console.log("Payment details reached the backend")
+    console.log("Payment details reached the backend");
     try {
-      
       const userId = req.session.user.userID; // Get the user ID from the session
 
       const Payment_Type = req.body.Payment_Type;
       const Provider = req.body.Provider;
       const Account_Number = req.body.Account_Number;
       const Expiry_Date = req.body.Expiry_Date;
-  
+
       // Insert the payment details into the database
-      const paymentDetails = await userObj.insertPaymentDetails(userId, Payment_Type, Provider, Account_Number, Expiry_Date);
-  
+      const paymentDetails = await userObj.insertPaymentDetails(
+        userId,
+        Payment_Type,
+        Provider,
+        Account_Number,
+        Expiry_Date
+      );
+
       if (paymentDetails) {
         // Payment details were successfully inserted
         res.status(200).json({
@@ -247,29 +311,28 @@ module.exports = {
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the payment details",
         error: err.message,
       });
     }
   },
-  
+
   orderHistory: async (req, res) => {
-    try{
+    try {
       const userId = req.session.user.userID;
 
       const user = await userObj.fetchOrderHistory(userId);
-  
+
       if (user.length > 0) {
         const userDetailsObj = user[0];
-  
+
         const pName = userDetailsObj.Product_Name;
         const Date = userDetailsObj.Order_Date;
         const quantity = userDetailsObj.Quantity;
         const price = userDetailsObj.Price;
 
-        
         return res.status(200).json({
           message: "Order history fetched successfully.",
           user: {
@@ -291,37 +354,30 @@ module.exports = {
         error: err.message,
       });
     }
-
   },
 
   cartItems: async (req, res) => {
     try {
       const userId = req.session.user.userID;
-  
+
       const cartItems = await userObj.fetchCartItems(userId); // Assuming you have an executeQuery method
-      console.log(cartItems)
+      console.log(cartItems);
       if (cartItems.length > 0) {
         return res.status(200).json({
-          message: 'Cart items fetched successfully.',
+          message: "Cart items fetched successfully.",
           items: cartItems, // Send the array of cart items
         });
       } else {
         return res.status(404).json({
-          message: 'No cart items found.',
+          message: "No cart items found.",
         });
       }
     } catch (err) {
-      console.log('Error found:', err);
+      console.log("Error found:", err);
       return res.status(500).json({
-        message: 'An error occurred while fetching cart items',
+        message: "An error occurred while fetching cart items",
         error: err.message,
       });
     }
-  }
-  
-    
+  },
 };
-  
-
-
-

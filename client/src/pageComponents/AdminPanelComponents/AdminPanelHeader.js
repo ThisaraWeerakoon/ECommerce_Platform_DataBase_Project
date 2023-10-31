@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import {BsJustify} from 'react-icons/bs';
 import './style.css';
 
-axios.defaults.withCredentials = true;
+//axios.defaults.withCredentials = true;
 
 const AdminPanelHeader = ({OpenSidebar}) => {
   const [name, setName] = useState('');

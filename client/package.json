@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.9",
     "@mui/material": "^5.14.10",
+    "@mui/x-data-grid": "^6.17.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -17,9 +18,7 @@
     "react-anchor-link-smooth-scroll": "^1.0.12",
     "react-bootstrap": "^2.8.0",
     "react-bootstrap-icons": "^1.10.3",
-
     "react-bootstrap-sidebar-menu": "^2.0.3",
-
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-redux": "^8.1.3",

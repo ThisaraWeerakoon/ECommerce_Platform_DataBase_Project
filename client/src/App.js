@@ -5,8 +5,11 @@ import SignUpPage from './pages/SignUpPage';
 import CustomerHomePage from './pages/CustomerHomePage';
 import AdminPanel from "./pages/AdminPanel";
 import AdminPanelViewEmployees from './pages/AdminPanelViewEmployees';
+import AdminPanelViewCustomers from './pages/AdminPanelViewCustomers';
+import AdminPanelViewInventory from './pages/AdminPanelViewInventory';
 import AdminPanelViewReports from './pages/AdminPanelViewReports';
 import AdminPanelViewOrders from './pages/AdminPanelViewOrders';
+import AdminPanelAddEmployees from './pages/AdminPanelAddEmployees';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Profile from './pages/Profile';
 import EditPersonalDetails from './pages/EditPersonalDetails';
@@ -24,15 +27,15 @@ function App() {
           <Route path="/pages/CustomerHomePage" element={<CustomerHomePage/>} />
           <Route path="/pages/AdminPanel" element={<AdminPanel />} />
           <Route path="/pages/AdminPanel/AdminPanelViewEmployees" element={<AdminPanelViewEmployees />} />
+          <Route path="/pages/AdminPanel/AdminPanelViewCustomers" element={<AdminPanelViewCustomers/>} />
           <Route path="/pages/AdminPanel/AdminPanelViewReports" element={<AdminPanelViewReports />} />
           <Route path="/pages/AdminPanel/AdminPanelViewOrders" element={<AdminPanelViewOrders />} />
+          <Route path="/pages/AdminPanel/AdminPanelViewInventory" element={<AdminPanelViewInventory />} />
+          <Route path="/pages/AdminPanel/AdminPanelAddEmployees" element={<AdminPanelAddEmployees/>} />
           <Route path="/pages/Profile" element={<Profile/>} />
           <Route path="/pages/Profile/EditPersonalDetails" element={<EditPersonalDetails/>} />
           <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
-          
-
-
       </Routes>
     </BrowserRouter>
   );
