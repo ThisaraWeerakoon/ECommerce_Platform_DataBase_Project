@@ -314,6 +314,7 @@ module.exports = {
       const paymentDetails = await userObj.fetchpaymentDetails(userId);
   
       if (paymentDetails) {
+        console.log(paymentDetails);
         const payObj = paymentDetails[0];
         const Payment_Type = payObj.Payment_Type;
         const Provider = payObj.Provider;

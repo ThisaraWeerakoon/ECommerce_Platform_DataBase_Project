@@ -71,6 +71,7 @@ const ProductItem = ({ name, description, image, variants }) => {
               <VariantDropdown
                 options={variant.Variation_Options}
                 selectedValue={selectedValues[variant.Variation_Name] || ''}
+                // selectedValue={ '' }
                 onSelect={(value) => handleVariantChange(variant.Variation_Name, value)}
               />              
             </div>

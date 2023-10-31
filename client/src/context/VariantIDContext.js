@@ -2,7 +2,7 @@ import { createContext, useState } from "react"
 export const  VarientItemContext = createContext(null)
 
 function ProductIDContext(props) {
-  const [selectedVariantID, setSelectedVariantID] = useState('10');
+  const [selectedVariantID, setSelectedVariantID] = useState('3');
 //   const [userType, setUserType] = useState("guest")
 
 //   const login = (user) => {

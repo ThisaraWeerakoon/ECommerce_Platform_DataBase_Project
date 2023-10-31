@@ -270,8 +270,8 @@ module.exports = class User{
 async  insertOrder(userID, tPrice) {
   // Find the cart ID associated with the user
   db.query(
-      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
-      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      "SELECT Cart_Id FROM cart WHERE User_Id = ? ",
+      [userID], // Assuming Is_Checkout is a flag indicating an active cart
       (cartErr, cartResult) => {
           if (cartErr) {
               console.log(cartErr);
@@ -328,8 +328,8 @@ async  insertOrder(userID, tPrice) {
 async  insertOrder2(userID, tPrice) {
   // Find the cart ID associated with the user
   db.query(
-      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
-      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      "SELECT Cart_Id FROM cart WHERE User_Id = ?",
+      [userID], // Assuming Is_Checkout is a flag indicating an active cart
       (cartErr, cartResult) => {
           if (cartErr) {
               console.log(cartErr);
@@ -386,8 +386,8 @@ async  insertOrder2(userID, tPrice) {
 async  insertOrder3(userID, tPrice) {
   // Find the cart ID associated with the user
   db.query(
-      "SELECT Cart_Id FROM cart WHERE User_Id = ? AND Is_Checkout = ?",
-      [userID, 1], // Assuming Is_Checkout is a flag indicating an active cart
+      "SELECT Cart_Id FROM cart WHERE User_Id = ? ",
+      [userID], // Assuming Is_Checkout is a flag indicating an active cart
       (cartErr, cartResult) => {
           if (cartErr) {
               console.log(cartErr);
