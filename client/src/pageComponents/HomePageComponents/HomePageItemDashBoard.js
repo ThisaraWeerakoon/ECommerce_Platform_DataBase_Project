@@ -88,7 +88,7 @@ const HomePageItemDashBoard = () => {
             setSelectedCategory({Product_Category_Id:category.Product_Category_Id,Category_Name:category.Category_Name});
             // history.push('../pages/ProductsPage');
 
-            navigate("/pages/SubCategoryPage");
+            navigate(`/pages/SubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`);
 
           }
         }

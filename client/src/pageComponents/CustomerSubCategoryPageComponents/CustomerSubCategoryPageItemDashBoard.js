@@ -18,6 +18,8 @@ import ItemCard from '../../components/itemCard';
 export default function CustomerSubCategoryPageItemDashBoard() {
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
 
+  const { Product_Category_Id,Category_Name } = useParams();
+
   console.log("Selected Category ID:", selectedCategory);
 
   const [subCategories, setSubCategories] = useState([]);
@@ -26,7 +28,7 @@ export default function CustomerSubCategoryPageItemDashBoard() {
   const route_path = "/Catagories/";
 
   useEffect(() => {
-    axios.get('http://localhost:3005/product/getSubCategories', { params: { selectedCategoryID: selectedCategory.Product_Category_Id } })
+    axios.get('http://localhost:3005/product/getSubCategories', { params: { selectedCategoryID: Product_Category_Id } })
       .then(res => {
         // console.log("res.data",res.data);
         const parsedSubCategories = JSON.parse(res.data);
@@ -45,7 +47,7 @@ export default function CustomerSubCategoryPageItemDashBoard() {
       if (Array.isArray(parsedSubCategories) && parsedSubCategories.length === 0) {
         // The JSON object is an empty array
         console.log("The JSON object is an empty array");
-        navigate("/pages/CustomerProductsPage");
+        navigate(`/pages/CustomerProductsPage/${Product_Category_Id}/${Category_Name}`);
         // Handle the case when the array is empty, e.g., show a message
       } else {
         // The JSON object is not an empty array
@@ -55,7 +57,7 @@ export default function CustomerSubCategoryPageItemDashBoard() {
       }
     })
       .catch(err => console.log(err));
-  }, [selectedCategory.Product_Category_Id]);
+  }, [Product_Category_Id]);
 
   // console.log("SubCategories outside", subCategories);
 
@@ -89,7 +91,7 @@ export default function CustomerSubCategoryPageItemDashBoard() {
          console.log("Selected Category ID inside onClickButton1:", subCategory.Product_Category_Id);
          // history.push('../pages/ProductsPage');
 
-         navigate("/pages/CustomerSubCategoryPage");
+         navigate(`/pages/CustomerSubCategoryPage/${subCategory.Product_Category_Id}/${subCategory.Category_Name}`);
 
        }
      }

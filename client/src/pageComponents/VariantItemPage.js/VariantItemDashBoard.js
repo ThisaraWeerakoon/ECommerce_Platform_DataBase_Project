@@ -6,17 +6,20 @@ import { VarientItemContext } from '../../context/VariantIDContext';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 function VariantItemDashBoard() {
 
 
     const {selectedProductID, setSelectedProductID} = useContext(ProductContext);
     const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
-    const {selectedVariantID,setSelectedVariantID} = useContext(VarientItemContext);
+    // const {selectedVariantID,setSelectedVariantID} = useContext(VarientItemContext);
     const [productDetails, setProductDetails] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [variantItemDetails,setVariantItemDetails]= useState(null);
     const navigate=useNavigate();
+
+   const {Product_Category_Id,Category_Name,Product_Id,selectedVariantID}=useParams();
 
 
     const handleQuantityChange = (event) => {
@@ -35,7 +38,7 @@ function VariantItemDashBoard() {
     const route_path = "/ProductImages/";
 
     useEffect(() => {
-      axios.get('http://localhost:3005/product/getProductItemDetails', { params: { selectedProductID: selectedProductID } })
+      axios.get('http://localhost:3005/product/getProductItemDetails', { params: { selectedProductID: Product_Id } })
         .then(res => {
           const parsedProductDetails = JSON.parse(res.data);
           console.log("Parsed Product Details",parsedProductDetails);
@@ -44,7 +47,7 @@ function VariantItemDashBoard() {
   
       })
         .catch(err => console.log(err));
-    }, []);
+    }, [Product_Category_Id]);
 
     useEffect(() => {
         axios.get('http://localhost:3005/product/getVariantItemDetails', { params: { selectedVariantID: selectedVariantID } })
@@ -66,7 +69,7 @@ function VariantItemDashBoard() {
             {console.log("setVariantItemDetails",variantItemDetails)};
         {productDetails && productDetails.length > 0 && (
             <div className="product-container">
-            <img className="product-image" src={route_path + selectedCategory.Category_Name+"/"+productDetails[0].Product_Image} alt="Product Image" />
+            <img className="product-image" src={route_path + Category_Name+"/"+productDetails[0].Product_Image} alt="Product Image" />
             {variantItemDetails && variantItemDetails.length>0 && (
                             <div className="product-details">
                             <h1>{productDetails[0].Name}</h1>

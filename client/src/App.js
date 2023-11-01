@@ -67,15 +67,15 @@ function App() {
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
 
 
-          <Route path="/pages/SubCategoryPage" element={<SubCategoryPage/>}/>
+          <Route path="/pages/SubCategoryPage/:Product_Category_Id/:Category_Name" element={<SubCategoryPage/>}/>
           <Route path="/pages/SamplePage" element={<SamplePage/>}/>
-          <Route path="/pages/CustomerSubCategoryPage" element={<CustomerSubCategoryPage/>}/>
-          <Route path="/pages/ProductsPage" element={<ProductsPage/>}/>
-          <Route path="/pages/CustomerProductsPage" element={<CustomerProductsPage/>}/>
-          <Route path="/pages/ProductItemPage" element={<ProductItemPage/>}/>
-          <Route path="/pages/VariantItemPage" element={<VariantItemPage/>}/>
-          <Route path="/pages/CustomerProductItemPage" element= {<CustomerProductItemPage/>}/>
-          <Route path="pages/CustomerVariantItemPage" element={<CustomerVariantItemPage/>}/>
+          <Route path="/pages/CustomerSubCategoryPage/:Product_Category_Id/:Category_Name" element={<CustomerSubCategoryPage/>}/>
+          <Route path="/pages/ProductsPage/:Product_Category_Id/:Category_Name" element={<ProductsPage/>}/>
+          <Route path="/pages/CustomerProductsPage/:Product_Category_Id/:Category_Name" element={<CustomerProductsPage/>}/>
+          <Route path="/pages/ProductItemPage/:Product_Category_Id/:Category_Name/:Product_Id" element={<ProductItemPage/>}/>
+          <Route path="/pages/VariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<VariantItemPage/>}/>
+          <Route path="/pages/CustomerProductItemPage/:Product_Category_Id/:Category_Name/:Product_Id" element= {<CustomerProductItemPage/>}/>
+          <Route path="pages/CustomerVariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<CustomerVariantItemPage/>}/>
 
       </Routes>
     </BrowserRouter>

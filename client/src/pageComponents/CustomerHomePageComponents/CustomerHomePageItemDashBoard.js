@@ -183,8 +183,7 @@ const CustomerHomePageItemDashBoard = () => {
           {      
             setSelectedCategory({Product_Category_Id:category.Product_Category_Id,Category_Name:category.Category_Name});
             // history.push('../pages/ProductsPage');
-
-            navigate("/pages/CustomerSubCategoryPage");
+            navigate(`/pages/CustomerSubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`);
 
           }
         }
