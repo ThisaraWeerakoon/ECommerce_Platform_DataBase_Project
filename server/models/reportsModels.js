@@ -24,8 +24,9 @@ module.exports = class Report {
   async getTopSelling() {
     return new Promise((resolve, reject) => {
       try {
+        console.log("Inside getTopSelling model");
         db.query(
-          "CALL FindTopSellingProducts('2023-10-01 00:00:00',CURRENT_TIMESTAMP)",
+          "CALL FindTopSellingProducts('2023-10-31 00:00:00',CURRENT_TIMESTAMP)",
           [],
           (err, result) => {
             if (err) {

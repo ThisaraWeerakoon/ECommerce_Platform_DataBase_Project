@@ -13,12 +13,16 @@ import { CategoryContext } from '../../context/CategoryDetailsContext';
 import { useContext } from 'react';
 import { useState } from 'react';
 import ItemCard from '../../components/itemCard';
+import { ProductContext } from '../../context/ProductIDContext';
 
 
-export default function CustomerProductsPageItemDashBoard() {
+export default function ProductsPageItemDashBoard() {
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
+  const {selectedProductID, setSelectedProductID} = useContext(ProductContext);
 
-  console.log("Selected Category ID:", selectedCategory.Product_Category_Id);
+  const {Product_Category_Id,Category_Name} = useParams();
+
+  console.log("Selected Category ID in ProductssPage:", Product_Category_Id);
 
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -26,7 +30,7 @@ export default function CustomerProductsPageItemDashBoard() {
   const route_path = "/ProductImages/";
 
   useEffect(() => {
-    axios.get('http://localhost:3005/product/getProducts', { params: { selectedCategoryID: selectedCategory.Product_Category_Id } })
+    axios.get('http://localhost:3005/product/getProducts', { params: { selectedCategoryID: Product_Category_Id } })
       .then(res => {
         // console.log("res.data",res.data);
         const parsedProductDetails = JSON.parse(res.data);
@@ -36,7 +40,7 @@ export default function CustomerProductsPageItemDashBoard() {
 
     })
       .catch(err => console.log(err));
-  }, [selectedCategory.Product_Category_Id]);
+  }, [Product_Category_Id]);
 
   // console.log("SubCategories outside", subCategories);
 
@@ -55,11 +59,13 @@ export default function CustomerProductsPageItemDashBoard() {
     }} >
 {products.map((product, index) => {
   console.log("SubCategory",product); 
+  console.log("Image URL:", route_path + Category_Name + "/" + product.Product_Image);
+
 
  return (
    <ItemCard
      key={index}
-     image={route_path +"/"+ selectedCategory.Category_Name+"/"+product.Product_Image}
+     image={route_path + Category_Name+"/"+product.Product_Image}
      title={product.Name}
      description={product.Description}
      button1Label="Buy Item"
@@ -67,7 +73,8 @@ export default function CustomerProductsPageItemDashBoard() {
        { 
    
          //Not sign in yet
-         navigate("/pages/CustomerProductItemPage");
+         setSelectedProductID(product.Product_Id);
+         navigate(`/pages/CustomerProductItemPage/${Product_Category_Id}/${Category_Name}/${product.Product_Id}`);
 
        }
      }
@@ -78,3 +85,4 @@ export default function CustomerProductsPageItemDashBoard() {
 </div>
   );
 }
+

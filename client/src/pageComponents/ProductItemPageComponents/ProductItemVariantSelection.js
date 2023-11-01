@@ -18,6 +18,7 @@ import ProductItem from './ProductItem';
 import { VariantContext } from '../../context/VariantOptionsContext';
 
 
+
 export default function ProductItemVariantSelection() {
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
 
@@ -36,12 +37,14 @@ export default function ProductItemVariantSelection() {
 
 
   const navigate = useNavigate();
+  const {Product_Category_Id,Category_Name,Product_Id} = useParams();
 
   const route_path = "/ProductImages/";
 
   useEffect(() => {
-    axios.get('http://localhost:3005/product/getProductItemDetails', { params: { selectedProductID: selectedProductID } })
+    axios.get('http://localhost:3005/product/getProductItemDetails', { params: { selectedProductID: Product_Id } })
       .then(res => {
+        
         const parsedProductDetails = JSON.parse(res.data);
         // console.log("Parsed Product Details",parsedProductDetails);
 
@@ -49,7 +52,7 @@ export default function ProductItemVariantSelection() {
 
     })
       .catch(err => console.log(err));
-  }, []);
+  }, [Product_Id]);
 
   // useEffect(() => {
   //   axios.get('http://localhost:3005/product/getVariantTypes', { params: { selectedCategoryID: selectedCategory.Product_Category_Id } })
@@ -106,10 +109,11 @@ export default function ProductItemVariantSelection() {
   // }, [variantTypes]); // Use variantTypes as a dependency
   
   useEffect(() => {
-    axios.get('http://localhost:3005/product/getVariantTypesAndOptions', { params: { selectedCategoryID: selectedCategory.Product_Category_Id } })
+    axios.get('http://localhost:3005/product/getVariantTypesAndOptions', { params: { selectedCategoryID: Product_Category_Id } })
       .then(res => {
         // const parsedProductDetails = JSON.parse(res.data);
         // console.log("Parsed Product Details",parsedProductDetails);
+        console.log("getVariantTypesAndOptions",selectedCategory);
         const variants = res.data;
         console.log("variants",variants);
         setNewVariants(variants);
@@ -119,7 +123,7 @@ export default function ProductItemVariantSelection() {
 
     })
       .catch(err => console.log(err));
-  }, [selectedCategory.Product_Category_Id]);
+  }, [Product_Category_Id]);
 
 
 
@@ -144,7 +148,9 @@ export default function ProductItemVariantSelection() {
 
   // console.log("variants",variants);
   return (
+
     <div>
+      {console.log("selectedProductID in ProductItemVariationSelection", selectedProductID)}
       {productDetails && productDetails.length > 0 && (
       <div> 
        {/* <h1>{productDetails[0].Name}</h1>
@@ -153,7 +159,7 @@ export default function ProductItemVariantSelection() {
         <ProductItem
           name={productDetails[0].Name}
           description={productDetails[0].Description}
-          image={route_path + selectedCategory.Category_Name+"/"+productDetails[0].Product_Image}
+          image={route_path + Category_Name+"/"+productDetails[0].Product_Image}
           variants={newVariants}
         />
         

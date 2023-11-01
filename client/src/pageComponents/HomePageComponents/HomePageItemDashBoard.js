@@ -82,28 +82,52 @@ const HomePageItemDashBoard = () => {
       }}
     >
       {categories.map((category, index) => {
-        return (
-          <ItemCard
-            key={index}
-            image={route_path + category.Category_Image}
-            title={category.Category_Name}
-            description={category.description}
-            button1Label="See More"
-            onClickButton1={() => {
-              setSelectedCategory({
-                Product_Category_Id: category.Product_Category_Id,
-                Category_Name: category.Category_Name,
-              });
-              // history.push('../pages/ProductsPage');
+//         return (
+//           <ItemCard
+//             key={index}
+//             image={route_path + category.Category_Image}
+//             title={category.Category_Name}
+//             description={category.description}
+//             button1Label="See More"
+//             onClickButton1={() => {
+//               setSelectedCategory({
+//                 Product_Category_Id: category.Product_Category_Id,
+//                 Category_Name: category.Category_Name,
+//               });
+//               // history.push('../pages/ProductsPage');
 
-              navigate("/pages/SubCategoryPage");
-            }}
-            // onClickButton2={() => {console.log('Button 2 clicked')}}
-          />
-        );
-      })}
-    </div>
-  );
-};
+//               navigate("/pages/SubCategoryPage");
+//             }}
+//             // onClickButton2={() => {console.log('Button 2 clicked')}}
+//           />
+//         );
+//       })}
+//     </div>
+//   );
+// };
 
-export default HomePageItemDashBoard;
+    return (
+      <ItemCard
+        key={index}
+        image={route_path +category.Category_Image}
+        title={category.Category_Name}
+        description={category.description}
+        button1Label="See More"
+        onClickButton1={() => 
+          {      
+            setSelectedCategory({Product_Category_Id:category.Product_Category_Id,Category_Name:category.Category_Name});
+            // history.push('../pages/ProductsPage');
+
+            navigate(`/pages/SubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`);
+
+          }
+        }
+        // onClickButton2={() => {console.log('Button 2 clicked')}}
+      />
+    );
+  })}
+</div>
+  )
+}
+
+export default HomePageItemDashBoard
