@@ -13,12 +13,14 @@ function VariantItemDashBoard() {
   const { selectedProductID, setSelectedProductID } =
     useContext(ProductContext);
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
-  const { selectedVariantID, setSelectedVariantID } =
-    useContext(VarientItemContext);
+  // const { selectedVariantID, setSelectedVariantID } =
+  //   useContext(VarientItemContext);
   const [productDetails, setProductDetails] = useState(null);
   const [quantity, setQuantity] = useState(1);
   const [variantItemDetails, setVariantItemDetails] = useState(null);
   const navigate = useNavigate();
+
+  const {Product_Category_Id,Category_Name,Product_Id,selectedVariantID}=useParams();
 
   const handleQuantityChange = (event) => {
     setQuantity(parseInt(event.target.value));

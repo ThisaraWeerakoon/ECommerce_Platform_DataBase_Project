@@ -9,6 +9,7 @@ import { VarientItemContext } from "../../context/VariantIDContext";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
+import { useParams } from "react-router-dom";
 
 const ProductItem = ({ name, description, image, variants }) => {
   // console.log("Received variants in ProductItem:", variants);
