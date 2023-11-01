@@ -141,7 +141,7 @@ const APViewReports = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
-      <div className="charts">
+      <div className="charts" style={{ height: "auto" }}>
         <h3 style={{ color: "black" }}>Quarterly Sales Figures</h3>
         <div style={{ height: "100%", width: "100%" }}>
           <DataGrid
