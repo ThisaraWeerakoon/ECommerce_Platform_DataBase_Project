@@ -168,6 +168,17 @@ module.exports = {
     }
   },
 
+  getSession2: async (req, res) => {
+    console.log("Getting session");
+    console.log(req.session.DelResult);
+    if (req.session.DelResult) {
+      return res.json({ valid: true, DelResult: req.session.DelResult });
+    } else {
+      return res.json({ valid: false });
+    }
+  },
+
+
   getUsers: async (req, res) => {
     try {
       const role = req.body.role;
@@ -527,73 +538,68 @@ module.exports = {
   },
 
   userOrder2: async (req, res) => {
-    console.log("Order details reached the backend")
+    console.log("Order details reached the backend");
     try {
-      
       const userId = req.session.user.userID; // Get the user ID from the session
-
       const tPrice = req.body.totalPrice;
   
-      // Insert the payment details into the database
+      // Call the user model function and await it
       const orderDetails = await userObj.insertOrder2(userId, tPrice);
+  
       console.log("Delivery Estimate: ", orderDetails);
+  
       if (orderDetails) {
         var session = req.session;
         session.DelResult = orderDetails;
         session.save();
         console.log(session);
-
-        // res.status(200).json({
-        //   Login: true,
-        //   user: req.session.user,
-        //   type: loginResultObj.User_Type,
-        // });
-        // Payment details were successfully inserted
+  
         res.status(200).json({
           message: "Order details saved successfully",
-          paymentDetails,
           DelResult: req.session.DelResult,
         });
       } else {
-        // Failed to save the payment details
         res.status(401).json({
           message: "Order details not saved",
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the order details",
         error: err.message,
       });
     }
-  },
+  }
+  ,
   userOrder3: async (req, res) => {
-    console.log("Order details reached the backend")
+    console.log("Order details reached the backend");
     try {
-      
       const userId = req.session.user.userID; // Get the user ID from the session
-
       const tPrice = req.body.totalPrice;
-
   
-      // Insert the payment details into the database
+      // Call the user model function and await it
       const orderDetails = await userObj.insertOrder3(userId, tPrice);
   
+      console.log("Delivery Estimate: ", orderDetails);
+  
       if (orderDetails) {
-        // Payment details were successfully inserted
+        var session = req.session;
+        session.DelResult = orderDetails;
+        session.save();
+        console.log(session);
+  
         res.status(200).json({
           message: "Order details saved successfully",
-          paymentDetails,
+          DelResult: req.session.DelResult,
         });
       } else {
-        // Failed to save the payment details
         res.status(401).json({
           message: "Order details not saved",
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the order details",
         error: err.message,

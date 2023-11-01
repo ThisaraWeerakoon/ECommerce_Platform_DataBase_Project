@@ -2,18 +2,26 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
+axios.defaults.withCredentials = true;
+
 export default function StorePickupDeliveryaved() {
   const [ID, setId] = useState('');
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3005/user/getSession")
-      .then((res) => {
-        console.log("Response Data:", res.data.DelResult);
-        setId(res.data.DelResult);
-        console.log("ID: ", res.data.DelResult);
-      })
-      .catch((err) => console.log(err));
+    // Define the waiting time (e.g., 2000 milliseconds, which is 2 seconds)
+    const waitingTime = 3000;
+
+    // Use setTimeout to delay the Axios request
+    setTimeout(() => {
+      axios
+        .get("http://localhost:3005/user/getSession2")
+        .then((res) => {
+          console.log("Response Data:", res.data.DelResult);
+          setId(res.data.DelResult);
+          console.log("ID: ", res.data.DelResult);
+        })
+        .catch((err) => console.log(err));
+    }, waitingTime); // Execute the request after the waiting time
   }, []);
 
   const divStyle = {
@@ -47,6 +55,7 @@ export default function StorePickupDeliveryaved() {
     <div style={divStyle}>
       <div style={tickStyle}>&#10004;</div>
       <div style={text1}>Your order has been placed.</div>
+      <div><h1>Estimated Delivery Days for the order: {ID} </h1></div>
       <Link to="/pages/CustomerHomePage" style={linkStyle}>
         Go back to the front page
       </Link>

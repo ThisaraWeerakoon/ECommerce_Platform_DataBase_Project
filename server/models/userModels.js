@@ -403,129 +403,222 @@ module.exports = class User {
     );
   }
 
+  // async insertOrder2(userID, tPrice) {
+  //   // Find the cart ID associated with the user
+  //   db.query(
+  //     "SELECT Cart_Id FROM cart WHERE User_Id = ?",
+  //     [userID], // Assuming Is_Checkout is a flag indicating an active cart
+  //     (cartErr, cartResult) => {
+  //       if (cartErr) {
+  //         console.log(cartErr);
+  //       } else {
+  //         if (cartResult.length === 0) {
+  //           // Handle the case where there is no active cart for the user
+  //           console.log("No active cart found for the user");
+  //         } else {
+  //           const cartId = cartResult[0].Cart_Id;
+
+  //           // Insert a new order record associated with the found cart
+  //           db.query(
+  //             "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+  //             [cartId, new Date(), "Cash on Delivery", "Delivery", tPrice], // You can set Order_Total to 0 for now
+  //             (orderErr, orderResult) => {
+  //               if (orderErr) {
+  //                 console.log(orderErr);
+  //               } else {
+  //                 const orderId = orderResult.insertId;
+                  
+
+  //                 // Insert order items from cart items
+  //                 db.query(
+  //                   "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+  //                     "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item ",
+  //                   [orderId],
+  //                   (itemErr, itemResult) => {
+  //                     if (itemErr) {
+  //                       console.log(itemErr);
+  //                     } else {
+  //                       // Clear the cart items for the user
+  //                       db.query(
+  //                         "DELETE FROM cart_item where Cart_Id = ?",
+  //                         [cartId],
+  //                         (deleteErr, deleteResult) => {
+  //                           if (deleteErr) {
+  //                             console.log(deleteErr);
+  //                           } else {
+  //                             console.log("Cart items cleared");
+                            
+  //                             db.query(
+  //                               "SELECT MAX(getDeliveryEstimate(Variant_Id)) FROM order_item WHERE Order_Id = ? ",
+  //                               [orderId],
+  //                               (itemErr, itemResult) => {
+  //                                 if (itemErr) {
+  //                                   console.log(itemErr);
+  //                                 } else {
+  //                                   console.log("Delivery : ", orderId);
+  //                                   return(orderId);
+  //                                 }
+  //                               }
+  //                             );
+                            
+  //                           }
+  //                         }
+  //                       );
+  //                     }
+  //                   }
+  //                 );
+
+  //               }
+  //             }
+  //           );
+  //         }
+  //       }
+  //     }
+  //   );
+  // }
+
   async insertOrder2(userID, tPrice) {
-    // Find the cart ID associated with the user
-    db.query(
-      "SELECT Cart_Id FROM cart WHERE User_Id = ?",
-      [userID], // Assuming Is_Checkout is a flag indicating an active cart
-      (cartErr, cartResult) => {
-        if (cartErr) {
-          console.log(cartErr);
-        } else {
-          if (cartResult.length === 0) {
-            // Handle the case where there is no active cart for the user
-            console.log("No active cart found for the user");
+    return new Promise((resolve, reject) => {
+      // Find the cart ID associated with the user
+      db.query(
+        "SELECT Cart_Id FROM cart WHERE User_Id = ?",
+        [userID],
+        (cartErr, cartResult) => {
+          if (cartErr) {
+            reject(cartErr);
           } else {
-            const cartId = cartResult[0].Cart_Id;
-
-            // Insert a new order record associated with the found cart
-            db.query(
-              "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
-              [cartId, new Date(), "Cash on Delivery", "Delivery", tPrice], // You can set Order_Total to 0 for now
-              (orderErr, orderResult) => {
-                if (orderErr) {
-                  console.log(orderErr);
-                } else {
-                  const orderId = orderResult.insertId;
-
-                  // Insert order items from cart items
-                  db.query(
-                    "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
-                      "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item ",
-                    [orderId],
-                    (itemErr, itemResult) => {
-                      if (itemErr) {
-                        console.log(itemErr);
-                      } else {
-                        // Clear the cart items for the user
-                        db.query(
-                          "DELETE FROM cart_item",
-                          (deleteErr, deleteResult) => {
-                            if (deleteErr) {
-                              console.log(deleteErr);
-                            } else {
-                              console.log("Cart items cleared");
+            if (cartResult.length === 0) {
+              // Handle the case where there is no active cart for the user
+              reject("No active cart found for the user");
+            } else {
+              const cartId = cartResult[0].Cart_Id;
+  
+              // Insert a new order record associated with the found cart
+              db.query(
+                "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+                [cartId, new Date(), "Cash on Delivery", "Delivery", tPrice],
+                (orderErr, orderResult) => {
+                  if (orderErr) {
+                    reject(orderErr);
+                  } else {
+                    const orderId = orderResult.insertId;
+  
+                    // Insert order items from cart items
+                    db.query(
+                      "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+                        "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item ",
+                      [orderId],
+                      (itemErr, itemResult) => {
+                        if (itemErr) {
+                          reject(itemErr);
+                        } else {
+                          // Clear the cart items for the user
+                          db.query(
+                            "DELETE FROM cart_item where Cart_Id = ?",
+                            [cartId],
+                            (deleteErr, deleteResult) => {
+                              if (deleteErr) {
+                                reject(deleteErr);
+                              } else {
+                                // Calculate delivery estimate and resolve it
+                                db.query(
+                                  "SELECT MAX(getDeliveryEstimate(Variant_Id)) FROM order_item WHERE Order_Id = ? ",
+                                  [orderId],
+                                  (itemErr, itemResult) => {
+                                    if (itemErr) {
+                                      reject(itemErr);
+                                    } else {
+                                      const deliveryEstimate = itemResult[0]['MAX(getDeliveryEstimate(Variant_Id))'];
+                                      resolve(deliveryEstimate);
+                                    }
+                                  }
+                                );
+                              }
                             }
-                          }
-                        );
+                          );
+                        }
                       }
-                    }
-                  );
-                  db.query(
-                    "SELECT MAX(getDeliveryEstimate(Variant_Id)) FROM order_item WHERE Order_Id = ? ",
-                    [orderId],
-                    (itemErr, itemResult) => {
-                      if (itemErr) {
-                        console.log(itemErr);
-                      } else {
-                        console.log("Delivery Estimate: ", itemResult);
-                        return(itemResult);
-                      }
-                    }
-                  );
+                    );
+                  }
                 }
-              }
-            );
+              );
+            }
           }
         }
-      }
-    );
+      );
+    });
   }
+  
 
   async insertOrder3(userID, tPrice) {
-    // Find the cart ID associated with the user
-    db.query(
-      "SELECT Cart_Id FROM cart WHERE User_Id = ? ",
-      [userID], // Assuming Is_Checkout is a flag indicating an active cart
-      (cartErr, cartResult) => {
-        if (cartErr) {
-          console.log(cartErr);
-        } else {
-          if (cartResult.length === 0) {
-            // Handle the case where there is no active cart for the user
-            console.log("No active cart found for the user");
+    return new Promise((resolve, reject) => {
+      // Find the cart ID associated with the user
+      db.query(
+        "SELECT Cart_Id FROM cart WHERE User_Id = ?",
+        [userID],
+        (cartErr, cartResult) => {
+          if (cartErr) {
+            reject(cartErr);
           } else {
-            const cartId = cartResult[0].Cart_Id;
-
-            // Insert a new order record associated with the found cart
-            db.query(
-              "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
-              [cartId, new Date(), "Card Payment", "Delivery", tPrice], // You can set Order_Total to 0 for now
-              (orderErr, orderResult) => {
-                if (orderErr) {
-                  console.log(orderErr);
-                } else {
-                  const orderId = orderResult.insertId;
-
-                  // Insert order items from cart items
-                  db.query(
-                    "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
-                      "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item ",
-                    [orderId],
-                    (itemErr, itemResult) => {
-                      if (itemErr) {
-                        console.log(itemErr);
-                      } else {
-                        // Clear the cart items for the user
-                        db.query(
-                          "DELETE FROM cart_item",
-                          (deleteErr, deleteResult) => {
-                            if (deleteErr) {
-                              console.log(deleteErr);
-                            } else {
-                              console.log("Cart items cleared");
+            if (cartResult.length === 0) {
+              // Handle the case where there is no active cart for the user
+              reject("No active cart found for the user");
+            } else {
+              const cartId = cartResult[0].Cart_Id;
+  
+              // Insert a new order record associated with the found cart
+              db.query(
+                "INSERT INTO orders (Cart_Id, Order_Date, Payment_Method, Delivery_Method_Name, Order_Total) VALUES (?,?,?,?,?)",
+                [cartId, new Date(), "Card Payment", "Delivery", tPrice],
+                (orderErr, orderResult) => {
+                  if (orderErr) {
+                    reject(orderErr);
+                  } else {
+                    const orderId = orderResult.insertId;
+  
+                    // Insert order items from cart items
+                    db.query(
+                      "INSERT INTO order_item (Variant_Id, Order_Id, Quantity) " +
+                        "SELECT Variant_Id, ?, Cart_Item_Quantity FROM cart_item ",
+                      [orderId],
+                      (itemErr, itemResult) => {
+                        if (itemErr) {
+                          reject(itemErr);
+                        } else {
+                          // Clear the cart items for the user
+                          db.query(
+                            "DELETE FROM cart_item where Cart_Id = ?",
+                            [cartId],
+                            (deleteErr, deleteResult) => {
+                              if (deleteErr) {
+                                reject(deleteErr);
+                              } else {
+                                // Calculate delivery estimate and resolve it
+                                db.query(
+                                  "SELECT MAX(getDeliveryEstimate(Variant_Id)) FROM order_item WHERE Order_Id = ? ",
+                                  [orderId],
+                                  (itemErr, itemResult) => {
+                                    if (itemErr) {
+                                      reject(itemErr);
+                                    } else {
+                                      const deliveryEstimate = itemResult[0]['MAX(getDeliveryEstimate(Variant_Id))'];
+                                      resolve(deliveryEstimate);
+                                    }
+                                  }
+                                );
+                              }
                             }
-                          }
-                        );
+                          );
+                        }
                       }
-                    }
-                  );
+                    );
+                  }
                 }
-              }
-            );
+              );
+            }
           }
         }
-      }
-    );
+      );
+    });
   }
 };
