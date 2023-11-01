@@ -88,16 +88,20 @@ const ProductItem = ({ name, description, image, variants }) => {
       })
       .then((res) => {
         const parsedVairantID = JSON.parse(res.data);
-        console.log(parsedVairantID);
-        console.log("Parsed VairantID", parsedVairantID[0]["0"].Variant_Id);
-        setSelectedVariantID(parsedVairantID[0]["0"].Variant_Id);
+        // console.log(parsedVairantID);
+        // console.log("Parsed VairantID", parsedVairantID[0]["0"].Variant_Id);
+        // setSelectedVariantID(parsedVairantID[0]["0"].Variant_Id);
+        const parsedVariantID = JSON.parse(res.data);
+        const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
+        setSelectedVariantID(newSelectedVariantID); // Update the state
+
 
         // setProductDetails(parsedProductDetails);
       })
       .catch((err) => console.log(err));
 
     // After the API call is successful, navigate to a new page
-    navigate("/pages/CustomerVariantItemPage"); // Replace '/newPage' with the actual URL of the new page
+    // navigate("/pages/CustomerVariantItemPage"); // Replace '/newPage' with the actual URL of the new page
   };
 
   return (
@@ -118,12 +122,13 @@ const ProductItem = ({ name, description, image, variants }) => {
                       controlId="formGroupQuantity"
                       style={{ color: "black" }}
                     >
-                      <Form.Label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: "bold" }}>
+                      {/* <Form.Label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: "bold" }}>
                         {variant.Variation_Name}:
-                      </Form.Label>
+                      </Form.Label> */}
+                       <label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: 'bold' }}>{variant.Variation_Name}:</label>
                       <VariantDropdown
                         options={variant.Variation_Options}
-                        selectedValue={selectedValues[variant.Variation_Name] || ""}
+                        selectedValue={selectedValues[variant.Variation_Name] || ''}
                         onSelect={(value) =>
                           handleVariantChange(variant.Variation_Name, value)
                         }
@@ -140,7 +145,7 @@ const ProductItem = ({ name, description, image, variants }) => {
                 className="product-button"
                 onClick={handleButtonClick}
               >
-                Click Me
+                Proceed
               </button>
             </Row>
           </Container>

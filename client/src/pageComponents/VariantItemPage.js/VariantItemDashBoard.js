@@ -85,7 +85,7 @@ function VariantItemDashBoard() {
             className="product-image"
             src={
               route_path +
-              selectedCategory.Category_Name +
+              Category_Name +
               "/" +
               productDetails[0].Product_Image
             }

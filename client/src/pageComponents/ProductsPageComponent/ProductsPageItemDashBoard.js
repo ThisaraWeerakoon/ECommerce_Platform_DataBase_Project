@@ -29,6 +29,10 @@ export default function ProductsPageItemDashBoard() {
 
   const route_path = "/ProductImages/";
 
+  const handleNavigateToNewURL = () => {
+    navigate("/");
+  };
+
   useEffect(() => {
     axios.get('http://localhost:3005/product/getProducts', { params: { selectedCategoryID: Product_Category_Id } })
       .then(res => {
@@ -51,6 +55,7 @@ export default function ProductsPageItemDashBoard() {
   };
 
   return (
+    <div>
     <div style={{
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)', // 3 columns
@@ -83,5 +88,8 @@ export default function ProductsPageItemDashBoard() {
  );
 })}
 </div>
+<button onClick={handleNavigateToNewURL}>Back to HomePage</button>
+</div>
+
   );
 }

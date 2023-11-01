@@ -99,7 +99,7 @@ const ProductItem = ({ name, description, image, variants }) => {
             </div>
           ))}
         </div>
-        <button onClick={handleButtonClick}>Click Me</button>
+        <button onClick={handleButtonClick}> Proceed </button>
       </div>
     </div>
     
