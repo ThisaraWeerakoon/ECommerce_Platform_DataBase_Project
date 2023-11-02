@@ -1,24 +1,31 @@
 DELIMITER //
-CREATE PROCEDURE GetVariantsByOptions(
-    IN OptionIds VARCHAR(255),
-    IN OptionCount INT
-)
+
+DROP PROCEDURE IF EXISTS GenerateOrderItemsReport;
+
+CREATE PROCEDURE GenerateOrderItemsReport()
 BEGIN
-    -- Calculate the length of the input array
-    SET @OptionCount = LENGTH(OptionIds) - LENGTH(REPLACE(OptionIds, ',', '')) + 1;
+    SELECT
+        v.SKU,
+        p.Name AS product,
+        pc.Category_Name,
+        v.Weight,
+        v.Quantity,
+        vt.Variation_Name,
+        vo.Variation_Option_Name
+    FROM
+        product p
+    INNER JOIN product_category_configuration pcc ON p.Product_Id = pcc.Product_Id
+    INNER JOIN product_category pc ON pcc.Product_Category_Id = pc.Product_Category_Id
+    INNER JOIN variant_type vt ON pc.Product_Category_Id = vt.Product_Category_Id
+    INNER JOIN variation_option vo ON vt.Variant_Type_Id = vo.Variant_Type_Id
+    INNER JOIN variation_configuration vc ON vo.Variation_Option_Id = vc.Variation_Option_Id
+    INNER JOIN variant v ON vc.Variant_Id = v.Variant_Id
+    WHERE v.Product_Id = p.Product_Id
+    -- WHERE
+    --     p.name = "Samsung S21"
+    -- GROUP BY
+    --     p.Name, pc.Category_Name, v.SKU, v.Weight, v.Quantity
+    LIMIT 0, 1000;
+END //
 
-    -- Build the dynamic SQL query
-    SET @sql = CONCAT(
-        'SELECT Variant_Id
-         FROM variation_configuration
-         WHERE Variation_Option_Id IN (', OptionIds, ')
-         GROUP BY Variant_Id
-         HAVING COUNT(DISTINCT Variation_Option_Id) = ', @OptionCount
-    );
-
-    -- Prepare and execute the dynamic SQL query
-    PREPARE dynamic_sql FROM @sql;
-    EXECUTE dynamic_sql;
-    DEALLOCATE PREPARE dynamic_sql;
-END//
-DELIMITER;
+DELIMITER ;
