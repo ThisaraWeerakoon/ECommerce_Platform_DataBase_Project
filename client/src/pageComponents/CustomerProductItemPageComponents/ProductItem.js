@@ -28,6 +28,9 @@ const ProductItem = ({ name, description, image, variants }) => {
       if (selectedVariantID !== undefined) {
         navigate(`/pages/CustomerVariantItemPage/${Product_Category_Id}/${Category_Name}/${Product_Id}/${selectedVariantID}`);
       }
+      // else{
+      //   alert("The variant options you have selected is not available currently. Please select other options of the same product");
+      // }
     }, [selectedVariantID]);
 
     // Define a function to handle changes in the selected value for a variant
@@ -87,18 +90,22 @@ const ProductItem = ({ name, description, image, variants }) => {
         },
       })
       .then((res) => {
-        const parsedVairantID = JSON.parse(res.data);
+        // const parsedVairantID = JSON.parse(res.data);
         // console.log(parsedVairantID);
         // console.log("Parsed VairantID", parsedVairantID[0]["0"].Variant_Id);
         // setSelectedVariantID(parsedVairantID[0]["0"].Variant_Id);
+        console.log("Response from getVariantsByOptions", res.data);
         const parsedVariantID = JSON.parse(res.data);
+        console.log("Parsed VariantID in ProductItem", parsedVariantID);
         const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
         setSelectedVariantID(newSelectedVariantID); // Update the state
 
 
         // setProductDetails(parsedProductDetails);
       })
-      .catch((err) => console.log(err));
+      .catch(
+        (err) => console.log(err)
+        );
 
     // After the API call is successful, navigate to a new page
     // navigate("/pages/CustomerVariantItemPage"); // Replace '/newPage' with the actual URL of the new page

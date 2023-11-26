@@ -7,6 +7,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { VarientItemContext } from '../../context/VariantIDContext';
 import { useParams } from 'react-router-dom';
+import Container from 'react-bootstrap/esm/Container';
+import Form from "react-bootstrap/Form";
+import Row from 'react-bootstrap/esm/Row';
+
+
 const ProductItem = ({ name, description, image, variants }) => {
 
   // console.log("Received variants in ProductItem:", variants);
@@ -25,6 +30,9 @@ const ProductItem = ({ name, description, image, variants }) => {
       if (selectedVariantID !== undefined) {
         navigate(`/pages/VariantItemPage/${Product_Category_Id}/${Category_Name}/${Product_Id}/${selectedVariantID}`);
       }
+      // else{
+      //   alert("The variant options you have selected is not available currently. Please select other options of the same product");
+      // }
     }, [selectedVariantID]);
 
     // Define a function to handle changes in the selected value for a variant
@@ -66,7 +74,9 @@ const ProductItem = ({ name, description, image, variants }) => {
       const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
       setSelectedVariantID(newSelectedVariantID); // Update the state
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log("err"));
+
+
 
 
 
@@ -75,33 +85,81 @@ const ProductItem = ({ name, description, image, variants }) => {
 
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
-      {console.log('Selected Values:', selectedValues)}
-      <img src={image} alt={name} style={{ maxWidth: '150px', maxHeight: '150px' }} />
-      <div style={{ marginLeft: '20px' }}>
-        <h2 style={{ fontSize: '24px', margin: '0' }}>{name}</h2>
-        <p style={{ marginTop: '10px' }}>{description}</p>
-        <div style={{ marginTop: '20px' }}>
-          {variants.map((variant, index) => (
-            // console.log("variant",variant),
-            <div key={variant.Variant_Type_Id}>
-              <label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: 'bold' }}>{variant.Variation_Name}:</label>
-              {/* <select id={`variant-dropdown-${index}`} style={{ padding: '5px', margin: '5px 10px' }}>
-                {variant.options.map((option, optionIndex) => (
-                  <option key={optionIndex} value={option}>{option}</option>
-                ))}
-              </select> */}
-              <VariantDropdown
-                options={variant.Variation_Options}
-                selectedValue={selectedValues[variant.Variation_Name] || ''}
-                onSelect={(value) => handleVariantChange(variant.Variation_Name, value)}
-              />              
-            </div>
-          ))}
-        </div>
-        <button onClick={handleButtonClick}> Proceed </button>
+    // <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', padding: '10px', margin: '10px' }}>
+    //   {console.log('Selected Values:', selectedValues)}
+    //   <img src={image} alt={name} style={{ maxWidth: '150px', maxHeight: '150px' }} />
+    //   <div style={{ marginLeft: '20px' }}>
+    //     <h2 style={{ fontSize: '24px', margin: '0' }}>{name}</h2>
+    //     <p style={{ marginTop: '10px' }}>{description}</p>
+    //     <div style={{ marginTop: '20px' }}>
+    //       {variants.map((variant, index) => (
+    //         // console.log("variant",variant),
+    //         <div key={variant.Variant_Type_Id}>
+    //           <label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: 'bold' }}>{variant.Variation_Name}:</label>
+    //           {/* <select id={`variant-dropdown-${index}`} style={{ padding: '5px', margin: '5px 10px' }}>
+    //             {variant.options.map((option, optionIndex) => (
+    //               <option key={optionIndex} value={option}>{option}</option>
+    //             ))}
+    //           </select> */}
+    //           <VariantDropdown
+    //             options={variant.Variation_Options}
+    //             selectedValue={selectedValues[variant.Variation_Name] || ''}
+    //             onSelect={(value) => handleVariantChange(variant.Variation_Name, value)}
+    //           />              
+    //         </div>
+    //       ))}
+    //     </div>
+    //     <button onClick={handleButtonClick}> Proceed </button>
+    //   </div>
+    // </div>
+
+    <div className="product-wrapper">
+    {console.log("Selected Values:", selectedValues)}
+    <div className="product-container">
+      <img src={image} alt={name} className="product-image" />
+      <div className="product-details">
+        <Container fluid>
+          <h2 className="product-title">{name}</h2>
+          <p className="product-description">{description}</p>
+          <div style={{ marginTop: "20px" }}>
+            {variants.map((variant, index) => (
+              <div key={variant.Variant_Type_Id}>
+                <Form>
+                  <Form.Group
+                    className="mb-3"
+                    controlId="formGroupQuantity"
+                    style={{ color: "black" }}
+                  >
+                    {/* <Form.Label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: "bold" }}>
+                      {variant.Variation_Name}:
+                    </Form.Label> */}
+                     <label htmlFor={`variant-dropdown-${variant.Variant_Type_Id}`} style={{ fontWeight: 'bold' }}>{variant.Variation_Name}:</label>
+                    <VariantDropdown
+                      options={variant.Variation_Options}
+                      selectedValue={selectedValues[variant.Variation_Name] || ''}
+                      onSelect={(value) =>
+                        handleVariantChange(variant.Variation_Name, value)
+                      }
+                    />
+                  </Form.Group>
+                </Form>
+              </div>
+            ))}
+          </div>
+          <Row>&nbsp;</Row>
+          <Row>
+            <button
+              id="add-to-cart"
+              className="product-button"
+              onClick={handleButtonClick}
+            >
+              Proceed
+            </button>
+          </Row>
+        </Container>
       </div>
     </div>
+  </div>
     
   );
 };
