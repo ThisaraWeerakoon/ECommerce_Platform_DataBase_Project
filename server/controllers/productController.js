@@ -358,8 +358,9 @@ module.exports = {
             const selectedVariantOptionIDs = req.query.selectedVariantOptionIDs;
             // console.log( selectedVariantOptionIDs);
             const variantID = await productObj.getVariantsByOptions(selectedVariantOptionIDs);
+            // console.log("variantID in getVariantByOptions",variantID);
             const variantIDJSON = JSON.stringify(variantID);
-            console.log("Variant ID backend",variantIDJSON);
+            console.log("Variant ID in getVariantByOptions",variantIDJSON);
             res.status(200).json(variantIDJSON);
 
         } catch (err) {
@@ -398,11 +399,11 @@ module.exports = {
 
         try {
             const userId = req.query.userId;
-            console.log("userId from insertCartItem ",userId);
+            // console.log("userId from insertCartItem ",userId);
             const variantId = req.query.variantId;
-            console.log("variantId from insertCartItem ",variantId);
+            // console.log("variantId from insertCartItem ",variantId);
             const cartItemQuantity = req.query.cartItemQuantity;
-            console.log("cartItemQuantity from insertCartItem ",cartItemQuantity);
+            // console.log("cartItemQuantity from insertCartItem ",cartItemQuantity);
 
             await productObj.insertCartItem(userId,variantId,cartItemQuantity);
              
@@ -450,13 +451,13 @@ module.exports = {
     try {
       const InventoryArray = [];
       const Inventory = await productObj.getProductInventory();
-      console.log("InventoryStat: ", Inventory);
+    //   console.log("InventoryStat: ", Inventory);
       for (let i = 0; i < Inventory.length; i++) {
         const InventoryJSON = JSON.stringify(Inventory[i]);
         const InventoryJSONparsed = JSON.parse(InventoryJSON);
         InventoryArray.push(InventoryJSONparsed);
       }
-      console.log("InventoryArray: ", InventoryArray);
+    //   console.log("InventoryArray: ", InventoryArray);
       res.status(200).json(InventoryArray);
     } catch (err) {
       res.status(400).json({

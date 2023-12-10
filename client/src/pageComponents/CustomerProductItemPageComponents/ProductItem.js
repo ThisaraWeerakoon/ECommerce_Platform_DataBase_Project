@@ -90,14 +90,10 @@ const ProductItem = ({ name, description, image, variants }) => {
         },
       })
       .then((res) => {
-        // const parsedVairantID = JSON.parse(res.data);
-        // console.log(parsedVairantID);
-        // console.log("Parsed VairantID", parsedVairantID[0]["0"].Variant_Id);
-        // setSelectedVariantID(parsedVairantID[0]["0"].Variant_Id);
-        console.log("Response from getVariantsByOptions", res.data);
         const parsedVariantID = JSON.parse(res.data);
-        console.log("Parsed VariantID in ProductItem", parsedVariantID);
+        // console.log("Parsed VariantID in ProductItem", parsedVariantID);
         const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
+        console.log("New Selected VariantID in ProductItem", newSelectedVariantID);
         setSelectedVariantID(newSelectedVariantID); // Update the state
 
 

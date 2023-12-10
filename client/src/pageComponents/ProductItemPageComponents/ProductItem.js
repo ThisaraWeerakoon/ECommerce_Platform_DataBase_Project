@@ -70,8 +70,10 @@ const ProductItem = ({ name, description, image, variants }) => {
       params: { selectedVariantOptionIDs: Object.values(selectedValues).join(',') }
     })
     .then(res => {
+      console.log("hello hello hello");
       const parsedVariantID = JSON.parse(res.data);
       const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
+      console.log("New Selected VariantID in ProductItem", newSelectedVariantID);
       setSelectedVariantID(newSelectedVariantID); // Update the state
     })
     .catch(err => console.log("err"));
