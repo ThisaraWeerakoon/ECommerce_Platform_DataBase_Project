@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
+import axios from "axios";
 import {
   BsFillArchiveFill,
   BsFillGrid3X3GapFill,
@@ -7,20 +8,76 @@ import {
   BsFillBellFill,
 } from "react-icons/bs";
 import {
-  BarChart,
-  Bar,
-  Cell,
+  PieChart,
+  Pie,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
   ResponsiveContainer,
-  LineChart,
-  Line,
+  BarChart,
+  Bar,
 } from "recharts";
 
 function AdminPanelDashBoard() {
+  const [QuarterlyReportsResult, setQuarterlyReportsResult] = useState([]);
+  const [Product, setProduct] = useState('');
+  const [Category, setCategory] = useState('');
+  const [Customer, setCustomer] = useState('');
+  const [Orders, setOrders] = useState('');
+  useEffect(() => {
+  axios
+      .get("http://localhost:3005/reports/getQuarterlyReports")
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        setQuarterlyReportsResult(res.data);
+        console.log("Top Selling Result: ", QuarterlyReportsResult);
+      })
+      .catch((err) => console.log(err));
+      axios
+      .get("http://localhost:3005/reports/getOrder")
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        setOrders(res.data);
+        console.log("Top Selling Result: ", Orders);
+      })
+      .catch((err) => console.log(err));
+      axios
+      .get("http://localhost:3005/reports/getProducts")
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        setProduct(res.data);
+        console.log("Top Selling Result: ", Product);
+      })
+      .catch((err) => console.log(err));
+      axios
+      .get("http://localhost:3005/reports/getUsers")
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        setCategory(res.data);
+        console.log("Top Selling Result: ", Category);
+      })
+      .catch((err) => console.log(err));
+      axios
+      .get("http://localhost:3005/reports/getCustomer")
+      .then((res) => {
+        console.log("Response Data:", res.data);
+        setCustomer(res.data);
+        console.log("Top Selling Result: ", Customer);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  const QuarterlyReportsdata = QuarterlyReportsResult.map((item, index) => ({
+    id: index,
+    name: item.SalesYear + " " + item.Sales_QUARTER,
+    sales: item.Sales,
+    year: item.SalesYear,
+    quarter: item.Sales_QUARTER,
+    max: item.Sales_MONTH,
+  }));
+
   const data = [
     {
       name: "Page A",
@@ -74,79 +131,42 @@ function AdminPanelDashBoard() {
             <h3>PRODUCTS</h3>
             <BsFillArchiveFill className="card_icon" />
           </div>
-          <h2>300</h2>
+          <h2>{Product}</h2>
         </div>
         <div className="card">
           <div className="card-inner">
-            <h3>CATEGORIES</h3>
+            <h3>USERS</h3>
             <BsFillGrid3X3GapFill className="card_icon" />
           </div>
-          <h2>300</h2>
+          <h2>{Category}</h2>
         </div>
         <div className="card">
           <div className="card-inner">
             <h3>CUSTOMERS</h3>
             <BsPeopleFill className="card_icon" />
           </div>
-          <h2>300</h2>
+          <h2>{Customer}</h2>
         </div>
         <div className="card">
           <div className="card-inner">
-            <h3>ALERTS</h3>
+            <h3>ORDERS</h3>
             <BsFillBellFill className="card_icon" />
           </div>
-          <h2>300</h2>
+          <h2>{Orders}</h2>
         </div>
       </div>
 
       <div className="charts">
+        <h3 style={{ color: "black" }}>Quarterly Sales Distribution</h3>
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
+          <BarChart width={730} height={250} data={QuarterlyReportsdata}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
+            <Bar dataKey="sales" fill="#8884d8" />
           </BarChart>
-        </ResponsiveContainer>
-       
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart
-            width={500}
-            height={300}
-            data={data}
-            margin={{
-              top: 5,
-              right: 30,
-              left: 20,
-              bottom: 5,
-            }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="pv"
-              stroke="#8884d8"
-              activeDot={{ r: 8 }}
-            />
-            <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
-          </LineChart>
         </ResponsiveContainer>
       </div>
     </main>

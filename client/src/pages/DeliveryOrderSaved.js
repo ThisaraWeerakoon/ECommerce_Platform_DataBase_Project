@@ -69,7 +69,7 @@ import { Link } from "react-router-dom"; // Import Link from react-router-dom
 
 axios.defaults.withCredentials = true;
 
-export default function StorePickupDeliveryaved() {
+export default function DeliveryOrderSaved() {
   const [ID, setId] = useState(null); // Initialize ID as null to indicate loading
   const [loading, setLoading] = useState(true); // Add loading state
 
@@ -131,7 +131,7 @@ export default function StorePickupDeliveryaved() {
           <div style={text1}>Your order has been placed.</div>
           {ID !== null && ( // Check if ID is not null before displaying it
             <div>
-              <h1>Now you can collect your order from our store {ID}</h1>
+              <h1>Estimated Delivery Days for the order: {ID}</h1>
             </div>
           )}
           <Link to="/pages/CustomerHomePage" style={linkStyle}>

@@ -19,6 +19,7 @@ import { Cart } from 'react-bootstrap-icons';
 import Purchase from './pages/Purchase';
 import Purchase2 from './pages/Purchase2';
 import StorePickupOrderSaved from './pages/StorePickupOrderSaved';
+import DeliveryOrderSaved from './pages/DeliveryOrderSaved';
 
 
 
@@ -63,7 +64,8 @@ function App() {
           <Route path="/pages/CartPage" element={<CartPage/>} />
           <Route path="/pages/CartPage/Purchase" element={<Purchase/>} />
           <Route path="/pages/CartPage/Purchase/Purchase2" element={<Purchase2/>} />
-          <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} /> 
+          <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} />
+          <Route path="/pages/CartPage/DeliveryOrderSaved" element={<DeliveryOrderSaved/>} /> 
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
 
 

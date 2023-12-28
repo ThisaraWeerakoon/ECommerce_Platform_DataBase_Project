@@ -82,7 +82,7 @@ export default function PaymentInfo() {
         console.error("Error while fetching total price:", error);
       });
 
-      navigate('/pages/CartPage/StorePickupOrderSaved');
+      navigate('/pages/CartPage/DeliveryOrderSaved');
   }
  
 const centerContentStyle = {

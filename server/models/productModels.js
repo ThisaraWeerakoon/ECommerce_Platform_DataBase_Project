@@ -166,7 +166,8 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVariantTypesAndOptions error");
+            console.log(selectedCategoryID);
+            console.log("getVariantTypesAndOptions");
             resolve(result);
           }
         }

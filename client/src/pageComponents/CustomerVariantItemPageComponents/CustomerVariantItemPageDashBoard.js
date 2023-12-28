@@ -87,6 +87,9 @@ function CustomerVariantItemDashBoard() {
 
 
     };
+    const handleNavigateToNewURL = () => {
+      navigate("/pages/CustomerHomePage");
+    };
 
 
     
@@ -199,6 +202,7 @@ function CustomerVariantItemDashBoard() {
   
 
   return (
+    <div>
     <div className="product-wrapper">
       {console.log("setVariantItemDetails", variantItemDetails)}
       {productDetails && productDetails.length > 0 && (
@@ -272,6 +276,8 @@ function CustomerVariantItemDashBoard() {
           )}
         </div>
       )}
+    </div>
+    <button onClick={handleNavigateToNewURL}>Back to HomePage</button>
     </div>
   );
 }

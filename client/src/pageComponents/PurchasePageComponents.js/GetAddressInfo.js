@@ -59,7 +59,7 @@ function EditAddress() {
       Axios.post('http://localhost:3005/user/userOrder2', { totalPrice: tPrice })
         .then(() => {
           console.log("Address saved successfully");
-          navigate('/pages/CartPage/StorePickupOrderSaved');
+          navigate('/pages/CartPage/DeliveryOrderSaved');
         })
         .catch((error) => {
           console.error("Error while saving address:", error);
@@ -69,9 +69,9 @@ function EditAddress() {
     .catch((error) => {
       console.error("Error while fetching total price:", error);
     });
-    navigate('/pages/CartPage/StorePickupOrderSaved');
+    navigate('/pages/CartPage/DeliveryOrderSaved');
   }
-    
+  
   
 
 
