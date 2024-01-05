@@ -63,7 +63,7 @@ function App() {
           <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
           <Route path="/pages/CartPage" element={<CartPage/>} />
           <Route path="/pages/CartPage/Purchase" element={<Purchase/>} />
-          <Route path="/pages/CartPage/Purchase/Purchase2" element={<Purchase2/>} />
+          <Route path="/pages/CartPage/Purchase/Purchase2/:addressId" element={<Purchase2/>} />
           <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} />
           <Route path="/pages/CartPage/DeliveryOrderSaved" element={<DeliveryOrderSaved/>} /> 
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />

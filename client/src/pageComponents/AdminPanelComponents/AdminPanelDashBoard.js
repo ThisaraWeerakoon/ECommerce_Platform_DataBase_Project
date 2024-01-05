@@ -22,20 +22,22 @@ import {
 
 function AdminPanelDashBoard() {
   const [QuarterlyReportsResult, setQuarterlyReportsResult] = useState([]);
-  const [Product, setProduct] = useState('');
-  const [Category, setCategory] = useState('');
-  const [Customer, setCustomer] = useState('');
-  const [Orders, setOrders] = useState('');
+  const [Product, setProduct] = useState("");
+  const [Category, setCategory] = useState("");
+  const [Customer, setCustomer] = useState("");
+  const [Orders, setOrders] = useState("");
   useEffect(() => {
-  axios
-      .get("http://localhost:3005/reports/getQuarterlyReports")
+    axios
+      .post("http://localhost:3005/reports/getQuarterlyReports", {
+        year: "all",
+      })
       .then((res) => {
         console.log("Response Data:", res.data);
         setQuarterlyReportsResult(res.data);
         console.log("Top Selling Result: ", QuarterlyReportsResult);
       })
       .catch((err) => console.log(err));
-      axios
+    axios
       .get("http://localhost:3005/reports/getOrder")
       .then((res) => {
         console.log("Response Data:", res.data);
@@ -43,7 +45,7 @@ function AdminPanelDashBoard() {
         console.log("Top Selling Result: ", Orders);
       })
       .catch((err) => console.log(err));
-      axios
+    axios
       .get("http://localhost:3005/reports/getProducts")
       .then((res) => {
         console.log("Response Data:", res.data);
@@ -51,7 +53,7 @@ function AdminPanelDashBoard() {
         console.log("Top Selling Result: ", Product);
       })
       .catch((err) => console.log(err));
-      axios
+    axios
       .get("http://localhost:3005/reports/getUsers")
       .then((res) => {
         console.log("Response Data:", res.data);
@@ -59,7 +61,7 @@ function AdminPanelDashBoard() {
         console.log("Top Selling Result: ", Category);
       })
       .catch((err) => console.log(err));
-      axios
+    axios
       .get("http://localhost:3005/reports/getCustomer")
       .then((res) => {
         console.log("Response Data:", res.data);

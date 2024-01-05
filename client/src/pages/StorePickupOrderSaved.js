@@ -131,7 +131,7 @@ export default function StorePickupDeliveryaved() {
           <div style={text1}>Your order has been placed.</div>
           {ID !== null && ( // Check if ID is not null before displaying it
             <div>
-              <h1>Now you can collect your order from our store {ID}</h1>
+              <h1>Now you can collect your order from our store in {ID} Days</h1>
             </div>
           )}
           <Link to="/pages/CustomerHomePage" style={linkStyle}>

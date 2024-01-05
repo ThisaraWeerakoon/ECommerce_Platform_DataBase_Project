@@ -14,6 +14,8 @@ import { useContext } from "react";
 import { useState } from "react";
 import ItemCard from "../../components/itemCard";
 import { ProductContext } from "../../context/ProductIDContext";
+import Button from "react-bootstrap/Button";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 export default function ProductsPageItemDashBoard() {
   const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
@@ -30,7 +32,7 @@ export default function ProductsPageItemDashBoard() {
   const route_path = "/ProductImages/";
 
   const handleNavigateToNewURL = () => {
-    navigate("/pages/CustomerHomePage");
+     navigate("/pages/CustomerHomePage");
   };
 
   useEffect(() => {
@@ -58,6 +60,14 @@ export default function ProductsPageItemDashBoard() {
 
   return (
     <div>
+      <div>&nbsp;</div>
+      <div style={{ marginLeft: "10px" }}>
+        {/* Adjust the margin as needed */}
+        <Button variant="primary" onClick={handleNavigateToNewURL}>
+          <BsArrowLeftCircleFill />
+          <span style={{ marginLeft: "5px" }}> Back</span>
+        </Button>
+      </div>
       <div
         style={{
           display: "grid",
@@ -92,7 +102,6 @@ export default function ProductsPageItemDashBoard() {
           );
         })}
       </div>
-      <button onClick={handleNavigateToNewURL}>Back to HomePage</button>
     </div>
   );
 }

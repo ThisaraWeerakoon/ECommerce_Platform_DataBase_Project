@@ -20,24 +20,39 @@ const APViewReports = () => {
   const [categoryResult, setCategoryResult] = useState([]);
   const [TopSellingResult, setTopSellingResult] = useState([]);
   const [QuarterlyReportsResult, setQuarterlyReportsResult] = useState([]);
+  const [loading, setLoading] = useState(true); // Add loading state
 
   const [selectedYear, setSelectedYear] = useState("");
 
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
-    console.log(selectedYear);
-    axios
-      .post("http://localhost:3005/reports/getQuarterlyReports", {
-        year: selectedYear,
-      })
-      .then((res) => {
-        console.log("Response Data:", res.data);
-        setQuarterlyReportsResult(res.data);
-        console.log("Top Selling Result: ", QuarterlyReportsResult);
-      })
-      .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    if (selectedYear) {
+      const waitingTime = 3000;
+      setLoading(true);
+
+      const delayTimer = setTimeout(() => {
+        axios
+          .post("http://localhost:3005/reports/getQuarterlyReports", {
+            year: selectedYear,
+          })
+          .then((res) => {
+            console.log("Response Data:", res.data);
+            setQuarterlyReportsResult(res.data);
+          })
+          .catch((err) => console.log(err))
+          .finally(() => {
+            setLoading(false);
+          });
+      }, waitingTime);
+
+      // Cleanup the timer if the selected year changes before the delay
+      return () => clearTimeout(delayTimer);
+    }
+  }, [selectedYear]);
+  
   const years = Array.from(
     { length: 10 },
     (_, index) => new Date().getFullYear() - index
@@ -60,6 +75,7 @@ const APViewReports = () => {
         console.log("Top Selling Result: ", TopSellingResult);
       })
       .catch((err) => console.log(err));
+
     axios
       .post("http://localhost:3005/reports/getQuarterlyReports", {
         year: "all",
@@ -69,7 +85,11 @@ const APViewReports = () => {
         setQuarterlyReportsResult(res.data);
         console.log("Top Selling Result: ", QuarterlyReportsResult);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        // Set loading to false when the request is complete
+        setLoading(false);
+      });
   }, []);
 
   console.log("categoryResult: ", categoryResult);
@@ -157,7 +177,7 @@ const APViewReports = () => {
       <div className="charts">
         <div>
           <h3 style={{ color: "black" }}>Quarterly Sales Distribution</h3>
-          <br/>
+          <br />
           <Form.Select
             aria-label="Default select example"
             value={selectedYear}
@@ -171,16 +191,22 @@ const APViewReports = () => {
             ))}
           </Form.Select>
         </div>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart width={730} height={250} data={QuarterlyReportsdata}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="sales" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
+        {loading ? ( // Display loading message or spinner when loading is true
+          <div>Loading...</div>
+        ) : (
+          <>
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart width={730} height={250} data={QuarterlyReportsdata}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="sales" fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </>
+        )}
       </div>
       <div className="charts" style={{ height: "auto" }}>
         <h3 style={{ color: "black" }}>Quarterly Sales Figures</h3>

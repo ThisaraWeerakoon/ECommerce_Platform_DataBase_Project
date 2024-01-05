@@ -38,7 +38,7 @@ const Carousel = () => {
               <img src={image.Category_Image} 
                 alt={`Image ${index}`} 
                 onError={(e) => console.log("Error loading image:", e.message)} 
-                style={{height: '300px'}} 
+                style={{height: '200px'}} 
               />
             </div>
             ))
