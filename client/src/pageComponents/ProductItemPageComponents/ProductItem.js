@@ -11,9 +11,7 @@ import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
 import { useParams } from 'react-router-dom';
 import './VariantStyles.css';
-import Container from 'react-bootstrap/esm/Container';
-import Form from "react-bootstrap/Form";
-import Row from 'react-bootstrap/esm/Row';
+
 
 
 const ProductItem = ({ name, description, image, variants }) => {
