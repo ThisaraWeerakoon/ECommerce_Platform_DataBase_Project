@@ -11,6 +11,10 @@ import Container from "react-bootstrap/esm/Container";
 import Form from "react-bootstrap/Form";
 import { useParams } from 'react-router-dom';
 import './VariantStyles.css';
+import Container from 'react-bootstrap/esm/Container';
+import Form from "react-bootstrap/Form";
+import Row from 'react-bootstrap/esm/Row';
+
 
 const ProductItem = ({ name, description, image, variants }) => {
 
@@ -30,6 +34,9 @@ const ProductItem = ({ name, description, image, variants }) => {
       if (selectedVariantID !== undefined) {
         navigate(`/pages/VariantItemPage/${Product_Category_Id}/${Category_Name}/${Product_Id}/${selectedVariantID}`);
       }
+      // else{
+      //   alert("The variant options you have selected is not available currently. Please select other options of the same product");
+      // }
     }, [selectedVariantID]);
 
     // Define a function to handle changes in the selected value for a variant
@@ -67,11 +74,15 @@ const ProductItem = ({ name, description, image, variants }) => {
       params: { selectedVariantOptionIDs: Object.values(selectedValues).join(',') }
     })
     .then(res => {
+      console.log("hello hello hello");
       const parsedVariantID = JSON.parse(res.data);
       const newSelectedVariantID = parsedVariantID[0]['0'].Variant_Id;
+      console.log("New Selected VariantID in ProductItem", newSelectedVariantID);
       setSelectedVariantID(newSelectedVariantID); // Update the state
     })
-    .catch(err => console.log(err));
+    .catch(err => console.log("err"));
+
+
 
 
 
