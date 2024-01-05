@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
 
 const VariantDropdown = ({ options, selectedValue, onSelect }) => {
   const handleSelectChange = (e) => {
@@ -8,7 +9,9 @@ const VariantDropdown = ({ options, selectedValue, onSelect }) => {
   };
 
   return (
-    <select value={selectedValue} onChange={handleSelectChange}>
+    <Form.Select aria-label="Default select example" value={selectedValue} onChange={handleSelectChange} >
+      <option value="" disabled hidden>Open this select menu</option>
+    {/* <select value={selectedValue} onChange={handleSelectChange}> */}
       {options.map((option, optionIndex) => (
         // console.log("selected values",selectedValue),
         // console.log("option",option),
@@ -17,7 +20,8 @@ const VariantDropdown = ({ options, selectedValue, onSelect }) => {
           {option.Variation_Option_Name}
         </option>
       ))}
-    </select>
+    {/* </select> */}
+    </Form.Select>
   );
 };
 

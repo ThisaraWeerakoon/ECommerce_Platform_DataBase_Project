@@ -13,6 +13,7 @@ router.post("/userAddress", userController.userAddress);
 router.post("/userPayment", userController.userPayment);
 router.get("/orderHistory", userController.orderHistory);
 router.get("/cartItems", userController.cartItems);
+router.post("/removeCartItems", userController.removeCartItems);
 router.get("/totalPrice", userController.totalPrice);
 router.get("/getuserPayment", userController.getuserPayment);
 router.get("/getuserAddress", userController.getuserAddress);

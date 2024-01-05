@@ -19,6 +19,7 @@ import { Cart } from 'react-bootstrap-icons';
 import Purchase from './pages/Purchase';
 import Purchase2 from './pages/Purchase2';
 import StorePickupOrderSaved from './pages/StorePickupOrderSaved';
+import DeliveryOrderSaved from './pages/DeliveryOrderSaved';
 
 
 
@@ -62,20 +63,21 @@ function App() {
           <Route path="/pages/Profile/EditUserName" element={<EditUserName/>} />
           <Route path="/pages/CartPage" element={<CartPage/>} />
           <Route path="/pages/CartPage/Purchase" element={<Purchase/>} />
-          <Route path="/pages/CartPage/Purchase/Purchase2" element={<Purchase2/>} />
-          <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} /> 
+          <Route path="/pages/CartPage/Purchase/Purchase2/:addressId" element={<Purchase2/>} />
+          <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} />
+          <Route path="/pages/CartPage/DeliveryOrderSaved" element={<DeliveryOrderSaved/>} /> 
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
 
 
-          <Route path="/pages/SubCategoryPage" element={<SubCategoryPage/>}/>
+          <Route path="/pages/SubCategoryPage/:Product_Category_Id/:Category_Name" element={<SubCategoryPage/>}/>
           <Route path="/pages/SamplePage" element={<SamplePage/>}/>
-          <Route path="/pages/CustomerSubCategoryPage" element={<CustomerSubCategoryPage/>}/>
-          <Route path="/pages/ProductsPage" element={<ProductsPage/>}/>
-          <Route path="/pages/CustomerProductsPage" element={<CustomerProductsPage/>}/>
-          <Route path="/pages/ProductItemPage" element={<ProductItemPage/>}/>
-          <Route path="/pages/VariantItemPage" element={<VariantItemPage/>}/>
-          <Route path="/pages/CustomerProductItemPage" element= {<CustomerProductItemPage/>}/>
-          <Route path="pages/CustomerVariantItemPage" element={<CustomerVariantItemPage/>}/>
+          <Route path="/pages/CustomerSubCategoryPage/:Product_Category_Id/:Category_Name" element={<CustomerSubCategoryPage/>}/>
+          <Route path="/pages/ProductsPage/:Product_Category_Id/:Category_Name" element={<ProductsPage/>}/>
+          <Route path="/pages/CustomerProductsPage/:Product_Category_Id/:Category_Name" element={<CustomerProductsPage/>}/>
+          <Route path="/pages/ProductItemPage/:Product_Category_Id/:Category_Name/:Product_Id" element={<ProductItemPage/>}/>
+          <Route path="/pages/VariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<VariantItemPage/>}/>
+          <Route path="/pages/CustomerProductItemPage/:Product_Category_Id/:Category_Name/:Product_Id" element= {<CustomerProductItemPage/>}/>
+          <Route path="pages/CustomerVariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<CustomerVariantItemPage/>}/>
 
       </Routes>
     </BrowserRouter>

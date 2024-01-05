@@ -11,7 +11,7 @@ module.exports = class Product{
                 console.log(err);
                 reject(err); // Reject the Promise if there's an error
               } else {
-                console.log("In the productModel");
+                // console.log("In the productModel");
                 resolve(result); // Resolve the Promise with the result
               }
             }
@@ -31,7 +31,7 @@ module.exports = class Product{
               console.log(err);
               reject(err); // Reject the Promise if there's an error
             } else {
-              console.log("In the productModel");
+              // console.log("In the productModel");
               resolve(result); // Resolve the Promise with the result
             }
           }
@@ -49,7 +49,7 @@ module.exports = class Product{
             console.log(err);
             reject(err); // Reject the Promise if there's an error
           } else {
-            console.log("In the productModel");
+            // console.log("In the productModel");
             resolve(result); // Resolve the Promise with the result
           }
         }
@@ -67,7 +67,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("In the productModel");
+            // console.log("In the productModel");
             resolve(result);
           }
         }
@@ -86,7 +86,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("In the productModel");
+            // console.log("In the productModel");
             resolve(result);
           }
         }
@@ -106,7 +106,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("In the productModel");
+            // console.log("In the productModel");
             resolve(result);
           }
         }
@@ -126,7 +126,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVariantTypes");
+            // console.log("getVariantTypes");
             resolve(result);
           }
         }
@@ -146,7 +146,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVarientOptions");
+            // console.log("getVarientOptions");
             resolve(result);
           }
         }
@@ -166,7 +166,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVariantTypesAndOptions error");
+            // console.log("getVariantTypesAndOptions error");
             resolve(result);
           }
         }
@@ -175,7 +175,7 @@ module.exports = class Product{
   }
 
   async getVariantItemDetails(selectedVariantID) {
-    console.log("Inside getVariantItemDetails model",selectedVariantID);
+    // console.log("Inside getVariantItemDetails model",selectedVariantID);
     return new Promise((resolve, reject) => {
       db.query(
         "select * from variant where Variant_Id = ?;",
@@ -185,7 +185,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVariantItemDetails error",err,result);
+            // console.log("getVariantItemDetails error",err,result);
             resolve(result);
           }
         }
@@ -194,7 +194,7 @@ module.exports = class Product{
   }
 
   async getVariantsByOptions(selectedVariantOptionIDs) {
-    console.log("Inside getVariantsByOptions model",selectedVariantOptionIDs);
+    // console.log("Inside getVariantsByOptions model",selectedVariantOptionIDs);
     return new Promise((resolve, reject) => {
       db.query(
         "CALL GetVariantsByOptions(?);",
@@ -204,7 +204,7 @@ module.exports = class Product{
             console.log(err);
             reject(err);
           }else{
-            console.log("getVariantsByOptions error",err,result);
+            // console.log("getVariantsByOptions error",err,result);
             resolve(result);
           }
         }
@@ -223,7 +223,7 @@ module.exports = class Product{
             reject(err);
 
           }else{
-            console.log("getVariantsByOptions error",err,result);
+            // console.log("getVariantsByOptions error",err,result);
             resolve(result);
           }
         }
@@ -241,7 +241,7 @@ module.exports = class Product{
             console.log(err);
             reject(err); // Reject the Promise if there's an error
           } else {
-            console.log("In the productModel: ", result);
+            // console.log("In the productModel: ", result);
             resolve(result); // Resolve the Promise with the result
           }
         }

@@ -2,10 +2,18 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+// import Form from "react-bootstrap/Form";
+// import Button from "react-bootstrap/Button";
+// import IconButton from "@mui/material/IconButton";
+// import InputAdornment from "@mui/material/InputAdornment";
+// import Visibility from "@mui/icons-material/Visibility";
+// import VisibilityOff from "@mui/icons-material/VisibilityOff";
+// import InputGroup from "react-bootstrap/InputGroup";
+// import FormControl from "react-bootstrap/FormControl";
 import { useState } from "react";
 import { LoginValidation } from "../../Validations/LoginValidation";
+import { Form, InputGroup, FormControl, Button } from "react-bootstrap";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Assuming you're using React Icons for icons
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
@@ -13,7 +21,14 @@ import Axios from "axios";
 function AuthenticationPageTemplate() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   Axios.defaults.withCredentials = true;
 
@@ -34,6 +49,10 @@ function AuthenticationPageTemplate() {
         console.error("Error:", error);
         alert(error);
       });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   const [errors, setErrors] = useState({
@@ -100,11 +119,23 @@ function AuthenticationPageTemplate() {
                 style={{ color: "black" }}
               >
                 <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter password"
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <InputGroup>
+                  <FormControl
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Enter password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputGroup.Append>
+                    <Button
+                      variant="outline-secondary"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <FiEyeOff /> : <FiEye />}
+                    </Button>
+                  </InputGroup.Append>
+                </InputGroup>
+
                 {errors.password && (
                   <span className="text-danger">{errors.password}</span>
                 )}

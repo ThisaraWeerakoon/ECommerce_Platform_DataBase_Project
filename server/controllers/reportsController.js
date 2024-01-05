@@ -46,7 +46,10 @@ module.exports = {
   getQuarterlyReports: async (req, res) => {
     try {
       const QuarterlyReportsArray = [];
-      const QuarterlyReports = await reportObj.getQuarterlyReports();
+      console.log("req.body.year:", req.body.year);
+      let selectedYear = req.body.year !== "all" ? req.body.year : null;
+      console.log("selectedYear: ", selectedYear);
+      const QuarterlyReports = await reportObj.getQuarterlyReports(selectedYear);
       console.log("userResult: ", QuarterlyReports);
 
       console.log(QuarterlyReports);
@@ -89,6 +92,138 @@ module.exports = {
       
       console.log("OrderJSON: ", OrderArray);
       res.status(200).json(OrderArray);
+    } catch (err) {
+      res.status(400).json({
+        message: "An error occurred",
+        error: err.message,
+      });
+    }
+  },
+  
+  getOrderCount: async (req, res) => {
+    try {
+      // const OrderArray = [];
+      const Order = await reportObj.getOrderCount();
+      console.log("userResult: ", Order);
+  
+      // for (let i = 0; i < Order.length; i++) {
+      //   const OrderItemArray = [];
+      //   const OrderJSON = JSON.stringify(Order[i]);
+      //   const OrderJSONparsed = JSON.parse(OrderJSON);
+      //   console.log(OrderJSONparsed.Order_Id);
+      //   const OrderItems = await reportObj.getOrderItems(OrderJSONparsed.Order_Id);
+        
+      //   for (let j = 0; j < OrderItems.length; j++) {
+      //     const OrderItemJSON = JSON.stringify(OrderItems[j]);
+      //     const OrderItemJSONparsed = JSON.parse(OrderItemJSON);
+      //     OrderItemArray.push(OrderItemJSONparsed);
+      //   }
+        
+      //   OrderJSONparsed.OrderItems = OrderItemArray; // Assuming you want to add OrderItems to the OrderJSONparsed object
+      //   OrderArray.push(OrderJSONparsed);
+      // }
+      
+      console.log("OrderJSON: ", Order);
+      res.status(200).json(Order);
+    } catch (err) {
+      res.status(400).json({
+        message: "An error occurred",
+        error: err.message,
+      });
+    }
+  },
+  
+  getProducts: async (req, res) => {
+    try {
+      // const OrderArray = [];
+      const Order = await reportObj.getProducts();
+      console.log("userResult: ", Order);
+  
+      // for (let i = 0; i < Order.length; i++) {
+      //   const OrderItemArray = [];
+      //   const OrderJSON = JSON.stringify(Order[i]);
+      //   const OrderJSONparsed = JSON.parse(OrderJSON);
+      //   console.log(OrderJSONparsed.Order_Id);
+      //   const OrderItems = await reportObj.getOrderItems(OrderJSONparsed.Order_Id);
+        
+      //   for (let j = 0; j < OrderItems.length; j++) {
+      //     const OrderItemJSON = JSON.stringify(OrderItems[j]);
+      //     const OrderItemJSONparsed = JSON.parse(OrderItemJSON);
+      //     OrderItemArray.push(OrderItemJSONparsed);
+      //   }
+        
+      //   OrderJSONparsed.OrderItems = OrderItemArray; // Assuming you want to add OrderItems to the OrderJSONparsed object
+      //   OrderArray.push(OrderJSONparsed);
+      // }
+      
+      // console.log("OrderJSON: ", OrderArray);
+      res.status(200).json(Order);
+    } catch (err) {
+      res.status(400).json({
+        message: "An error occurred",
+        error: err.message,
+      });
+    }
+  },
+  
+  getUsers: async (req, res) => {
+    try {
+      // const OrderArray = [];
+      const Order = await reportObj.getUsers();
+      console.log("userResult: ", Order);
+  
+      // for (let i = 0; i < Order.length; i++) {
+      //   const OrderItemArray = [];
+      //   const OrderJSON = JSON.stringify(Order[i]);
+      //   const OrderJSONparsed = JSON.parse(OrderJSON);
+      //   console.log(OrderJSONparsed.Order_Id);
+      //   const OrderItems = await reportObj.getOrderItems(OrderJSONparsed.Order_Id);
+        
+      //   for (let j = 0; j < OrderItems.length; j++) {
+      //     const OrderItemJSON = JSON.stringify(OrderItems[j]);
+      //     const OrderItemJSONparsed = JSON.parse(OrderItemJSON);
+      //     OrderItemArray.push(OrderItemJSONparsed);
+      //   }
+        
+      //   OrderJSONparsed.OrderItems = OrderItemArray; // Assuming you want to add OrderItems to the OrderJSONparsed object
+      //   OrderArray.push(OrderJSONparsed);
+      // }
+      
+      // console.log("OrderJSON: ", OrderArray);
+      res.status(200).json(Order);
+    } catch (err) {
+      res.status(400).json({
+        message: "An error occurred",
+        error: err.message,
+      });
+    }
+  },
+  
+  getCustomer: async (req, res) => {
+    try {
+      // const OrderArray = [];
+      const Order = await reportObj.getCustomer();
+      console.log("userResult: ", Order);
+  
+      // for (let i = 0; i < Order.length; i++) {
+      //   const OrderItemArray = [];
+      //   const OrderJSON = JSON.stringify(Order[i]);
+      //   const OrderJSONparsed = JSON.parse(OrderJSON);
+      //   console.log(OrderJSONparsed.Order_Id);
+      //   const OrderItems = await reportObj.getOrderItems(OrderJSONparsed.Order_Id);
+        
+      //   for (let j = 0; j < OrderItems.length; j++) {
+      //     const OrderItemJSON = JSON.stringify(OrderItems[j]);
+      //     const OrderItemJSONparsed = JSON.parse(OrderItemJSON);
+      //     OrderItemArray.push(OrderItemJSONparsed);
+      //   }
+        
+      //   OrderJSONparsed.OrderItems = OrderItemArray; // Assuming you want to add OrderItems to the OrderJSONparsed object
+      //   OrderArray.push(OrderJSONparsed);
+      // }
+      
+      // console.log("OrderJSON: ", OrderArray);
+      res.status(200).json(Order);
     } catch (err) {
       res.status(400).json({
         message: "An error occurred",

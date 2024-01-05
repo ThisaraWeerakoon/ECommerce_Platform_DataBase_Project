@@ -178,7 +178,6 @@ module.exports = {
     }
   },
 
-
   getUsers: async (req, res) => {
     try {
       const role = req.body.role;
@@ -270,6 +269,8 @@ module.exports = {
         Postal_Code
       );
 
+      console.log("New Address ID: ", address);
+
       if (address) {
         // Address was successfully inserted
         res.status(200).json({
@@ -309,6 +310,8 @@ module.exports = {
         Expiry_Date
       );
 
+      console.log("paymentDetails: ",paymentDetails);
+
       if (paymentDetails) {
         // Payment details were successfully inserted
         res.status(200).json({
@@ -335,23 +338,23 @@ module.exports = {
       const userId = req.session.user.userID;
 
       const orders = await userObj.fetchOrderHistory(userId);
-  
+
       if (orders.length > 0) {
         const userDetailsObj = orders[0];
-  
-      // const user = await userObj.fetchOrderHistory(userId);
 
-      // if (user.length > 0) {
-      //   const userDetailsObj = user[0];
+        // const user = await userObj.fetchOrderHistory(userId);
 
-      //   const pName = userDetailsObj.Product_Name;
-      //   const Date = userDetailsObj.Order_Date;
-      //   const quantity = userDetailsObj.Quantity;
-      //   const price = userDetailsObj.Price;
+        // if (user.length > 0) {
+        //   const userDetailsObj = user[0];
+
+        //   const pName = userDetailsObj.Product_Name;
+        //   const Date = userDetailsObj.Order_Date;
+        //   const quantity = userDetailsObj.Quantity;
+        //   const price = userDetailsObj.Price;
 
         return res.status(200).json({
           message: "Order history fetched successfully.",
-          user: orders
+          user: orders,
         });
       } else {
         return res.status(404).json({
@@ -392,66 +395,67 @@ module.exports = {
     }
   },
 
+  removeCartItems: async (req, res) => {
+    try {
+      console.log("Inside removeCartItems");
+      const cartItemId = req.body.ID;
+      console.log(cartItemId);
+      const cartItems = await userObj.removeCartItems(cartItemId); // Assuming you have an executeQuery method
+      console.log(cartItems);
+    } catch (err) {
+      console.log("Error found:", err);
+      return res.status(500).json({
+        message: "An error occurred while fetching cart items",
+        error: err.message,
+      });
+    }
+  },
+
   totalPrice: async (req, res) => {
     try {
       const userId = req.session.user.userID;
-  
-      const price = await userObj.fetchtotalprice(userId); 
-  
+
+      const price = await userObj.fetchtotalprice(userId);
+
       if (price && price.length > 0) {
         const tPrice = price[0].TotalPrice;
         console.log(tPrice);
         return res.status(200).json({
-          message: 'Total price fetched successfully.',
-          totalPrice: tPrice, 
+          message: "Total price fetched successfully.",
+          totalPrice: tPrice,
         });
       } else {
         return res.status(404).json({
-          message: 'Total price not found.',
+          message: "Total price not found.",
         });
       }
     } catch (err) {
-      console.log('Error found:', err);
+      console.log("Error found:", err);
       return res.status(500).json({
-        message: 'An error occurred while fetching cart items',
+        message: "An error occurred while fetching cart items",
         error: err.message,
       });
     }
-  }
-  ,
-  
+  },
   getuserPayment: async (req, res) => {
     console.log("Trying");
-    try {    
+    const paymentArray = [];
+    try {
       const userId = req.session.user.userID; // Get the user ID from the session
 
       const paymentDetails = await userObj.fetchpaymentDetails(userId);
-  
-      if (paymentDetails) {
-        console.log(paymentDetails);
-        const payObj = paymentDetails[0];
-        const Payment_Type = payObj.Payment_Type;
-        const Provider = payObj.Provider;
-        const Account_Number = payObj.Account_Number;
-        const Expiry_Date = payObj.Expiry_Date;
 
-        return res.status(200).json({
-          message: "Payment details fetched successfully",
-          paymentDetails: {
-            Payment_Type: Payment_Type,
-            Provider: Provider,
-            Account_Number: Account_Number,
-            Expiry_Date: Expiry_Date,
-          },
-        });
-      } else {
-        // Failed to save the payment details
-        res.status(401).json({
-          message: "Payment details not saved",
-        });
+      for (let i = 0; i < paymentDetails.length; i++) {
+        const paymentDetailsJSON = JSON.stringify(paymentDetails[i]);
+        const paymentDetailsJSONparsed = JSON.parse(paymentDetailsJSON);
+        console.log(paymentDetailsJSONparsed.Payment_Method_Id);
+        paymentArray.push(paymentDetailsJSONparsed);
       }
+
+      console.log("paymentJSON: ", paymentArray);
+      res.status(200).json(paymentArray);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the payment details",
         error: err.message,
@@ -461,41 +465,51 @@ module.exports = {
 
   getuserAddress: async (req, res) => {
     console.log("Trying");
-    try {    
+    const addressArray = [];
+    try {
       const userId = req.session.user.userID; // Get the user ID from the session
 
-      const paymentDetails = await userObj.fetchaddressDetails(userId);
-  
-      if (paymentDetails) {
-        const AddressObj = paymentDetails[0];
-        const House_Number = AddressObj.House_Number;
-        const Street_Number = AddressObj.Street_Number;
-        const Address_Line_1 = AddressObj.Address_Line_1;
-        const Address_Line_2 = AddressObj.Address_Line_2;
-        const City = AddressObj.City;
-        const Region = AddressObj.Region;
-        const Postal_Code = AddressObj.Postal_Code;
-
-        return res.status(200).json({
-          message: "Address details fetched successfully",
-          paymentDetails: {
-            House_Number: House_Number,
-            Street_Number: Street_Number,
-            Address_Line_1: Address_Line_1,
-            Address_Line_2: Address_Line_2,
-            City: City,
-            Region: Region,
-            Postal_Code: Postal_Code,
-          },
-        });
-      } else {
-        // Failed to save the payment details
-        res.status(401).json({
-          message: "Payment details not saved",
-        });
+      const addressDetails = await userObj.fetchaddressDetails(userId);
+      for (let i = 0; i < addressDetails.length; i++) {
+        const addressDetailsJSON = JSON.stringify(addressDetails[i]);
+        const addressDetailsJSONparsed = JSON.parse(addressDetailsJSON);
+        console.log(addressDetailsJSONparsed.Address_Id);
+        addressArray.push(addressDetailsJSONparsed);
       }
+
+      console.log("addressJSON: ", addressArray);
+      res.status(200).json(addressArray);
+
+      // if (paymentDetails) {
+      //   const AddressObj = paymentDetails[0];
+      //   const House_Number = AddressObj.House_Number;
+      //   const Street_Number = AddressObj.Street_Number;
+      //   const Address_Line_1 = AddressObj.Address_Line_1;
+      //   const Address_Line_2 = AddressObj.Address_Line_2;
+      //   const City = AddressObj.City;
+      //   const Region = AddressObj.Region;
+      //   const Postal_Code = AddressObj.Postal_Code;
+
+      //   return res.status(200).json({
+      //     message: "Address details fetched successfully",
+      //     paymentDetails: {
+      //       House_Number: House_Number,
+      //       Street_Number: Street_Number,
+      //       Address_Line_1: Address_Line_1,
+      //       Address_Line_2: Address_Line_2,
+      //       City: City,
+      //       Region: Region,
+      //       Postal_Code: Postal_Code,
+      //     },
+      //   });
+      // } else {
+      //   // Failed to save the payment details
+      //   res.status(401).json({
+      //     message: "Payment details not saved",
+      //   });
+      // }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the payment details",
         error: err.message,
@@ -504,18 +518,16 @@ module.exports = {
   },
 
   userOrder: async (req, res) => {
-    console.log("Order details reached the backend")
+    console.log("Order details reached the backend");
     try {
-      
       const userId = req.session.user.userID; // Get the user ID from the session
 
       const tPrice = req.body.totalPrice;
-      console.log(tPrice)
+      console.log(tPrice);
 
-  
       // Insert the payment details into the database
       const orderDetails = await userObj.insertOrder(userId, tPrice);
-  
+
       if (orderDetails) {
         // Payment details were successfully inserted
         res.status(200).json({
@@ -529,7 +541,7 @@ module.exports = {
         });
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json({
         message: "An error occurred while saving the order details",
         error: err.message,
@@ -542,18 +554,23 @@ module.exports = {
     try {
       const userId = req.session.user.userID; // Get the user ID from the session
       const tPrice = req.body.totalPrice;
-  
+      const address_Id = req.body.addressId;
+
       // Call the user model function and await it
-      const orderDetails = await userObj.insertOrder2(userId, tPrice);
-  
+      const orderDetails = await userObj.insertOrder2(
+        userId,
+        tPrice,
+        address_Id
+      );
+
       console.log("Delivery Estimate: ", orderDetails);
-  
+
       if (orderDetails) {
         var session = req.session;
         session.DelResult = orderDetails;
         session.save();
         console.log(session);
-  
+
         res.status(200).json({
           message: "Order details saved successfully",
           DelResult: req.session.DelResult,
@@ -570,25 +587,31 @@ module.exports = {
         error: err.message,
       });
     }
-  }
-  ,
+  },
   userOrder3: async (req, res) => {
     console.log("Order details reached the backend");
     try {
       const userId = req.session.user.userID; // Get the user ID from the session
       const tPrice = req.body.totalPrice;
-  
+      const address_Id = req.body.addressId;
+      const payment_Method = req.body.paymentMethod;
+
       // Call the user model function and await it
-      const orderDetails = await userObj.insertOrder3(userId, tPrice);
-  
+      const orderDetails = await userObj.insertOrder3(
+        userId,
+        tPrice,
+        address_Id,
+        payment_Method
+      );
+
       console.log("Delivery Estimate: ", orderDetails);
-  
+
       if (orderDetails) {
         var session = req.session;
         session.DelResult = orderDetails;
         session.save();
         console.log(session);
-  
+
         res.status(200).json({
           message: "Order details saved successfully",
           DelResult: req.session.DelResult,
@@ -605,6 +628,5 @@ module.exports = {
         error: err.message,
       });
     }
-  }
-    
+  },
 };
