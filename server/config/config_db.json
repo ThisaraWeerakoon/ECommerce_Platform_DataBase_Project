@@ -1,6 +1,12 @@
 {
     "user":"root",
     "host":"localhost",
+<<<<<<< HEAD
     "password":"123456",
     "database":"ecommerce_plateform"
 }
+=======
+    "password":"password",
+    "database":"ecommerce_platform"
+}
+>>>>>>> Dinithi_Branch

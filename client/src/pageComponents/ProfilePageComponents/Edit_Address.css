@@ -1,0 +1,126 @@
+
+#EditAddress {
+    padding: 20px;
+    background-color: #d8e5f3;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 15px;
+    margin-top: 40px;
+    max-width: 600px;
+    width: 50%;
+    float: left;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)
+  }
+  
+  /* Style form labels */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  /* Style form input fields */
+  .form-control {
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  /* Style error messages */
+  .text-danger {
+    color: #ff0000;
+  }
+  
+  /* Style the "Save Address" button */
+  .save-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .save-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Style the "Back to Profile" link */
+  .back-link {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+/* Edit_Address.css */
+/* You can place this CSS in a separate .css file or add it in your existing CSS file. */
+
+/* Section styling */
+#PaymentDetails {
+    /* position: absolute; */
+    top: 110px; /* Adjust the top position as needed */
+    right: 300px; /* Adjust the right position as needed */
+    padding: 20px;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    background-color: #d8e5f3;
+    border-radius: 5px;
+    width: 50%;
+    margin-top: 40px;
+    float: right;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)
+  }
+  
+  /* Form label styling */
+  .form-label {
+    font-weight: bold;
+  }
+  
+  /* Select input styling */
+  .select-input {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  /* Text input styling */
+  .text-input {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    padding: 5px;
+    width: 100%;
+  }
+  
+  /* Error message styling */
+  .text-danger {
+    color: #dc3545;
+    font-size: 0.875rem;
+  }
+  
+  /* Save button styling */
+  .save-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 0.25rem;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  /* Back link styling */
+  .back-link {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .center-content {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Ensure full viewport height */
+  }
+  

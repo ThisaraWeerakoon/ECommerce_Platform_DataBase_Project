@@ -1,74 +1,200 @@
-import React from 'react'
-import LogoImage from '../../images/logo.jpg'
-import ItemCard from '../../components/itemCard';
+// import LogoImage from '../../images/logo.jpg'
+// import ItemCard from '../../components/itemCard';
+// import Axios from 'axios';
+// import React, { useEffect, useState } from 'react';
+
+// const CustomerHomePageItemDashBoard = () => {
+
+//   const [selectedCategoryID, setSelectedCategoryID] = useState(''); // State variable to hold the selected category name
+
+//   const [categories, setCategories] = useState([]);
+//   const route_path = "/Catagories/";
+
+//   useEffect(() => {
+//     // Make an Axios GET request to your backend to fetch product data
+//     Axios.get('http://localhost:3005/product/getCategories')
+//       .then(response => {
+//         console.log("Got a response");
+//         const parsedCategories = JSON.parse(response.data); // Parse the JSON string
+//         setCategories(parsedCategories); // Assuming the response is an array of product objects
+//         console.log("Catgoeries:",parsedCategories)
+//       })
+//       .catch(error => {
+//         console.error('Error fetching product data:', error);
+//       });
+//   }, []);
+
+//   useEffect(() => {
+//     console.log("Updated Categories:", categories);
+//   }, [categories]);
+
+//   const func = () => {
+//     console.log("Selected Category ID inside func:", selectedCategoryID);
+//     // Check if a category name is selected
+//     if (selectedCategoryID) {
+//       // Send the selected category ID to the backend
+//       Axios.post('http://localhost:3005/product/postCategoryID', { selectedCategoryID: selectedCategoryID })
+//         .then(() => {
+
+//           console.log('Data sent to the backend:', selectedCategoryID);
+//           // You can handle the response from the backend here
+//         })
+//         .catch(error => {
+//           console.error('Error sending data to the backend:', error);
+//         });
+//     }
+//   };
+
+//   useEffect(() => {
+//     if (selectedCategoryID) {
+//       console.log("Selected Category ID from database:", selectedCategoryID);
+//       func();
+//       console.log('Button 1 clicked');
+//     }
+//   }, [selectedCategoryID]);
+
+//   return (
+//   <div style={{
+//     display: 'grid',
+//     gridTemplateColumns: 'repeat(3, 1fr)', // 3 columns
+//     gridGap: '16px', // Adjust the gap as needed
+//     padding: '16px', // Add padding to the grid
+//   }} >
+//   {categories.map((category, index) => {
+
+//     return (
+//       <ItemCard
+//         key={index}
+//         image={route_path +category.Category_Image}
+//         title={category.Category_Name}
+//         description={category.description}
+//         button1Label="See More"
+//         onClickButton1={() =>
+//         {
+//           setSelectedCategoryID(category.Product_Category_Id);
+//         }
+//       }
+//         // onClickButton2={() => {console.log('Button 2 clicked')}}
+//     />
+//     );
+//   }
+//   )
+//   }
+
+// </div>
+
+//   )
+// }
+
+// export default CustomerHomePageItemDashBoard
+
+import LogoImage from "../../images/logo.jpg";
+import ItemCard from "../../components/itemCard";
+import Axios from "axios";
+import React, { useEffect, useState, useContext } from "react";
+// import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { CategoryContext } from "../../context/CategoryDetailsContext";
+import CustomerHomePage from "../../pages/CustomerHomePage";
 
 const CustomerHomePageItemDashBoard = () => {
+  const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
+  const navigate = useNavigate();
 
-      // Sample data for ItemCards
-  const itemCardsData = [
-    {
-      image: LogoImage,
-      title: 'Item 1',
-      description: 'Description for Item 1',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-    {
-      image: LogoImage,
-      title: 'Item 2',
-      description: 'Description for Item 2',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-    {
-      image: LogoImage,
-      title: 'Item 3',
-      description: 'Description for Item 3',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-    {
-      image: LogoImage,
-      title: 'Item 4',
-      description: 'Description for Item 4',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-    {
-      image: LogoImage,
-      title: 'Item 5',
-      description: 'Description for Item 5',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-    {
-      image: LogoImage,
-      title: 'Item 6',
-      description: 'Description for Item 6',
-      button1Label: 'Button 1',
-      button2Label: 'Button 2',
-    },
-  ];
+  // const [selectedCategoryID, setSelectedCategoryID] = useState(''); // State variable to hold the selected category name
+
+  const [categories, setCategories] = useState([]);
+  const route_path = "/Catagories/";
+
+  useEffect(() => {
+    // Make an Axios GET request to your backend to fetch product data
+    Axios.get("http://localhost:3005/product/getCategories")
+      .then((response) => {
+        // console.log("Got a response");
+        const parsedCategories = JSON.parse(response.data); // Parse the JSON string
+        setCategories(parsedCategories); // Assuming the response is an array of product objects
+        // console.log("Catgoeries:",parsedCategories)
+        console.log("Catgoeries:", categories);
+      })
+      .catch((error) => {
+        console.error("Error fetching product data:", error);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated Categories:", categories);
+  }, [categories]);
+
+  const func = () => {
+    console.log(
+      "Selected Category ID inside func:",
+      selectedCategory.Product_Category_Id
+    );
+    // Check if a category name is selected
+    if (selectedCategory.Product_Category_Id) {
+      // Send the selected category ID to the backend
+      Axios.post("http://localhost:3005/product/postCategoryID", {
+        selectedCategoryID: selectedCategory.Product_Category_Id,
+      })
+        .then(() => {
+          console.log(
+            "Data sent to the backend:",
+            selectedCategory.Product_Category_Id
+          );
+          // navigate("/pages/CustomerHomePage");
+          // You can handle the response from the backend here
+        })
+        .catch((error) => {
+          console.error("Error sending data to the backend:", error);
+        });
+    }
+  };
+
+  // useEffect(() => {
+  //   if (selectedCategoryID) {
+  //     console.log("Selected Category ID from database:", selectedCategoryID);
+  //     func();
+  //     console.log('Button 1 clicked');
+  //   }
+  // }, [selectedCategoryID]);
+
+  // const history = useHistory();
+
   return (
-    <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)', // 3 columns
-        gridGap: '16px', // Adjust the gap as needed
-        padding: '16px', // Add padding to the grid
-      }}>
-        {itemCardsData.map((item, index) => (
+    <div
+      style={{
+        marginLeft: "60px",
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)", // 3 columns
+        gridGap: "16px", // Adjust the gap as needed
+        padding: "26px", // Add padding to the grid
+        justifyContent: "center", // Center the grid horizontally
+        alignItems: "center", // Center the grid vertically
+      }}
+    >
+      {categories.map((category, index) => {
+        return (
           <ItemCard
             key={index}
-            image={item.image}
-            title={item.title}
-            description={item.description}
-            button1Label={item.button1Label}
-            button2Label={item.button2Label}
+            image={route_path + category.Category_Image}
+            title={category.Category_Name}
+            description={category.description}
+            button1Label="See More"
+            onClickButton1={() => {
+              setSelectedCategory({
+                Product_Category_Id: category.Product_Category_Id,
+                Category_Name: category.Category_Name,
+              });
+              // history.push('../pages/ProductsPage');
+
+              navigate(`/pages/CustomerSubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`);
+            }}
+            // onClickButton2={() => {console.log('Button 2 clicked')}}
           />
-        ))}
-      </div>
+        );
+      })}
+    </div>
+  );
+};
 
-  )
-}
-
-export default CustomerHomePageItemDashBoard
+export default CustomerHomePageItemDashBoard;
