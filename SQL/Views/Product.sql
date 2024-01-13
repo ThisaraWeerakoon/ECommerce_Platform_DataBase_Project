@@ -19,7 +19,6 @@ INNER JOIN variation_configuration vc ON vo.Variation_Option_Id = vc.Variation_O
 INNER JOIN variant v ON vc.Variant_Id = v.Variant_Id
 WHERE v.Product_Id = p.Product_Id 
 
-
 ORDER BY v.SKU ASC
 
 -- I comment First 2 code because it will get error
