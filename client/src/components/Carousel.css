@@ -1,0 +1,16 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* bg-blue-300/20 border-2 border-blue-300/70 rounded h-36 w-48  */
+.image {
+    background-color: rgba(66, 153, 225, 0.2);
+    border-color: rgba(66, 153, 225, 0.7);
+    border-width: 2px;
+    border-style: ridge;
+    margin: "0";
+    padding: "0";
+}

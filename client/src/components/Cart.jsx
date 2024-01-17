@@ -63,7 +63,7 @@ const Cart = () => {
         }}
       >
         {getdata.length ? (
-          <div className="card_details" style={{ width: "24rem", padding: 10 }}>
+          <div className="cardDetails" style={{ width: "24rem", padding: 10 }}>
             {/* Render cart items and their details */}
           </div>
         ) : (

@@ -21,8 +21,6 @@ import Purchase2 from './pages/Purchase2';
 import StorePickupOrderSaved from './pages/StorePickupOrderSaved';
 import DeliveryOrderSaved from './pages/DeliveryOrderSaved';
 
-
-
 import { BrowserRouter, Routes, Route,useParams } from 'react-router-dom';
 import SubCategoryPage from './pages/SubCategoryPage';
 
@@ -67,8 +65,6 @@ function App() {
           <Route path="/pages/CartPage/StorePickupOrderSaved" element={<StorePickupOrderSaved/>} />
           <Route path="/pages/CartPage/DeliveryOrderSaved" element={<DeliveryOrderSaved/>} /> 
           <Route path="/pages/Profile/OrderReport" element={<OrderReport/>} />
-
-
           <Route path="/pages/SubCategoryPage/:Product_Category_Id/:Category_Name" element={<SubCategoryPage/>}/>
           <Route path="/pages/SamplePage" element={<SamplePage/>}/>
           <Route path="/pages/CustomerSubCategoryPage/:Product_Category_Id/:Category_Name" element={<CustomerSubCategoryPage/>}/>
@@ -78,12 +74,8 @@ function App() {
           <Route path="/pages/VariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<VariantItemPage/>}/>
           <Route path="/pages/CustomerProductItemPage/:Product_Category_Id/:Category_Name/:Product_Id" element= {<CustomerProductItemPage/>}/>
           <Route path="pages/CustomerVariantItemPage/:Product_Category_Id/:Category_Name/:Product_Id/:selectedVariantID" element={<CustomerVariantItemPage/>}/>
-
       </Routes>
     </BrowserRouter>
-
-
-    
   );
 }
 export default App;
