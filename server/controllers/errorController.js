@@ -13,4 +13,3 @@ exports.get500 = (error, req, res, next) => {
         },
     })
 }
-
