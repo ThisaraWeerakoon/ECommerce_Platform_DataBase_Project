@@ -187,7 +187,9 @@ const CustomerHomePageItemDashBoard = () => {
               });
               // history.push('../pages/ProductsPage');
 
-              navigate(`/pages/CustomerSubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`);
+              navigate(
+                `/pages/CustomerSubCategoryPage/${category.Product_Category_Id}/${category.Category_Name}`
+              );
             }}
             // onClickButton2={() => {console.log('Button 2 clicked')}}
           />

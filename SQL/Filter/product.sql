@@ -12,7 +12,7 @@ INNER JOIN product_category_configuration pcc
     ON p.Product_Id = pcc.Product_Id
 INNER JOIN product_category pc 
     ON pcc.Product_Category_Id = pc.Product_Category_Id
-INNER JOIN variant_type vt 
+INNER JOIN variant_type vt
     ON pc.Product_Category_Id = vt.Product_Category_Id
 INNER JOIN variation_option vo 
     ON vt.Variant_Type_Id = vo.Variant_Type_Id

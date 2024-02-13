@@ -12,7 +12,7 @@ import { LoginValidation } from "../../Validations/LoginValidation";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Axios from "axios";
-
+import "./Authentication.css";
 
 function AuthenticationPageTemplate() {
   const [email, setEmail] = useState("");
@@ -66,15 +66,13 @@ function AuthenticationPageTemplate() {
   }
 
   return (
-    <section id="LogIn" className="block block-login">
-      <Container fluid>
+    <section id="LogIn" className="block-login">
+      <Container fluid className='form'>
         <Row>&nbsp;</Row>
         <Row>&nbsp;</Row>
         <Row>
           <Col md={{ span: 4, offset: 4 }}>
-            <h2 className="h2" align="center">
-              WELCOME BACK!
-            </h2>
+            <h2 className="welcome"> Welcome Back!</h2>
           </Col>
         </Row>
         <Row>&nbsp;</Row>
@@ -111,29 +109,28 @@ function AuthenticationPageTemplate() {
                 style={{ color: "black" }}
               >
                 <Form.Label>Password</Form.Label>
-                
-                    <InputGroup className="mb-3">
-                      <Form.Control
-                        style={{ marginBottom: "0px" }}
-                        placeholder="Enter password"
-                        type={showPassword ? "text" : "password"}
-                        onChange={(e) => setPassword(e.target.value)}
-                      />
-                      <InputGroup.Text id="basic-addon2">
-                        <Button
-                          variant="light"
-                          style={{ padding: "0", height: "100%" }}
-                          onClick={handleClickShowPassword}
-                        >
-                          {showPassword ? (
-                            <Visibility style={{ fontSize: "20px" }} />
-                          ) : (
-                            <VisibilityOff style={{ fontSize: "20px" }} />
-                          )}
-                        </Button>
-                      </InputGroup.Text>
-                    </InputGroup>
-                  
+
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    style={{ marginBottom: "0px" }}
+                    placeholder="Enter password"
+                    type={showPassword ? "text" : "password"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <InputGroup.Text id="basic-addon2">
+                    <Button
+                      variant="light"
+                      style={{ padding: "0", height: "100%" }}
+                      onClick={handleClickShowPassword}
+                    >
+                      {showPassword ? (
+                        <Visibility style={{ fontSize: "20px" }} />
+                      ) : (
+                        <VisibilityOff style={{ fontSize: "20px" }} />
+                      )}
+                    </Button>
+                  </InputGroup.Text>
+                </InputGroup>
 
                 {errors.password && (
                   <span className="text-danger">{errors.password}</span>
@@ -142,7 +139,12 @@ function AuthenticationPageTemplate() {
             </Form>
             <Row>&nbsp;</Row>
             <Row>
-              <Button variant="secondary" size="sm" onClick={validation}>
+              <Button
+                className="btn"
+                variant="secondary"
+                size="sm"
+                onClick={validation}
+              >
                 Login
               </Button>
             </Row>
@@ -150,11 +152,7 @@ function AuthenticationPageTemplate() {
             <Row>
               <p>
                 Haven't got an account yet?
-                <Link
-                  to="../pages/SignUpPage"
-                  className="mb-3"
-                  style={{ color: "black" }}
-                >
+                <Link className="sign-up" to="../pages/SignUpPage">
                   Sign Up
                 </Link>
               </p>

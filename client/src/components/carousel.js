@@ -8,12 +8,12 @@ const Carousel = () => {
     "/CarouselImages/dollhouse.jpg",
     "/CarouselImages/gamingconsoles.jpeg",
     "/CarouselImages/homeappliances.jpeg",
-    "/CarouselImages/hometheatersystems.jpeg",
+    // "/CarouselImages/hometheatersystems.jpeg",
     "/CarouselImages/mobiledevices.jpg",
     "/CarouselImages/refrigerators.jpeg",
     "/CarouselImages/householdappliances.jpg",
     "/CarouselImages/mobilephones.jpg",
-    "/CarouselImages/dollsanddollhouses.jpeg",
+    // "/CarouselImages/dollsanddollhouses.jpeg",
     "/CarouselImages/televisions.jpeg",
     "/CarouselImages/kitchenappliances.jpeg",
   ];
@@ -33,16 +33,12 @@ const Carousel = () => {
           onReady={() => console.log("I am ready")}
         >
           {images.map((image, index) => (
-            <div
-              key={index}
-              className="image"
-              // style={{ margin: "0", padding: "0" }}
-            >
+            <div key={index} className="imageMap">
               <img
                 src={image.Category_Image}
                 alt={`Image ${index}`}
                 onError={(e) => console.log("Error loading image:", e.message)}
-                style={{ height: "200px" }}
+                className="image"
               />
             </div>
           ))}
