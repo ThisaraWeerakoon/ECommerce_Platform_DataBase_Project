@@ -5,12 +5,26 @@ import * as Icon from 'react-bootstrap-icons';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import CategoryDetailsContext from './context/CategoryDetailsContext';
+import ProductIDContext from './context/ProductIDContext';
+import VariantOptionsContext from './context/VariantOptionsContext';
+import  VarientItemContext  from './context/VariantIDContext';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <CategoryDetailsContext>
+      <ProductIDContext>
+
+        {/* <VariantOptionsContext> */}
+        <VarientItemContext>
+          <App />
+        </VarientItemContext>
+        {/* </VariantOptionsContext> */}
+      </ProductIDContext>
+    </CategoryDetailsContext>
   </React.StrictMode>
 );
 

@@ -1,15 +1,12 @@
-import React from 'react'
-import Header from '../../components/Header'
+import React from "react";
+import Header from "../../components/Header";
 
 const AuthenticationPageHeader = () => {
   return (
     <div>
-      <Header
-        linkName=""
-        linkUrl=""
-      />
+      <Header linkName="" linkUrl="" />
     </div>
-  )
-}
+  );
+};
 
-export default AuthenticationPageHeader
+export default AuthenticationPageHeader;

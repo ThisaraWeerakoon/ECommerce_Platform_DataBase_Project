@@ -1,0 +1,39 @@
+.profile-navigation {
+    width: 930px;
+    height: 600px;
+    text-align: center; /* Center text within the box */
+    background-color: #d8e5f3;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 100px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Vertically position content at the top */
+    align-items: center; /* Horizontally center content */
+    position: absolute;
+    top: 10px; /* Adjust the top value to place it at the desired position */
+    right: 10px; /* Adjust the right value to place it at the desired position */
+    margin-top: 119px;
+    margin-right: 30px;
+  }
+  
+  .order-report {
+    width: 850px;
+    height: 440px;
+    text-align: center; /* Center text within the box */
+    background-color: #ece8e8;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start; /* Vertically position content at the top */
+    align-items: center; /* Horizontally center content */
+    position: absolute;
+    top: 15px; /* Position at the top of the page */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Center horizontally */
+  }
+  

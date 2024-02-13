@@ -1,0 +1,93 @@
+
+.profile-image {
+    border: 2px solid #2b86dc;
+    width: 150px;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+
+.name-email {
+    width: 400px;
+    height: 100px;
+    text-align: justify;
+    background-color: #ece8e8;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 0 50px rgba(1, 26, 54, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 16px;
+    font-weight: lighter;
+    color: #000000;
+    margin-top: 50px;
+    margin: 0 auto; /* Center horizontally */
+}
+
+.profile-box {
+    width: 800px;
+    height: 650px;
+    text-align: center;
+    background-color: #d8e5f3;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 100px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center content */
+    margin: 80px;
+    margin-left: 200px;
+}
+
+.user-info {
+    background-color: #f7f7f7;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(1, 26, 54, 0.2);
+    max-width: 300px;
+    margin: 0 auto; /* Center horizontally */
+    margin-bottom: 20px;
+}
+
+.user-info h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.user-detail {
+    margin: 10px 0;
+    font-size: 18px;
+    text-align: center;
+}
+
+.user-detail strong {
+    font-weight: bold;
+    color: #007bff;
+}
+
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center vertically */
+    margin-top: 0px;
+    margin-right: 0px;
+}
+
+.action-buttons button {
+    margin-bottom: 10px;
+    padding: 8px 16px;
+    background-color: #6ba1dc;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+}
+
+.action-buttons button:hover {
+    background-color: #0056b3;
+}

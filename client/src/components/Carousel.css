@@ -1,0 +1,28 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+/* bg-blue-300/20 border-2 border-blue-300/70 rounded h-36 w-48  */
+.imageMap{
+    background-color: rgb(162, 162, 239);
+    border-color: rgb(138, 138, 242);
+    border-width: 2px;
+    border-style: ridge;
+    border-radius: 15px;
+    margin: "0";
+    padding: "0";
+
+}
+.image {
+    background-color: none;
+    border-color: none;
+    border-width: 2px;
+    border-style: ridge;
+    border-radius: 15px;
+    height: 200px;
+    width: 250px;
+    
+}

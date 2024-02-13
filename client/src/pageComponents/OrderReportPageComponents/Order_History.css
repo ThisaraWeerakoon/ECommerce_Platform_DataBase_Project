@@ -1,0 +1,50 @@
+/* Add this CSS to your stylesheet or inline style */
+
+/* Style the container div */
+.order-history {
+    padding: 60px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)  }
+  
+  /* Style the order history title */
+  .order-history h2 {
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-size: 45px;
+    margin-bottom: 20px;
+    color: #3382b7;
+    
+  }
+  
+  /* Style the list items */
+  .order-history ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .order-history li {
+    background-color: #c9e1ed;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 50px rgba(1, 26, 54, 0.2)
+  }
+  
+  /* Style labels and order details */
+  .order-history li strong {
+    color: #555;
+  }
+  
+  .order-history li hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+  }
+  
+  /* Style price as currency */
+  .order-history li strong.price {
+    color: #009900;
+  }
+  
