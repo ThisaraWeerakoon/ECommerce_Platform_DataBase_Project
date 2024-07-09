@@ -68,8 +68,8 @@ To use the platform, follow these steps:
 4. Enter delivery and payment details to complete the purchase.
 5. Access the admin panel for detailed sales and inventory reports.
 
-![Homepage Screenshot](assets/images/homepage.png)
-![Product Page Screenshot](assets/images/product-page.png)
+assets/demo.mp4
+
 
 ## Credits
 
