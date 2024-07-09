@@ -67,8 +67,11 @@ To use the platform, follow these steps:
 3. View your cart and proceed to checkout.
 4. Enter delivery and payment details to complete the purchase.
 5. Access the admin panel for detailed sales and inventory reports.
-
-https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project/blob/main/assets/demo.mp4
+<video width="320" height="240" controls>
+  <source src="
+https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project/blob/main/assets/demo.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 
 ## Credits
