@@ -1,5 +1,5 @@
-<h1 align="center">Single Vendor E-Commerce Platform </h1>
-<p align="center"><i>Implementing a 4 bit nano processor </i></p>
+<h1 align="center">E-Commerce Platform DataBase Project</h1>
+<p align="center"><i>Single Vendor E-Commerce Platform </i></p>
 
 
 ## Overview
