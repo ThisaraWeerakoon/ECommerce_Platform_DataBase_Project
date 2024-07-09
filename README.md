@@ -1,99 +1,118 @@
 <h1 align="center">E-Commerce Platform DataBase Project</h1>
 <p align="center"><i>Single Vendor E-Commerce Platform </i></p>
 
+## Description
 
-## Overview
-<p>As part of <b>CS3043 - Database Systems</b> the database design project for a local retailer chain in Texas, this project involves creating a comprehensive database to support an e-commerce platform. By completing this project, able to implement:</p>
-    <ul>
-        <li>Model the database to hold details about different products, including variants, categories, and custom attributes.</li>
-        <li>Manage inventory, ensuring accurate count and consistency for each product variant.</li>
-        <li>Support customer interactions, including registration, browsing, adding products to cart, and checkout processes.</li>
-        <li>Implement order processing, capturing customer details, delivery methods, payment options, and reflecting changes in inventory.</li>
-        <li>Develop a reporting system to generate quarterly sales reports, identify products with the most sales, analyze popular product categories, and monitor customer orders.</li>
-        <li>Design a delivery module that calculates estimated delivery times based on product availability and delivery location.</li>
-        <li>Employ procedures, functions, and triggers to guarantee ACID properties and maintain database consistency through primary keys, foreign keys, and indexing where necessary.</li>
-    </ul>
-    <p>This database design will ensure efficient management of the e-commerce platform, allowing the retailer to compete effectively with major players like Amazon.</p>
+This project is a full-stack implementation of a single vendor e-commerce platform for a local chain retailer in Texas, named C. With Amazon posing a significant threat to local retailers, C decided to establish an online presence to remain competitive. The platform focuses on consumer electronics and toys in its initial phase, supporting detailed product variants, inventory management, and a comprehensive reporting system for monitoring and analytics. 
 
-## Components
+- **Motivation:** To help the local retailer C remain competitive against larger e-commerce platforms by establishing a robust online presence.
+- **Why:** The retailer recognized the importance of reaching the technology side to keep up with competitors like Amazon.
+- **Problem Solved:** The platform allows the retailer to manage product inventory, support online purchases, and generate detailed sales and delivery reports.
+- **What We Learned:** How to design and implement a comprehensive e-commerce system, manage database relationships and transactions, and create a seamless user experience.
 
-<ul>
-    <li><strong>4-bit Add/Subtract Unit</strong>
-        <ul>
-            <li>This unit should be capable of adding and subtracting numbers represented using 2’s complement.</li>
-        </ul>
-    </li>
-    <li><strong>3-bit Adder</strong>
-        <ul>
-            <li>This unit is used to increment the Program Counter.</li>
-        </ul>
-    </li>
-    <li><strong>3-bit Program Counter (PC)</strong>
-        <ul>
-            <li>The Program Counter needs to be reset to 0 when required. Build it using D Flip-Flops with a clear/reset input.</li>
-        </ul>
-    </li>
-    <li><strong>k-way b-bit Multiplexers</strong>
-        <ul>
-            <li>A k-way b-bit multiplexer can take in k inputs, each with b bits, rather than a single bit. The output is a group of b bits. There are log<sub>2</sub> k control bits, and these control bits are used to select one of the k groups of b bits rather than a single bit.</li>
-        </ul>
-    </li>
-    <li><strong>Register Bank</strong>
-        <ul>
-            <li>Contains 8, 4-bit registers (named R0 to R7).</li>
-            <li>Hardcode value of R0 to all 0s.</li>
-        </ul>
-    </li>
-    <li><strong>Program ROM</strong>
-        <ul>
-            <li>This stores our Assembly program.</li>
-        </ul>
-    </li>
-    <li><strong>Buses</strong>
-        <ul>
-            <li>Used 3, 4, and 12-bit buses to connect components. This had greatly simplified our design rather than running so many wires around. We used labels such as D(3 downto 0), I(11 downto 0), M(3 downto 0), and R(3 downto 0).</li>
-        </ul>
-    </li>
-    <li><strong>Instruction Decoder</strong>
-        <ul>
-            <li> The Instruction Decoder circuit is activating necessary components based on the instructions the user wish to execute</li>
-        </ul>
-    </li>
-  
-</ul>
+## Table of Contents 
 
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
+- [Badges](#badges)
+- [Features](#features)
+- [How to Contribute](#how-to-contribute)
 
-The following table contains the list of functions the shell should support
-alongside with a brief description of what they are supposed to do.
+## Installation
 
-<img src="assets/Screenshot 2024-07-08 at 20.49.21.png" alt="Awesome README Templates" />
+Follow these steps to set up the development environment for the project:
 
-Block diagram of the nanoprocessor is given below
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd ECommerce_Platform_DataBase_Project
+    ```
+3. Install the required dependencies for the backend:
+    ```sh
+    cd server
+    npm install
+    ```
+4. Install the required dependencies for the frontend:
+    ```sh
+    cd client
+    npm install
+    ```
+5. Set up the MySQL database:
+    - Create a new database.
+    - Import the provided SQL schema to set up the tables and initial data.
+6. Configure environment variables:
+    - Create a `.env` file in the backend directory and add your database credentials.
+7. Start the backend server:
+    ```sh
+    cd server
+    node index.js
+    ```
+8. Start the frontend server:
+    ```sh
+    cd client
+    npm start
+    ```
 
-<img src="assets/Screenshot 2024-07-08 at 21.44.40.png" alt="Awesome README Templates" />
+## Usage
 
-## Practical Operation
+To use the platform, follow these steps:
 
-See `Instructions For Practical Operations.txt` for ways to get started.
+1. Register an account or log in as a guest.
+2. Browse through the product catalog and select items to add to your cart.
+3. View your cart and proceed to checkout.
+4. Enter delivery and payment details to complete the purchase.
+5. Access the admin panel for detailed sales and inventory reports.
 
-## Report and Documentation
+![Homepage Screenshot](assets/images/homepage.png)
+![Product Page Screenshot](assets/images/product-page.png)
 
-See 'Project Report.pdf' 
+## Credits
 
-## Demo 
-https://github.com/ThisaraWeerakoon/Nano_Processor/assets/83450623/20d34ea7-4976-4179-bd00-1663a7685924
+We used several third-party assets and tutorials, including:
 
+- [React Documentation](https://reactjs.org/docs/getting-started.html)
+- [Node.js Documentation](https://nodejs.org/en/docs/)
+- [MySQL Documentation](https://dev.mysql.com/doc/)
 
-## Contributing
+## License
 
-Contributions are always welcome!
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
+## Badges
 
-## :pencil: License
+![React](https://img.shields.io/badge/React-17.0.2-blue)
+![Node.js](https://img.shields.io/badge/Node.js-14.17.0-green)
+![MySQL](https://img.shields.io/badge/MySQL-8.0.25-orange)
 
-This project is licensed under [MIT](https://opensource.org/licenses/MIT) license.
+## Features
 
-## :man_astronaut: Show your support
+- User registration and login
+- Product catalog with variants
+- Shopping cart and checkout system
+- Inventory management
+- Comprehensive reporting system
+- Delivery estimation module
 
-Give a ⭐️ if this project helped you!
-Example user programs for use.
+## How to Contribute
+
+We welcome contributions from the community! If you are interested in contributing, please follow these guidelines:
+
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix:
+    ```sh
+    git checkout -b feature-or-bugfix-name
+    ```
+3. Commit your changes:
+    ```sh
+    git commit -m "Description of the feature or bug fix"
+    ```
+4. Push to the branch:
+    ```sh
+    git push origin feature-or-bugfix-name
+    ```
+5. Open a pull request and provide a detailed description of your changes.
