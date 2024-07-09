@@ -3,7 +3,7 @@
 
 
 ## Overview
-<p>As part of the database design project for a local retailer chain in Texas, this project involves creating a comprehensive database to support an e-commerce platform. By completing this project, able to implement:</p>
+<p>As part of <b>CS3043 - Database Systems</b> the database design project for a local retailer chain in Texas, this project involves creating a comprehensive database to support an e-commerce platform. By completing this project, able to implement:</p>
     <ul>
         <li>Model the database to hold details about different products, including variants, categories, and custom attributes.</li>
         <li>Manage inventory, ensuring accurate count and consistency for each product variant.</li>
