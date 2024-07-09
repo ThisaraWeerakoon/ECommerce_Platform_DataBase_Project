@@ -3,11 +3,11 @@
 
 ## Description
 
-This project is a full-stack implementation of a single vendor e-commerce platform for a local chain retailer in Texas, named C. With Amazon posing a significant threat to local retailers, C decided to establish an online presence to remain competitive. The platform focuses on consumer electronics and toys in its initial phase, supporting detailed product variants, inventory management, and a comprehensive reporting system for monitoring and analytics. 
+This project is a full-stack implementation of a single vendor e-commerce platform for a local chain retailer. The platform focuses on consumer electronics and toys in its initial phase, supporting detailed product variants, inventory management, and a comprehensive reporting system for monitoring and analytics. 
 
-- **Motivation:** To help the local retailer C remain competitive against larger e-commerce platforms by establishing a robust online presence.
-- **Why:** The retailer recognized the importance of reaching the technology side to keep up with competitors like Amazon.
-- **Problem Solved:** The platform allows the retailer to manage product inventory, support online purchases, and generate detailed sales and delivery reports.
+- **Motivation:** To help a local retailer remain competitive by establishing a robust online presence.
+- **Why:** The retailer needed to reach the technology side to compete with larger e-commerce platforms.
+- **Problem Solved:** The platform manages product inventory, supports online purchases, and generates detailed sales and delivery reports.
 - **What We Learned:** How to design and implement a comprehensive e-commerce system, manage database relationships and transactions, and create a seamless user experience.
 
 ## Table of Contents 
