@@ -45,6 +45,7 @@ Follow these steps to set up the development environment for the project:
 5. Set up the MySQL database:
     - Create a new database.
     - Import the provided SQL schema to set up the tables and initial data.
+    - <b>database.sql</b>
 6. Configure environment variables:
     - Create a `.env` file in the backend directory and add your database credentials.
 7. Start the backend server:
@@ -71,12 +72,10 @@ To use the platform, follow these steps:
 
 https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project/assets/83450623/6bfa00ac-e220-4056-b46a-63c1c468f3a1
 
-<video width="320" height="240" controls>
-  <source src="
-https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project/blob/main/assets/demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
 
+## Doucmentation
+You can access the software requirement specification <b>SRS Document.pdf</b>
+and Entity Relationship Diagram <b>ER Diagram.pdf</b>
 
 ## Credits
 
