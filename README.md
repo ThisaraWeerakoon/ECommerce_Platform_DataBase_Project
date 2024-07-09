@@ -68,7 +68,7 @@ To use the platform, follow these steps:
 4. Enter delivery and payment details to complete the purchase.
 5. Access the admin panel for detailed sales and inventory reports.
 
-assets/demo.mp4
+https://github.com/ThisaraWeerakoon/ECommerce_Platform_DataBase_Project/blob/main/assets/demo.mp4
 
 
 ## Credits
