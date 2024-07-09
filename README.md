@@ -3,16 +3,17 @@
 
 
 ## Overview
-
-As part of the <b>CS1050 - Computer Organization and Digital Design</b> module,
-This project involves designing and developing a 4-bit processor capable of executing four specific instructions. By completing this project, able to implement:
-
-<ul>
-    <li>Design and develop a 4-bit arithmetic unit that can add and subtract signed integers.</li>
-    <li>Decode instructions to activate necessary components on the processor.</li>
-    <li>Design and develop k-way b-bit multiplexers or tri-state busses.</li>
-    <li>Verify the functionality of the processor through simulation and implementation on a development board.</li>
-</ul>
+<p>As part of the database design project for a local retailer chain in Texas, this project involves creating a comprehensive database to support an e-commerce platform. By completing this project, able to implement:</p>
+    <ul>
+        <li>Model the database to hold details about different products, including variants, categories, and custom attributes.</li>
+        <li>Manage inventory, ensuring accurate count and consistency for each product variant.</li>
+        <li>Support customer interactions, including registration, browsing, adding products to cart, and checkout processes.</li>
+        <li>Implement order processing, capturing customer details, delivery methods, payment options, and reflecting changes in inventory.</li>
+        <li>Develop a reporting system to generate quarterly sales reports, identify products with the most sales, analyze popular product categories, and monitor customer orders.</li>
+        <li>Design a delivery module that calculates estimated delivery times based on product availability and delivery location.</li>
+        <li>Employ procedures, functions, and triggers to guarantee ACID properties and maintain database consistency through primary keys, foreign keys, and indexing where necessary.</li>
+    </ul>
+    <p>This database design will ensure efficient management of the e-commerce platform, allowing the retailer to compete effectively with major players like Amazon.</p>
 
 ## Components
 
